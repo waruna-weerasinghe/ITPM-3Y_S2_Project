@@ -4,7 +4,7 @@
   "description": "Shopping Store web application",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "server.js",
     "dev": "nodemon server.js"
   },
   "author": "ITPM G-04",
