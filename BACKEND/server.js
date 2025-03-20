@@ -25,7 +25,7 @@ connection.once("open", ()=>{
     console.log("MongoDB Connection Success!");
 })
 
-const LoyaltyRouter = require("./routes/Loyalty.js");
+const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
 
 app.use("/Loyalty_programme",LoyaltyRouter);
 
