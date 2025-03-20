@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Loyalty_Programme = require('../models/Loyalty_Programme');
+let Loyalty_Programme = require('../../models/Loyalty_Programme/Loyalty_Programme');
 
 //add data to the Database
 
