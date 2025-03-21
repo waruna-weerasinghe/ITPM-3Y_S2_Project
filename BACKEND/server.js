@@ -25,15 +25,15 @@ connection.once("open", ()=>{
     console.log("MongoDB Connection Success!");
 })
 
-<<<<<<< HEAD
-const LoyaltyRouter = require("./routes/Loyalty.js");
+//const LoyaltyRouter = require("./routes/Loyalty.js");
+const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
 const MemberRouter = require('./routes/User/Members.js');
 
 app.use(express.static('uploads/images'));
 
-=======
-const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
->>>>>>> 475a9c9997ac5a56c312f69eb1dbfed6419ac316
+
+
+
 
 app.use("/Loyalty_programme",LoyaltyRouter);
 app.use('/User', MemberRouter);
