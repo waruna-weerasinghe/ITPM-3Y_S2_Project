@@ -22,4 +22,4 @@ const LoyaltySchema = new Schema({
 
 const Loyalty = mongoose.model("Loyalty",LoyaltySchema);
 
-module.export = Loyalty;
+module.exports = Loyalty;

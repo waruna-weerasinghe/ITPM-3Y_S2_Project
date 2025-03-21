@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Loyalty_Programme = require('../models/Loyalty_Programme');
+let Loyalty_Programme = require('../../models/Loyalty_Programme/Loyalty_Programme');
 
 //add data to the Database
 
@@ -55,7 +55,7 @@ router.route("/update/:id").put(async (req,res) =>{
     }
 
     const update = await Loyalty_Programme.findByIdAndUpdate(userId, updateLoyaltyProgramme).then(()=>{
-        res.status(200).send({status:"user updated",user: update})
+        res.status(200).send({status:"user updated"})
     }).catch((err) => {
         console.log(err);
         res.sendStatus(500).send({status: "Error with Updating data",error: err.message});
@@ -78,6 +78,17 @@ router.route("/update/:id").put(async (req,res) =>{
         })
 
     })
+
+router.route("/get/:id").get(async(req,res) => {
+    let userId = req.params.id;
+    const user = await Loyalty_Programme.findById(userId)
+    .then((Loyalty_Programme) => {
+        res.status(200).send({status: "User Fetched", Loyalty_Programme})
+    }).catch(()=> {
+        console.log(err.message);
+        res.status(500).send({status: "Error with get User", error: err.message})
+    })
+})    
 
 
 

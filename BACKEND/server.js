@@ -25,14 +25,18 @@ connection.once("open", ()=>{
     console.log("MongoDB Connection Success!");
 })
 
+<<<<<<< HEAD
 const LoyaltyRouter = require("./routes/Loyalty.js");
 const MemberRouter = require('./routes/User/Members.js');
 
 app.use(express.static('uploads/images'));
 
+=======
+const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
+>>>>>>> 475a9c9997ac5a56c312f69eb1dbfed6419ac316
 
 app.use("/Loyalty_programme",LoyaltyRouter);
-app.use('/user', MemberRouter);
+app.use('/User', MemberRouter);
 
 app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)
