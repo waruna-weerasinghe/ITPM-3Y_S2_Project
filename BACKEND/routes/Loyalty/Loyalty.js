@@ -5,15 +5,15 @@ let Loyalty_Programme = require('../../models/Loyalty_Programme/Loyalty_Programm
 
 router.route("/add").post((req,res)=>{
 
-    const name = req.body.name;
-    const age = Number(req.body.age);
-    const gender = req.body.gender;
+    const { name, email, telephone,address,category} = req.body;
 
     const newLoyalty_programme = new Loyalty_Programme({
 
     name,
-    age,
-    gender    
+    email,
+    telephone,
+    address,
+    category    
 
     })
 
@@ -44,13 +44,15 @@ router.route("/").get((req,res)=>{
 router.route("/update/:id").put(async (req,res) =>{
 
     let userId = req.params.id;
-    const {name,age,gender} = req.body;
+    const { name, email, telephone,address,category} = req.body;
 
     const updateLoyaltyProgramme = {
 
-        name,
-        age,
-        gender
+    name,
+    email,
+    telephone,
+    address,
+    category    
 
     }
 

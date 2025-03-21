@@ -8,14 +8,23 @@ const LoyaltySchema = new Schema({
         type : String,
         required : true
     },
-    age : {
+    email : {
         type : String,
         required : true
     },
-    gender :{
+    telephone :{
+        type : Number,
+        required : true
+    },
+    address :{
+        type : String,
+        required : true
+    },
+    category :{
         type : String,
         required : true
     }
+
 
 
 })
