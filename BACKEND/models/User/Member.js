@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const MemberModel = require('../../models/User/Member'); // Changed to MemberModel
+const MemberModel = require('../../models/User/Member'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const path = require('path');
+
+
 
 // Route for registering a new member
 router.route('/register').post((req, res) => {
@@ -165,7 +167,7 @@ router.route('/forgot-password').post((req, res) => {
       });
 
       const mailOptions = {
-        from: 'navindadharmasiri@gmail.com',
+        from: 'denuwangunathilaka@gmail.com',
         to: user.email,
         subject: 'Password Reset OTP',
         text: `Your OTP for password reset is: ${otp}`,

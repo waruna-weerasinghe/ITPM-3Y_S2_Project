@@ -26,8 +26,13 @@ connection.once("open", ()=>{
 })
 
 const LoyaltyRouter = require("./routes/Loyalty.js");
+const MemberRouter = require('./routes/User/Members.js');
+
+app.use(express.static('uploads/images'));
+
 
 app.use("/Loyalty_programme",LoyaltyRouter);
+app.use('/user', MemberRouter);
 
 app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)

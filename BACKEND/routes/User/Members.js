@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const rolesEnum = ['user', 'admin', 'staff'];
 
-const memberSchema = new mongoose.Schema({
+const MemberSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
@@ -17,6 +17,6 @@ const memberSchema = new mongoose.Schema({
      image: String,
 });
 
-const MemberModel = mongoose.model("member", memberSchema);
+const MemberModel = mongoose.model("Member", MemberSchema);
 
 module.exports = MemberModel;
