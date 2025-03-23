@@ -1,0 +1,273 @@
+[
+    {
+        "_id": 1,
+        "title": "Classic Cotton T-Shirt",
+        "description": "A breathable and soft cotton T-shirt, perfect for everyday wear.",
+        "category": "men",
+        "brand": "Nike",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "Black",
+            "White",
+            "Gray",
+            "Blue"
+        ],
+        "trending": true,
+        "coverImage": "tshirt-1.png",
+        "oldPrice": 19.99,
+        "newPrice": 14.99
+    },
+    {
+        "_id": 2,
+        "title": "Slim Fit Denim Jeans",
+        "description": "Stylish slim-fit jeans with a comfortable stretch.",
+        "category": "women",
+        "brand": "Levi's",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "Blue",
+            "Black",
+            "Gray"
+        ],
+        "trending": true,
+        "coverImage": "jeans-1.png",
+        "oldPrice": 49.99,
+        "newPrice": 39.99
+    },
+    {
+        "_id": 3,
+        "title": "Kids’ Hooded Sweatshirt",
+        "description": "A cozy and warm hoodie, perfect for chilly days.",
+        "category": "kids",
+        "brand": "Adidas",
+        "sizes": [
+            "2T",
+            "3T",
+            "4T",
+            "5T",
+            "6T"
+        ],
+        "colors": [
+            "Red",
+            "Yellow",
+            "Blue",
+            "Pink"
+        ],
+        "trending": true,
+        "coverImage": "hoodie-1.png",
+        "oldPrice": 29.99,
+        "newPrice": 24.99
+    },
+    {
+        "_id": 4,
+        "title": "Formal Blazer",
+        "description": "A sleek and stylish blazer for business or formal occasions.",
+        "category": "men",
+        "brand": "Hugo Boss",
+        "sizes": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "colors": [
+            "Navy",
+            "Black",
+            "Gray"
+        ],
+        "trending": false,
+        "coverImage": "blazer-1.png",
+        "oldPrice": 119.99,
+        "newPrice": 89.99
+    },
+    {
+        "_id": 5,
+        "title": "Women’s Summer Dress",
+        "description": "A light and breezy summer dress, perfect for warm weather.",
+        "category": "women",
+        "brand": "Zara",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "colors": [
+            "Floral",
+            "White",
+            "Pink",
+            "Green"
+        ],
+        "trending": true,
+        "coverImage": "dress-1.png",
+        "oldPrice": 59.99,
+        "newPrice": 44.99
+    },
+    {
+        "_id": 6,
+        "title": "Kids’ Sneakers",
+        "description": "Durable and comfortable sneakers for active kids.",
+        "category": "kids",
+        "brand": "Puma",
+        "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "colors": [
+            "White",
+            "Blue",
+            "Red",
+            "Black"
+        ],
+        "trending": false,
+        "coverImage": "sneakers-1.png",
+        "oldPrice": 39.99,
+        "newPrice": 29.99
+    },
+    {
+        "_id": 7,
+        "title": "Men’s Running Shoes",
+        "description": "Lightweight running shoes with excellent grip and support.",
+        "category": "men",
+        "brand": "Reebok",
+        "sizes": [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "colors": [
+            "Black",
+            "Gray",
+            "Blue"
+        ],
+        "trending": true,
+        "coverImage": "runningshoes-1.png",
+        "oldPrice": 79.99,
+        "newPrice": 64.99
+    },
+    {
+        "_id": 8,
+        "title": "Women’s Yoga Leggings",
+        "description": "Stretchable and comfortable leggings for yoga and workouts.",
+        "category": "women",
+        "brand": "Lululemon",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
+        "colors": [
+            "Black",
+            "Gray",
+            "Purple"
+        ],
+        "trending": true,
+        "coverImage": "leggings-1.png",
+        "oldPrice": 69.99,
+        "newPrice": 54.99
+    },
+    {
+        "_id": 9,
+        "title": "Boys’ Graphic T-Shirt",
+        "description": "Fun and vibrant graphic T-shirt for kids.",
+        "category": "kids",
+        "brand": "H&M",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
+        "colors": [
+            "Yellow",
+            "Green",
+            "Blue"
+        ],
+        "trending": false,
+        "coverImage": "kidstshirt-1.png",
+        "oldPrice": 15.99,
+        "newPrice": 10.99
+    },
+    {
+        "_id": 10,
+        "title": "Women’s Winter Coat",
+        "description": "A warm and stylish coat for cold winter days.",
+        "category": "women",
+        "brand": "North Face",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "Black",
+            "White",
+            "Red",
+            "Beige"
+        ],
+        "trending": true,
+        "coverImage": "wintercoat-1.png",
+        "oldPrice": 129.99,
+        "newPrice": 99.99
+    },
+    {
+        "_id": 11,
+        "title": "Men’s Polo Shirt",
+        "description": "A classic polo shirt with a comfortable fit.",
+        "category": "men",
+        "brand": "Lacoste",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "White",
+            "Blue",
+            "Gray"
+        ],
+        "trending": false,
+        "coverImage": "polo-1.png",
+        "oldPrice": 45.99,
+        "newPrice": 35.99
+    },
+    {
+        "_id": 12,
+        "title": "Kids’ Denim Jacket",
+        "description": "A stylish and durable denim jacket for kids.",
+        "category": "kids",
+        "brand": "GAP",
+        "sizes": [
+            "4T",
+            "5T",
+            "6T",
+            "7T"
+        ],
+        "colors": [
+            "Blue",
+            "Black"
+        ],
+        "trending": true,
+        "coverImage": "denimjacket-1.png",
+        "oldPrice": 49.99,
+        "newPrice": 39.99
+    }
+]
