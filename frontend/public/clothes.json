@@ -41,7 +41,7 @@
             "Gray"
         ],
         "trending": true,
-        "coverImage": "jeans-1.png",
+        "coverImage": "/assets/clothes/jeans-1.png",
         "oldPrice": 49.99,
         "newPrice": 39.99
     },
@@ -65,7 +65,7 @@
             "Pink"
         ],
         "trending": true,
-        "coverImage": "hoodie-1.png",
+        "coverImage": "/assets/clothes/hoodie-1.png",
         "oldPrice": 29.99,
         "newPrice": 24.99
     },
@@ -87,7 +87,7 @@
             "Gray"
         ],
         "trending": false,
-        "coverImage": "blazer-1.png",
+        "coverImage": "/assets/clothes/blazer-1.png",
         "oldPrice": 119.99,
         "newPrice": 89.99
     },
@@ -109,7 +109,7 @@
             "Green"
         ],
         "trending": true,
-        "coverImage": "dress-1.png",
+        "coverImage": "/assets/clothes/dress-1.png",
         "oldPrice": 59.99,
         "newPrice": 44.99
     },
@@ -133,7 +133,7 @@
             "Black"
         ],
         "trending": false,
-        "coverImage": "sneakers-1.png",
+        "coverImage": "/assets/clothes/sneakers-1.png",
         "oldPrice": 39.99,
         "newPrice": 29.99
     },
@@ -156,7 +156,7 @@
             "Blue"
         ],
         "trending": true,
-        "coverImage": "runningshoes-1.png",
+        "coverImage": "/assets/clothes/runningshoes-1.png",
         "oldPrice": 79.99,
         "newPrice": 64.99
     },
@@ -178,7 +178,7 @@
             "Purple"
         ],
         "trending": true,
-        "coverImage": "leggings-1.png",
+        "coverImage": "/assets/clothes/leggings-1.png",
         "oldPrice": 69.99,
         "newPrice": 54.99
     },
@@ -200,7 +200,7 @@
             "Blue"
         ],
         "trending": false,
-        "coverImage": "kidstshirt-1.png",
+        "coverImage": "/assets/clothes/kidstshirt-1.png",
         "oldPrice": 15.99,
         "newPrice": 10.99
     },
@@ -223,7 +223,7 @@
             "Beige"
         ],
         "trending": true,
-        "coverImage": "wintercoat-1.png",
+        "coverImage": "/assets/clothes/wintercoat-1.png",
         "oldPrice": 129.99,
         "newPrice": 99.99
     },
@@ -245,7 +245,7 @@
             "Gray"
         ],
         "trending": false,
-        "coverImage": "polo-1.png",
+        "coverImage": "/assets/clothes/polo-1.png",
         "oldPrice": 45.99,
         "newPrice": 35.99
     },
@@ -266,7 +266,7 @@
             "Black"
         ],
         "trending": true,
-        "coverImage": "denimjacket-1.png",
+        "coverImage": "/assets/clothes/denimjacket-1.png",
         "oldPrice": 49.99,
         "newPrice": 39.99
     }
