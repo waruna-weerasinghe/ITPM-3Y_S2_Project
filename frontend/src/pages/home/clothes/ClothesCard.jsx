@@ -25,15 +25,15 @@ const ClothesCard = ({ clothe }) => {
                 {/* Product Details */}
                 <div className="text-sm space-y-2">
                     {/* Brand Section with colorful text */}
-                    <h1 className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-300">{clothe.brand}</h1>
+                    <h1 className="text-indigo-600  font-semibold hover:text-indigo-800 px-3 transition-colors duration-300">{clothe.brand}</h1>
 
                     {/* Sizes and Colors Section (Stacked vertically) */}
                     <div className="flex flex-col gap-3">
                         {/* Sizes Section with background color and hover effect */}
-                        <h2 className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
+                        <h2 className="  px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
 
                         {/* Colors Section with colorful background and text */}
-                        <h2 className="px-3 py-1 bg-green-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
+                        <h2 className="px-3 py-1  bg-green-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
                     </div>
                 </div>
 
