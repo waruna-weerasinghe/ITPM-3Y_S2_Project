@@ -5,7 +5,7 @@ const ClothesCard = ({ clothe }) => {
     const categoryLabel = clothe.category === 'men' ? 'Men' : clothe.category === 'women' ? 'Women' : 'Kids';
 
     return (
-        <div className="relative bg-white p-1 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden hover:border-indigo-500">
+        <div className="relative bg-white  p-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden hover:border-indigo-500">
             {/* Category label */}
             <div className="absolute top-3 left-3 bg-green-600 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase">
                 {categoryLabel}
@@ -15,7 +15,7 @@ const ClothesCard = ({ clothe }) => {
             <img
                 src={clothe.coverImage}
                 alt={clothe.name}
-                className="w-full h-40 object-cover rounded-lg transition-transform duration-300 hover:scale-110"
+                className="w-full h-40  object-cover rounded-lg transition-transform duration-300 hover:scale-110"
             />
 
             <div className="p-5 space-y-4">
