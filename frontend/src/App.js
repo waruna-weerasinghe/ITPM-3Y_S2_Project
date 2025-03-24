@@ -11,6 +11,9 @@ function App() {
       <Header />
       <Outlet />
       <Loyalty_Add_Form />
+      <footer>Footer</footer>
+
+
     </div>
   );
 }
