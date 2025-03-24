@@ -26,7 +26,7 @@ const TopSellers = () => {
 
     return (
         <div className='py-10 px-6 bg-gray-51 rounded-lg shadow-lg'>
-            <h2 className='text-4xl font-bold mb-6 text-center text-gray-900'>🔥 Top Sellers</h2>
+            <h2 className='text-4xl font-bold mb-6 text-center text-gray-900'>🔥 Our Top Stocks</h2>
 
             {/* Category Dropdown */}
             <div className='flex justify-center mb-6'>
