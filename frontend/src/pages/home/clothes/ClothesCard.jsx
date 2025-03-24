@@ -15,10 +15,10 @@ const ClothesCard = ({ clothe }) => {
             <img
                 src={clothe.coverImage}
                 alt={clothe.name}
-                className="w-full h-50 object-cover rounded-lg transition-transform duration-300 hover:scale-110"
+                className="w-full h-56 object-cover rounded-lg transition-transform duration-300 hover:scale-110"
             />
 
-            <div className="p-5 space-y-3">
+            <div className="p-5 space-y-4">
                 {/* Product Title */}
                 <h3 className="text-2xl font-semibold text-gray-900 truncate hover:text-indigo-600 transition-colors duration-200">{clothe.title}</h3>
 
@@ -27,13 +27,15 @@ const ClothesCard = ({ clothe }) => {
                     {/* Brand Section with colorful text */}
                     <h2 className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-300">{clothe.brand}</h2>
 
-                    {/* Sizes Section with background color and hover effect */}
-                    <h2 className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
+                    {/* Sizes and Colors Section */}
+                    <div className="flex gap-3 items-center">
+                        {/* Sizes Section with background color and hover effect */}
+                        <h2 className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
 
-                    {/* Colors Section with colorful background and text */}
-                    <h2 className="px-3 py-1 bg-green-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
+                        {/* Colors Section with colorful background and text */}
+                        <h2 className="px-3 py-1 bg-green-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
+                    </div>
                 </div>
-
 
                 {/* Price Section */}
                 <div className="flex flex-col gap-2">
@@ -43,7 +45,7 @@ const ClothesCard = ({ clothe }) => {
                     )}
 
                     {/* New Price */}
-                    <p className="text-gray-900 font-bold text-xl">${clothe.newPrice}</p>
+                    <p className="text-gray-900 font-bold text-xl">{`$${clothe.newPrice}`}</p>
                 </div>
 
                 {/* Add to Cart Button */}
