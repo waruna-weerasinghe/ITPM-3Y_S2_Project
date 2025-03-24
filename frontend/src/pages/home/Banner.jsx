@@ -5,7 +5,8 @@ const images = [
     "01_story.png",
     "06_story.png",
     "08_story.png",
-    "09_story.png"
+    "09_story.png",
+    "10_story.png"
 
 
 
