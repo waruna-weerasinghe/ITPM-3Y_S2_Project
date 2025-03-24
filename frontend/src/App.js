@@ -3,12 +3,13 @@ import Header from './components/Loyalty/Header';
 import Loyalty_Add_Form from './components/Loyalty/Loyalty_Add_Form';
 import Home from './pages/home/Home';
 import './index.css';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div>
       <Header />
-      <Home />
+      <Outlet />
       <Loyalty_Add_Form />
     </div>
   );
