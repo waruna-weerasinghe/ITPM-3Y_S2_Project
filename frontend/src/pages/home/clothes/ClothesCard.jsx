@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const ClothesCard = ({ clothe }) => {
     return (
         <div className='bg-white p-5 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden'>
