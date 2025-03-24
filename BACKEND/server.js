@@ -36,7 +36,7 @@ app.use(express.static('uploads/images'));
 
 
 
-app.use("/Loyalty_programme",LoyaltyRouter);
+app.use("/LoyaltyProgramme",LoyaltyRouter);
 app.use('/User', MemberRouter);
 //app.use('/order' , orderRouter)
 

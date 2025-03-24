@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Loyalty_Programme = require('../../models/Loyalty_Programme/Loyalty_Programme');
+let LoyaltyProgramme = require('../../models/LoyaltyProgramme/LoyaltyProgramme');
 
 //add data to the Database
 
@@ -7,7 +7,7 @@ router.route("/add").post((req,res)=>{
 
     const { name, email, telephone,address,category} = req.body;
 
-    const newLoyalty_programme = new Loyalty_Programme({
+    const newLoyalty_programme = new LoyaltyProgramme({
 
     name,
     email,
@@ -29,9 +29,9 @@ router.route("/add").post((req,res)=>{
 
 router.route("/").get((req,res)=>{
 
-    Loyalty_Programme.find().then((Loyalty_Programme)=>{
+    LoyaltyProgramme.find().then((LoyaltyProgramme)=>{
 
-        res.json(Loyalty_Programme)
+        res.json(LoyaltyProgramme)
 
     }).catch((err)=>{
         console.log(err)
@@ -56,7 +56,7 @@ router.route("/update/:id").put(async (req,res) =>{
 
     }
 
-    const update = await Loyalty_Programme.findByIdAndUpdate(userId, updateLoyaltyProgramme).then(()=>{
+    const update = await LoyaltyProgramme.findByIdAndUpdate(userId, updateLoyaltyProgramme).then(()=>{
         res.status(200).send({status:"user updated"})
     }).catch((err) => {
         console.log(err);
@@ -70,7 +70,7 @@ router.route("/update/:id").put(async (req,res) =>{
 
         let userId = req.params.id;
         
-        await Loyalty_Programme.findByIdAndDelete(userId).then(() => {
+        await LoyaltyProgramme.findByIdAndDelete(userId).then(() => {
 
             res.status(200).send({status: "User Deleted"});
 
@@ -83,9 +83,9 @@ router.route("/update/:id").put(async (req,res) =>{
 
 router.route("/get/:id").get(async(req,res) => {
     let userId = req.params.id;
-    const user = await Loyalty_Programme.findById(userId)
-    .then((Loyalty_Programme) => {
-        res.status(200).send({status: "User Fetched", Loyalty_Programme})
+    const user = await LoyaltyProgramme.findById(userId)
+    .then((LoyaltyProgramme) => {
+        res.status(200).send({status: "User Fetched", LoyaltyProgramme})
     }).catch(()=> {
         console.log(err.message);
         res.status(500).send({status: "Error with get User", error: err.message})

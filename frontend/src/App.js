@@ -1,20 +1,26 @@
 import './App.css';
 import Header from './components/Loyalty/Header';
-import Loyalty_Add_Form from './components/Loyalty/Loyalty_Add_Form';
+import LoyaltyAddForm from './components/Loyalty/LoyaltyAddForm';
 import Home from './pages/home/Home';
 import './index.css';
-import { Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Outlet />
-      <Loyalty_Add_Form />
-      <footer>Footer</footer>
+    <>
+      <Header /> {/* Always show the Header */}
+      
+      {/* Define Routes */}
+      <Routes>
+        {/* Define a route for Home */}
+        <Route path="/" element={<Home />} />
+        {/* Define a route for LoyaltyAddForm */}
+        <Route path="/addForm" element={<LoyaltyAddForm />} />
 
+      </Routes>
 
-    </div>
+      <footer>Footer</footer> {/* Always show the Footer */}
+    </>
   );
 }
 
