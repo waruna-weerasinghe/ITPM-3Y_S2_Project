@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 const images = [
     "02_story.png",
     "01_story.png",
-
-
 ];
 
 const Banner = () => {
@@ -18,25 +16,24 @@ const Banner = () => {
     }, []);
 
     return (
-        <div className='relative flex flex-col items-center text-center bg-gradient-to-r from-[#1E3A8A] via-[#9333EA] to-[#DB2777] py-20 px-12 rounded-3xl shadow-2xl transition-all duration-700 overflow-hidden max-w-7xl mx-auto'>
-            <h1 className='text-5xl md:text-6xl font-bold mb-6 text-white tracking-wide drop-shadow-xl'>
+        <div className="relative flex flex-col items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-24 px-8 rounded-3xl shadow-xl overflow-hidden max-w-7xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-wide mb-6 text-center drop-shadow-lg">
                 New Release – Limited Edition!
             </h1>
 
-            <div className='relative w-full max-w-4xl mb-8 h-[500px] md:h-[650px] lg:h-[600px] overflow-hidden rounded-2xl shadow-xl'>
+            <div className="relative w-full max-w-3xl h-[300px] sm:h-[400px] lg:h-[300px] mb-8 overflow-hidden rounded-2xl shadow-2xl">
                 <img
                     src={images[currentImage]}
                     alt="New Release Outfit"
-                    className='w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-700 ease-in-out transform scale-105 hover:scale-110'
+                    className="w-full h-full object-cover rounded-2xl transition-transform duration-700 ease-in-out transform hover:scale-105"
                 />
             </div>
 
-            <p className='text-lg md:text-xl text-white mb-8 max-w-3xl leading-relaxed font-medium tracking-wide'>
-                🚀 Elevate your style with our latest collection. <br />
-                🔥 Unique designs. Premium quality. Limited stock. Get yours today!
+            <p className="text-xl sm:text-2xl text-white mb-8 text-center font-medium leading-relaxed tracking-wide max-w-3xl">
+                🔥 Upgrade your style with our exclusive, limited-edition collection. Get yours before it's gone!
             </p>
 
-            <button className='py-4 px-12 bg-white text-pink-600 font-bold rounded-full shadow-lg transform hover:scale-105 hover:bg-pink-600 hover:text-white transition-all duration-300 ease-in-out text-lg tracking-wide drop-shadow-lg'>
+            <button className="py-3 px-8 bg-white text-pink-600 font-semibold rounded-full shadow-lg transform hover:scale-110 hover:bg-pink-600 hover:text-white transition-all duration-300 ease-in-out text-lg tracking-wide">
                 🛍️ Shop Now
             </button>
         </div>

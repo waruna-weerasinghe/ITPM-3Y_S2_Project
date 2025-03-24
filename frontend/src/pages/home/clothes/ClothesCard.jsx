@@ -7,7 +7,7 @@ const ClothesCard = ({ clothe }) => {
             <img
                 src={clothe.coverImage}
                 alt={clothe.name}
-                className='w-full h-10 object-cover rounded-t-2xl transition-transform duration-300 hover:scale-105'
+                className='w-full h-50 object-cover rounded-t-2xl transition-transform duration-300 hover:scale-105'
             />
             <div className='p-4 text-center'>
                 <h3 className='text-2xl font-bold text-gray-800'>{clothe.name}</h3>
