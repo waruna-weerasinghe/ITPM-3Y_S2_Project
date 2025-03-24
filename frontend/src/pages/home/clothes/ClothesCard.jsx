@@ -5,7 +5,7 @@ const ClothesCard = ({ clothe }) => {
     const categoryLabel = clothe.category === 'men' ? 'Men' : clothe.category === 'women' ? 'Women' : 'Kids';
 
     return (
-        <div className="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden hover:border-indigo-500">
+        <div className="relative bg-white p-1 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden hover:border-indigo-500">
             {/* Category label */}
             <div className="absolute top-3 left-3 bg-green-600 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase">
                 {categoryLabel}
@@ -30,10 +30,10 @@ const ClothesCard = ({ clothe }) => {
                     {/* Sizes and Colors Section (Stacked vertically) */}
                     <div className="flex flex-col gap-3">
                         {/* Sizes Section with background color and hover effect */}
-                        <h2 className="  px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
+                        <h2 className="  px-3 py-1 bg-white-200 text-yellow-800 rounded-full inline-block font-semibold hover:bg-yellow-300 transition-all duration-300">{clothe.sizes}</h2>
 
                         {/* Colors Section with colorful background and text */}
-                        <h2 className="px-3 py-1  bg-green-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
+                        <h2 className="px-3 py-1  bg-white-200 text-green-800 rounded-full inline-block font-semibold hover:bg-green-300 transition-all duration-300">{clothe.colors}</h2>
                     </div>
                 </div>
 
