@@ -18,7 +18,7 @@
             "Blue"
         ],
         "trending": true,
-        "coverImage": "tshirt-1.png",
+        "coverImage": "/assets/clothes/tshirt-1.png",
         "oldPrice": 19.99,
         "newPrice": 14.99
     },

@@ -10,7 +10,14 @@ const TopSellers = () => {
     useEffect(() => {
         fetch("clothes.json")
             .then(res => res.json())
-            .then((data) => setClothes(data));
+            .then((data) => {
+                // Ensure each item has a unique ID
+                const updatedData = data.map((clothe, index) => ({
+                    ...clothe,
+                    id: clothe.id || index, // Use existing id or fallback to index
+                }));
+                setClothes(updatedData);
+            });
     }, []);
 
     const filteredClothes = selectedCategory === "All Categories"
@@ -29,8 +36,8 @@ const TopSellers = () => {
                     id='category'
                     className='px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all'
                 >
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
+                    {categories.map((category) => (
+                        <option key={category} value={category}>{category}</option> // Using category name as key
                     ))}
                 </select>
             </div>
