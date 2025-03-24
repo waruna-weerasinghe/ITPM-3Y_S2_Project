@@ -25,7 +25,7 @@ const TopSellers = () => {
         : clothes.filter(clothe => clothe.category.toLowerCase() === selectedCategory.toLowerCase());
 
     return (
-        <div className='py-10 px-6 bg-gray-50 rounded-lg shadow-lg'>
+        <div className='py-10 px-6 bg-gray-51 rounded-lg shadow-lg'>
             <h2 className='text-4xl font-bold mb-6 text-center text-gray-900'>🔥 Top Sellers</h2>
 
             {/* Category Dropdown */}
