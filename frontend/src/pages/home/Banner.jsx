@@ -4,11 +4,15 @@ const images = [
     "02_story.png",
     "01_story.png",
     "12_story.png",
+
     "06_story.png",
     "08_story.png",
     "09_story.png",
     "10_story.png",
     "11_story.png",
+
+
+
 
 
 
