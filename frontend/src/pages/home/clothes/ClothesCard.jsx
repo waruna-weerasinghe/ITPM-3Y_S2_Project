@@ -25,7 +25,7 @@ const ClothesCard = ({ clothe }) => {
                 {/* Product Details */}
                 <div className="text-sm space-y-2">
                     {/* Brand Section with colorful text */}
-                    <h2 className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-300">{clothe.brand}</h2>
+                    <h1 className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-300">{clothe.brand}</h1>
 
                     {/* Sizes and Colors Section (Stacked vertically) */}
                     <div className="flex flex-col gap-3">
