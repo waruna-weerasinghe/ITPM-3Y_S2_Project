@@ -16,7 +16,7 @@ const Banner = () => {
     }, []);
 
     return (
-        <div className="relative flex flex-col items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-24 px-8 rounded-3xl shadow-xl overflow-hidden max-w-7xl mx-auto">
+        <div className="h-25 relative flex flex-col items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-24 px-8 rounded-3xl shadow-xl overflow-hidden max-w-7xl mx-auto">
             <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-wide mb-6 text-center drop-shadow-lg">
                 New Release – Limited Edition!
             </h1>
