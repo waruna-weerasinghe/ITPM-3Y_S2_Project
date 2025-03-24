@@ -1,8 +1,13 @@
 import React from 'react';
 
 const ClothesCard = ({ clothe }) => {
+    const categoryLabel = clothe.category === 'men' ? 'Men' : clothe.category === 'women' ? 'Women' : 'Kids';
+
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out border border-gray-300 overflow-hidden hover:border-indigo-500">
+            <div className="absolute top-3 left-3 bg-red-600 text-white text-xs px-3 py-1 rounded-full font-semibold">
+                {categoryLabel}
+            </div>
             <img
                 src={clothe.coverImage}
                 alt={clothe.name}
