@@ -270,4 +270,182 @@
         "oldPrice": 49.99,
         "newPrice": 39.99
     }
+
+    {
+        "_id": 13,
+        "title": "Men’s Leather Jacket",
+        "description": "A stylish and rugged leather jacket for a classic look.",
+        "category": "men",
+        "brand": "Calvin Klein",
+        "sizes": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "colors": [
+            "Black",
+            "Brown"
+        ],
+        "trending": true,
+        "coverImage": "/assets/clothes/leatherjacket-1.png",
+        "oldPrice": 199.99,
+        "newPrice": 149.99
+    },
+    {
+        "_id": 14,
+        "title": "Women’s Casual Sneakers",
+        "description": "Comfortable and trendy sneakers for everyday wear.",
+        "category": "women",
+        "brand": "Converse",
+        "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "colors": [
+            "White",
+            "Pink",
+            "Black"
+        ],
+        "trending": true,
+        "coverImage": "/assets/clothes/womensneakers-1.png",
+        "oldPrice": 59.99,
+        "newPrice": 44.99
+    },
+    {
+        "_id": 15,
+        "title": "Kids’ Raincoat",
+        "description": "A waterproof and lightweight raincoat to keep kids dry.",
+        "category": "kids",
+        "brand": "Columbia",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
+        "colors": [
+            "Yellow",
+            "Blue",
+            "Green"
+        ],
+        "trending": false,
+        "coverImage": "/assets/clothes/raincoat-1.png",
+        "oldPrice": 39.99,
+        "newPrice": 29.99
+    },
+    {
+        "_id": 16,
+        "title": "Men’s Cargo Pants",
+        "description": "Durable and comfortable cargo pants with multiple pockets.",
+        "category": "men",
+        "brand": "Dockers",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "Khaki",
+            "Black",
+            "Olive"
+        ],
+        "trending": false,
+        "coverImage": "/assets/clothes/cargopants-1.png",
+        "oldPrice": 54.99,
+        "newPrice": 42.99
+    },
+    {
+        "_id": 17,
+        "title": "Women’s Oversized Sweater",
+        "description": "Cozy and warm oversized sweater for a relaxed fit.",
+        "category": "women",
+        "brand": "H&M",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colors": [
+            "Beige",
+            "Gray",
+            "Pink"
+        ],
+        "trending": true,
+        "coverImage": "/assets/clothes/sweater-1.png",
+        "oldPrice": 49.99,
+        "newPrice": 34.99
+    },
+    {
+        "_id": 18,
+        "title": "Boys’ Basketball Shoes",
+        "description": "High-performance basketball shoes for kids.",
+        "category": "kids",
+        "brand": "Nike",
+        "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "colors": [
+            "Red",
+            "Black",
+            "Blue"
+        ],
+        "trending": true,
+        "coverImage": "/assets/clothes/basketballshoes-1.png",
+        "oldPrice": 79.99,
+        "newPrice": 59.99
+    },
+    {
+        "_id": 19,
+        "title": "Women’s High-Waisted Shorts",
+        "description": "Trendy and comfortable high-waisted shorts for summer.",
+        "category": "women",
+        "brand": "Forever 21",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
+        "colors": [
+            "Denim Blue",
+            "White",
+            "Black"
+        ],
+        "trending": false,
+        "coverImage": "/assets/clothes/shorts-1.png",
+        "oldPrice": 34.99,
+        "newPrice": 24.99
+    },
+    {
+        "_id": 20,
+        "title": "Men’s Wool Overcoat",
+        "description": "Elegant and warm wool overcoat for winter wear.",
+        "category": "men",
+        "brand": "Ralph Lauren",
+        "sizes": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "colors": [
+            "Black",
+            "Gray",
+            "Navy"
+        ],
+        "trending": true,
+        "coverImage": "/assets/clothes/overcoat-1.png",
+        "oldPrice": 199.99,
+        "newPrice": 159.99
+    }
 ]
