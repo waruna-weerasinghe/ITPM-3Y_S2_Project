@@ -1,6 +1,8 @@
 import './App.css';
 import Header from './components/Loyalty/Header';
 import LoyaltyAddForm from './components/Loyalty/LoyaltyAddForm';
+import AllLoyaltyForm from './components/Loyalty/AllLoyaltyForms.js';
+import UpdateLoyalty from './components/Loyalty/UpdateLoyalty';
 import Home from './pages/home/Home';
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
@@ -8,18 +10,16 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header /> {/* Always show the Header */}
-      
-      {/* Define Routes */}
+      <Header /> 
+  
       <Routes>
-        {/* Define a route for Home */}
+        <Route path="/list" element={<AllLoyaltyForm/>} />
         <Route path="/" element={<Home />} />
-        {/* Define a route for LoyaltyAddForm */}
         <Route path="/addForm" element={<LoyaltyAddForm />} />
-
+        <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
       </Routes>
 
-      <footer>Footer</footer> {/* Always show the Footer */}
+      <footer>Footer</footer> 
     </>
   );
 }
