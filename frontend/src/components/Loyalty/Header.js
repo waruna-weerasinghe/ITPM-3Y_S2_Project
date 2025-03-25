@@ -2,10 +2,10 @@ import React from "react";
 
 function Header() {
 
-    return(
-      <ul className="nav">
+  return (
+    <ul className="nav">
       <li className="nav-item">
-        <a className="nav-link active" aria-current="page" href="">Home</a>
+        <a className="nav-link active" aria-current="page" href="Home">Home</a>
       </li>
       <li className="nav-item">
         <a className="nav-link" href="/addForm">LoyaltyForm</a>
@@ -13,9 +13,9 @@ function Header() {
       <li className="nav-item">
         <a className="nav-link" href="list">List</a>
       </li>
-      
+
     </ul>
-    )
+  )
 
 }
 
