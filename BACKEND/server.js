@@ -28,7 +28,7 @@ connection.once("open", ()=>{
 //const LoyaltyRouter = require("./routes/Loyalty.js");
 const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
 const MemberRouter = require('./routes/User/Members.js');
-//const orderRouter  = require("./routes/Order_Manegement/OrderRoute.js");
+const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
 
 app.use(express.static('uploads/images'));
 
@@ -38,7 +38,7 @@ app.use(express.static('uploads/images'));
 
 app.use("/LoyaltyProgramme",LoyaltyRouter);
 app.use('/User', MemberRouter);
-//app.use('/order' , orderRouter)
+app.use('/order', orderRouter);
 
 app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)
