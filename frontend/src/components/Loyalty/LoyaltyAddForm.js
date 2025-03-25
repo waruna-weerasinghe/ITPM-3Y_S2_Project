@@ -42,7 +42,7 @@ export default function AddLoyaltyForm(){
 <form onSubmit={sendData}>
   <div className="mb-3">
     <label for="name" className="form-label">Name</label>
-    <input type="text" className="form-control" id="name" name="name" 
+    <input type="text" className="form-control" id="name" name="name" value={name}
     onChange={(e)=>{
         setName(e.target.value);
     }}  />
@@ -50,7 +50,7 @@ export default function AddLoyaltyForm(){
 
   <div className="mb-3">
     <label for="email" className="form-label">Email address</label>
-    <input type="email" className="form-control" id="email" name="email" 
+    <input type="email" className="form-control" id="email" name="email" value={email}
     onChange={(e)=>{
       setEmail(e.target.value);
   }}/>
@@ -59,7 +59,7 @@ export default function AddLoyaltyForm(){
 
   <div className="mb-3">
     <label for="telephone" className="form-label">Telephone</label>
-    <input type="number" className="form-control" id="telephone" name="telephone" 
+    <input type="number" className="form-control" id="telephone" name="telephone" value={telephone}
     onChange={(e)=>{
       setTelephone(e.target.value);
   }}/>
@@ -67,7 +67,7 @@ export default function AddLoyaltyForm(){
 
   <div className="mb-3">
     <label for="address" className="form-label">Address</label>
-    <input type="text" className="form-control" id="address" name="address" 
+    <input type="text" className="form-control" id="address" name="address" value={address}
     onChange={(e)=>{
       setAddress(e.target.value);
   }}/>
@@ -75,7 +75,7 @@ export default function AddLoyaltyForm(){
 
   <div className="mb-3">
     <label for="category" className="form-label">Category</label>
-    <input type="text" className="form-control" id="category" name="category"
+    <input type="text" className="form-control" id="category" name="category" value={category}
     onChange={(e)=>{
       setCategory(e.target.value);
   }}/>
