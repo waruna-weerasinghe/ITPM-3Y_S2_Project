@@ -1,14 +1,72 @@
 import mongoose from 'mongoose';
 const OrderSchema = new mongoose.Schema({
-    userId: { type: String, required: 'true' },
-    items: { type: Array, required: 'true' },
-    amount: { type: Number, required: 'true' },
-    address: { type: Object, required: 'true' },
-    status: { type: String, required: 'true' , default: 'Order Placed'},
-    paymentMethod: { type: String, required: 'true' },
-    payment: { type: Boolean, required: 'true' , defualt: 'false'},
-    date: { type: Number, required: 'true'}
-})
+
+UserID: {
+    type: Object,
+    required: true,
+},
+
+deliveryAddress: {
+    type: String,
+    required: true,
+},
+
+number: {
+    type: Number,
+    required: true,
+},
+
+paymentOption: {
+    type: String,
+    required: true,
+},
+
+items: [
+
+    {
+    productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+    },
+
+    productName: {
+        type: String,
+        required: true,
+    },
+
+    quantity: {
+        type: Number,
+        required: true,
+    },
+
+    totalPrice: {
+        type: Number,
+        required: true,
+    },
+
+// Add other details as needed 
+    },
+],
+image: {
+    type: Object,
+},
+
+deliveryStatus: {
+    type: String,
+    required: true,
+    default: 'Pending',
+},
+
+paymentStatus: {
+    type: String,
+    required: true,
+    default: 'Pending',
+    },
+
+},
+    { timestamps: true }
+);
 
 const OrderModel = mongoose.model('Order', OrderSchema);
 export default OrderModel;
