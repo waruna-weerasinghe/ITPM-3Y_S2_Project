@@ -1,114 +1,132 @@
-import express from 'express'
-import {placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus} from '../../controllers/Order_Management/OrderController.js'
-import OrderModel from "../models/OrderModel.js";
-const orderRouter = express.Router();
+const express = require('express');
+const router = express.Router();
+const Order = require('../../models/Order_Managment/order');
 
-//placing orders using COD Method
-const placeOrder = async (req, res) => {
-    try {
-        const { token, amount, items, address, paymentMethod } = req.body;
-        const order = new OrderModel({
-            userId: req.user._id,
-            items,
-            amount,
-            address,
-            paymentMethod:"COD",
-            payment:false,
-            date: Date.now()
-        })
-        await order.save();
-        res.send('Order Placed Successfully');
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
+// Create a new order
+router.post('/add', async (req, res) => {
+try {
+const { UserID, deliveryAddress,number, paymentOption, items, image } = req.body;
+
+    // Create a new order
+    const order = new Order({
+        UserID,
+        deliveryAddress,
+        number,
+        paymentOption,
+        items,
+        image,
+});
+
+// Save the order to the database
+const savedOrder = await order.save();
+
+    res.status(201).json(savedOrder);
+} catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+// Fetch all orders
+router.get('/', async (req, res) => {
+try {
+    const orders = await Order.find().sort({ createdAt: -1 }); // Fetch orders and sort by createdAt descending
+    res.status(200).json(orders);
+} catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+//delete
+router.route('/delete/:id').delete(async (req, res) => {
+let orderId = req.params.id;
+
+await Order.findByIdAndDelete(orderId)
+    .then(() => {
+        res.status(200).send({ status: 'Order Delete' });
+    })
+    .catch((err) => {
+        console.log(err);
+        res
+    .status(500)
+    .send({ status: 'Error with delete Order', error: err.message });
+    });
+});
+
+//edit order
+router.put('/edit/:id', async (req, res) => {
+try {
+    const orderId = req.params.id;
+    const { deliveryAddress, paymentOption, number, image, paymentStatus } = req.body;
+
+    // Find the order by its ID
+    const order = await Order.findById(orderId);
+
+if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
 }
 
-//placing orders using Stripe Method
-const placeOrderStripe = async (req, res) => {
-    try {
-        const { token, amount, items, address, paymentMethod } = req.body;
-        const order = new OrderModel({
-            userId: req.user._id,
-            items,
-            amount,
-            address,
-            paymentMethod,
-            date: Date.now()
-        })
-        await order.save();
-        res.send('Order Placed Successfully');
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
+// Update the order fields
+
+    order.deliveryAddress = deliveryAddress;
+    order.image = image;
+    order.paymentOption = paymentOption;
+    order.number = number;
+    // Save the updated order to the database
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+} catch (error) {
+    console.error('Error updating order:', error);
+    res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+router.put('/editStatus/:id', async (req, res) => {
+try {
+    const orderId = req.params.id;
+    const { deliveryStatus, paymentStatus } = req.body;
+
+// Find the order by its ID
+    const order = await Order.findById(orderId);
+
+if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
 }
 
-//placing orders using Razorpay Method
-const placeOrderRazorpay = async (req, res) => {
-    try {
-        const { token, amount, items, address, paymentMethod } = req.body;
-        const order = new OrderModel({
-            userId: req.user._id,
-            items,
-            amount,
-            address,
-            paymentMethod,
-            date: Date.now()
-        })
-        await order.save();
-        res.send('Order Placed Successfully');
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
+// Update the order fields
+
+    order.deliveryStatus = deliveryStatus;
+    order.paymentStatus = paymentStatus;
+
+    // Save the updated order to the database
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+} catch (error) {
+    console.error('Error updating order:', error);
+    res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+//get one order
+router.get('/getOrder/:id', async (req, res) => {
+try {
+    const orderId = req.params.id;
+
+// Find the order by its ID
+    const order = await Order.findById(orderId);
+
+if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
 }
 
-//All Orders data for Admin panal
-const allOrders = async (req, res) => {
-    try {
-        const orders = await OrderModel.find({});
-        res.send(orders);
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
+    res.status(200).json(order);
+} catch (error) {
+    console.error('Error fetching order:', error);
+    res.status(500).json({ message: 'Internal server error' });
     }
-}
+});
 
-//user Order Data for Frontend
-const userOrders = async (req, res) => {
-    try {
-        const orders = await OrderModel.find({ userId: req.user._id });
-        res.send(orders);
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
-    }
-}
-
-//update Order Status from Admin panal
-const updateStatus = async (req, res) => {
-    try {
-        const { orderId, type } = req.body;
-        let order = await Order
-        Model.findById(orderId);
-        order.status = type;
-        await order.save();
-        res.send('Status Updated Successfully');
-        }
-        catch (error) {
-            return res.status(400).json({ message: error.message });
-        }
-    }
-    
-    export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus }
-
-
-// Admin Features
-orderRouter.post('/list', allOrders,adminAuth)
-orderRouter.post('/Status', updateStatus,adminAuth)
-
-// Payment Features
-orderRouter.post('/placeOrder', placeOrder,authUser)
-orderRouter.post('/placeOrderStripe', placeOrderStripe,authUser)
-orderRouter.post('/placeOrderRazorpay', placeOrderRazorpay,authUser)
-
-// User Features
-orderRouter.post('/userOrders', userOrders,authUser)
-
-export default orderRouter;
+module.exports = router;
