@@ -10,7 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header /> 
+      <Header />
   
       <Routes>
         <Route path="/list" element={<AllLoyaltyForm/>} />
@@ -19,7 +19,7 @@ function App() {
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
       </Routes>
 
-      <footer>Footer</footer> 
+      <footer>Footer</footer>
     </>
   );
 }
