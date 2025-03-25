@@ -38,7 +38,7 @@ app.use(express.static('uploads/images'));
 
 app.use("/LoyaltyProgramme",LoyaltyRouter);
 app.use('/User', MemberRouter);
-app.use('/order', orderRouter);
+app.use('/order', OrderRouter);
 
 app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)
