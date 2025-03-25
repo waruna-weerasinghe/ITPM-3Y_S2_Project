@@ -12,7 +12,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header /> 
+      <Header />
   
       <Routes>
         <Route path="/list" element={<AllLoyaltyForm/>} />
@@ -23,7 +23,7 @@ function App() {
         <Route path="/approve/:id" element={<Approve/>} />
       </Routes>
 
-      <footer>Footer</footer> 
+      <footer>Footer</footer>
     </>
   );
 }

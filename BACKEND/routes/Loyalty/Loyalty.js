@@ -90,7 +90,7 @@ router.route("/get/:id").get(async(req,res) => {
         console.log(err.message);
         res.status(500).send({status: "Error with get User", error: err.message})
     })
-})    
+})
 
 
 
