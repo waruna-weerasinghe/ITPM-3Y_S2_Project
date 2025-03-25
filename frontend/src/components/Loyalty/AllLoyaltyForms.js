@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function AllLoyaltyForm() {
-  const [LoyaltyForms, setLoyaltyForms] = useState([]); // ✅ State for storing loyalty forms
-  const [loading, setLoading] = useState(true); // ✅ Loading state
+  const [LoyaltyForms, setLoyaltyForms] = useState([]); // State for storing loyalty forms
+  const [loading, setLoading] = useState(true); //  Loading state
   const navigate = useNavigate();
 
   useEffect(() => {
     async function getLoyaltyForms() {
       try {
         const res = await axios.get("http://localhost:8080/LoyaltyProgramme/");
-        console.log("API Response:", res.data); // ✅ Debugging log
-        setLoyaltyForms(res.data.LoyaltyForms || res.data); // ✅ Ensure correct key
+        console.log("API Response:", res.data); 
+        setLoyaltyForms(res.data.LoyaltyForms || res.data); // 
         setLoading(false);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -58,6 +58,13 @@ export default function AllLoyaltyForm() {
                   >
                     Update
                   </button>
+                  <button 
+                    className="btn btn-danger"
+                    onClick={() => navigate(`/deleteLoyaltyForm/${form._id}`)}
+                  >
+                    Delete
+                  </button>
+                  
                 </td>
               </tr>
             ))}
