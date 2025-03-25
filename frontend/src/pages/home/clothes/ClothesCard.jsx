@@ -4,7 +4,7 @@ const ClothesCard = ({ clothe }) => {
     const categoryLabel = clothe.category === 'men' ? 'Men' : clothe.category === 'women' ? 'Women' : 'Kids';
 
     return (
-        <div className="relative bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105 duration-300 border border-gray-200 overflow-hidden">
+        <div className="relative bg-white p-6  rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105 duration-300 border border-gray-200 overflow-hidden">
             {/* Category label */}
             <span className="absolute top-3 left-3 bg-green-600 text-white text-xs px-3 py-1 rounded-full font-medium uppercase">
                 {categoryLabel}
