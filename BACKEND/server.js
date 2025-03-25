@@ -25,10 +25,10 @@ connection.once("open", ()=>{
     console.log("MongoDB Connection Success!");
 })
 
-//const LoyaltyRouter = require("./routes/Loyalty.js");
+
 const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
 const MemberRouter = require('./routes/User/Members.js');
-const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
+//const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
 
 app.use(express.static('uploads/images'));
 
@@ -36,9 +36,10 @@ app.use(express.static('uploads/images'));
 
 
 
+
 app.use("/LoyaltyProgramme",LoyaltyRouter);
 app.use('/User', MemberRouter);
-app.use('/order', OrderRouter);
+//app.use('/order', OrderRouter);
 
 app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)
