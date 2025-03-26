@@ -14,7 +14,6 @@ export default function LoyaltyAddForm() {
     Trousers: 0,
   });
 
-  // Increment category count
   const increment = (category) => {
     setCategories((prev) => ({
       ...prev,
@@ -22,7 +21,6 @@ export default function LoyaltyAddForm() {
     }));
   };
 
-  // Decrement category count (ensuring it doesn’t go below 0)
   const decrement = (category) => {
     setCategories((prev) => ({
       ...prev,
@@ -30,11 +28,9 @@ export default function LoyaltyAddForm() {
     }));
   };
 
-  // Send data to backend
   function sendData(e) {
     e.preventDefault();
 
-    // Filter out categories with count 0
     const filteredCategories = Object.fromEntries(
       Object.entries(categories).filter(([_, count]) => count > 0)
     );
@@ -44,7 +40,7 @@ export default function LoyaltyAddForm() {
       email,
       telephone,
       address,
-      category: JSON.stringify(filteredCategories), // Store as JSON
+      category: JSON.stringify(filteredCategories),
     };
 
     axios
@@ -52,7 +48,6 @@ export default function LoyaltyAddForm() {
       .then(() => {
         alert("Loyalty Form Successfully Submitted");
 
-        // Reset form fields
         setName("");
         setEmail("");
         setTelephone("");
@@ -71,44 +66,92 @@ export default function LoyaltyAddForm() {
   }
 
   return (
-    <div className="container">
-      <h2 className="my-4">Add Loyalty Programme</h2>
-      <form onSubmit={sendData}>
-        <div className="mb-3">
-          <label>Name:</label>
-          <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
+    <div className="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-md">
+      <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">
+        Add Loyalty Programme
+      </h2>
+      <form onSubmit={sendData} className="space-y-4">
+        <div>
+          <label className="block text-gray-600">Name:</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
 
-        <div className="mb-3">
-          <label>Email:</label>
-          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <div>
+          <label className="block text-gray-600">Email:</label>
+          <input
+            type="email"
+            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
 
-        <div className="mb-3">
-          <label>Telephone:</label>
-          <input type="text" className="form-control" value={telephone} onChange={(e) => setTelephone(e.target.value)} required />
+        <div>
+          <label className="block text-gray-600">Telephone:</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={telephone}
+            onChange={(e) => setTelephone(e.target.value)}
+            required
+          />
         </div>
 
-        <div className="mb-3">
-          <label>Address:</label>
-          <input type="text" className="form-control" value={address} onChange={(e) => setAddress(e.target.value)} required />
+        <div>
+          <label className="block text-gray-600">Address:</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Select Categories</label>
-          {Object.keys(categories).map((category) => (
-            <div key={category} className="d-flex justify-content-between align-items-center p-2 border rounded">
-              <span>{category}</span>
-              <div>
-                <button type="button" className="btn btn-danger mx-1" onClick={() => decrement(category)}>-</button>
-                <span className="px-3">{categories[category]}</span>
-                <button type="button" className="btn btn-success mx-1" onClick={() => increment(category)}>+</button>
+        <div>
+          <label className="block text-gray-600">Select Categories</label>
+          <div className="space-y-3">
+            {Object.keys(categories).map((category) => (
+              <div
+                key={category}
+                className="flex items-center justify-between p-3 border rounded-lg bg-gray-50"
+              >
+                <span className="text-gray-700 font-medium">{category}</span>
+                <div className="flex items-center space-x-3">
+                  <button
+                    type="button"
+                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
+                    onClick={() => decrement(category)}
+                  >
+                    -
+                  </button>
+                  <span className="text-lg font-semibold">{categories[category]}</span>
+                  <button
+                    type="button"
+                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition"
+                    onClick={() => increment(category)}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">Submit</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
