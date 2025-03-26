@@ -91,23 +91,23 @@ function Login() {
             <img src="img/shape.png" className="square" alt="" />
             <div className="form">
                 <div className="contact-info">
-                    <h3 className="title">Tech-Connect</h3>
+                    <h3 className="title">DE-RUSH</h3>
                     <p className="text">
                        
-                    DE-RUSH: Style Sustainably, Shop Rewardingly!
+                    Style Sustainably, Shop Rewardingly!
                     </p>
                     <div className="info">
                         <div className="information d-flex align-items-center">
                             <i className="bi bi-geo-alt-fill fs-5 me-3"></i>
-                            <p className="mb-0">92 Cherry Drive Uniondale, NY 11553</p>
+                            <p className="mb-0">No:260/3, Pahala Biyanwila, Kadawatha, Sri Lanka</p>
                         </div>
                         <div className="information">
                             <i className="bi bi-envelope-fill fs-5 me-3"></i>
-                            <p className="mb-0">lorem@ipsum.com</p>
+                            <p className="mb-0">derushclotingstore@gmail.com</p>
                         </div>
                         <div className="information">
                             <i className="bi bi-telephone-fill fs-5 me-3"></i>
-                            <p className="mb-0">123-456-789</p>
+                            <p className="mb-0">+94 78 167 0221</p>
                         </div>
                     </div>
                     <div className="social-media">

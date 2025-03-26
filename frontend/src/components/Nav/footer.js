@@ -9,7 +9,7 @@ function Footer() {
           <div className="w-full sm:w-auto mb-8 sm:mb-0">
             <h3 className="text-2xl font-bold mb-4">DE-RUSH:clothing store</h3>
             <p>No:260/3,Pahala Biyanwila,Kadawatha, Sri Lanka</p>
-            <p>+94 781670221</p>
+            <p>+94 78 167 0221</p>
             <p>derushclotingstore@gmail.com</p>
           </div>
           <div className="w-full sm:w-auto mb-8 sm:mb-0">
