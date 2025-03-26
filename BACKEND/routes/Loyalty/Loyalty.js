@@ -41,27 +41,25 @@ router.route("/").get((req,res)=>{
 
 //update the Loyalty_Programme
 
-router.route("/update/:id").put(async (req,res) =>{
-
+router.route("/update/:id").put(async (req, res) => {
     let userId = req.params.id;
-    const { name, email, telephone,address,category} = req.body;
+    const { name, email, telephone, address, category } = req.body;
 
     const updateLoyaltyProgramme = {
+        name,
+        email,
+        telephone,
+        address,
+        category: JSON.stringify(category), // Store category as JSON
+    };
 
-    name,
-    email,
-    telephone,
-    address,
-    category    
-
-    }
-
-    const update = await LoyaltyProgramme.findByIdAndUpdate(userId, updateLoyaltyProgramme).then(()=>{
-        res.status(200).send({status:"user updated"})
-    }).catch((err) => {
+    try {
+        await LoyaltyProgramme.findByIdAndUpdate(userId, updateLoyaltyProgramme);
+        res.status(200).send({ status: "User updated" });
+    } catch (err) {
         console.log(err);
-        res.sendStatus(500).send({status: "Error with Updating data",error: err.message});
-    })
+        res.status(500).send({ status: "Error updating data", error: err.message });
+    }
 })
 
     //delete LoyaltyProgramme
@@ -72,11 +70,11 @@ router.route("/update/:id").put(async (req,res) =>{
         
         await LoyaltyProgramme.findByIdAndDelete(userId).then(() => {
 
-            res.status(200).send({status: "User Deleted"});
+            res.status(200).send({status: "Loyalty Form Deleted"});
 
         }).catch((err) => {
             console.log(err.message);
-            res.status(500).send({status: "Error with Delete user",error: err.message})
+            res.status(500).send({status: "Error with Delete Loyalty Form",error: err.message})
         })
 
     })
@@ -85,10 +83,10 @@ router.route("/get/:id").get(async(req,res) => {
     let userId = req.params.id;
     const user = await LoyaltyProgramme.findById(userId)
     .then((LoyaltyProgramme) => {
-        res.status(200).send({status: "User Fetched", LoyaltyProgramme})
+        res.status(200).send({status: "Loyalty Form Fetched", LoyaltyProgramme})
     }).catch(()=> {
         console.log(err.message);
-        res.status(500).send({status: "Error with get User", error: err.message})
+        res.status(500).send({status: "Error with get Loyalty Form", error: err.message})
     })
 })
 

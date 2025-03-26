@@ -3,25 +3,37 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const UpdateLoyalty = () => {
-  const { id } = useParams(); // Get Loyalty ID from URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
   const [address, setAddress] = useState("");
-  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState({
+    TShirts: 0,
+    Denim: 0,
+    Frocks: 0,
+    Shorts: 0,
+    Trousers: 0,
+  });
 
+  // Fetch existing data
   useEffect(() => {
     const fetchLoyalty = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/LoyaltyProgramme/get/${id}`);
-        const loyaltyData = response.data.LoyaltyProgramme; // Ensure correct response handling
+        const loyaltyData = response.data.LoyaltyProgramme;
+
         setName(loyaltyData.name || "");
         setEmail(loyaltyData.email || "");
         setTelephone(loyaltyData.telephone || "");
         setAddress(loyaltyData.address || "");
-        setCategory(loyaltyData.category || "");
+
+        // Parse category data properly (from stored JSON format)
+        if (loyaltyData.category) {
+          setCategories(JSON.parse(loyaltyData.category)); // Convert back to object
+        }
       } catch (error) {
         console.error("Error fetching loyalty data:", error);
         alert("Failed to fetch loyalty data. Please try again.");
@@ -30,15 +42,38 @@ const UpdateLoyalty = () => {
     fetchLoyalty();
   }, [id]);
 
-  const handleUpdate = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+  // Increment category count
+  const increment = (category) => {
+    setCategories((prev) => ({
+      ...prev,
+      [category]: prev[category] + 1,
+    }));
+  };
 
-    const updatedLoyalty = { name, email, telephone, address, category };
+  // Decrement category count (ensuring it doesn’t go below 0)
+  const decrement = (category) => {
+    setCategories((prev) => ({
+      ...prev,
+      [category]: Math.max(0, prev[category] - 1),
+    }));
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    // Convert categories object to JSON for storage
+    const updatedLoyalty = {
+      name,
+      email,
+      telephone,
+      address,
+      category: JSON.stringify(categories), // Store as JSON string
+    };
 
     try {
       await axios.put(`http://localhost:8080/LoyaltyProgramme/update/${id}`, updatedLoyalty);
       alert("Loyalty form updated successfully");
-      navigate("/list"); // Redirect to loyalty list page
+      navigate("/list");
     } catch (error) {
       console.error("Error updating Loyalty Form:", error);
       alert("Failed to update loyalty form. Please try again.");
@@ -47,7 +82,7 @@ const UpdateLoyalty = () => {
 
   return (
     <div className="container">
-      <h2>Update Loyalty Form</h2>
+      <h2 className="my-4">Update Loyalty Form</h2>
       <form onSubmit={handleUpdate}>
         <div className="mb-3">
           <label>Name:</label>
@@ -70,11 +105,20 @@ const UpdateLoyalty = () => {
         </div>
 
         <div className="mb-3">
-          <label>Category:</label>
-          <input type="text" className="form-control" value={category} onChange={(e) => setCategory(e.target.value)} required />
+          <label className="form-label">Select Categories</label>
+          {Object.keys(categories).map((category) => (
+            <div key={category} className="d-flex justify-content-between align-items-center p-2 border rounded">
+              <span>{category}</span>
+              <div>
+                <button type="button" className="btn btn-danger mx-1" onClick={() => decrement(category)}>-</button>
+                <span className="px-3">{categories[category]}</span>
+                <button type="button" className="btn btn-success mx-1" onClick={() => increment(category)}>+</button>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <button type="submit" className="btn btn-primary">Update</button>
+        <button type="submit" className="btn btn-primary w-100">Update</button>
       </form>
     </div>
   );
