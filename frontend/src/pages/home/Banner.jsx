@@ -14,14 +14,6 @@ const images = [
 
 
 
-
-
-
-
-
-
-
-
 ];
 
 const Banner = () => {
