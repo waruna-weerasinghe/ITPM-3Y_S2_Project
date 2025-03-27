@@ -14,7 +14,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
     axios
-    .get(`http://localhost:8175/order/getOrder/${id}`)
+    .get(`http://localhost:3000/order/getOrder/${id}`)
     .then((res) => {
         console.log(res.data);
         setDeliveryStatus(res.data.deliveryStatus);
@@ -37,7 +37,7 @@ const UpdateOrder = {
     };
 
 axios
-    .put(`http://localhost:8175/order/editStatus/${id}`, UpdateOrder)
+    .put(`http://:3000/order/editStatus/${id}`, UpdateOrder)
     .then((res) => {
         console.log('updated successfully:', res.data);
         alert('Update successfully');
