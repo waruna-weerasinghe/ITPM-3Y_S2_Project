@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import './CreateUsers.css';
 import { BsPersonFill } from 'react-icons/bs'; 
 import Swal from 'sweetalert2';
+import AdminNav from '../Nav/adminNav';
 
 function UpdateUsers() {
     const { id } = useParams();
@@ -35,18 +36,36 @@ function UpdateUsers() {
         // Validation checks
         const nameRegex = /^[a-zA-Z\s]+$/;
         if (!name.match(nameRegex)) {
-            alert("Name should only contain letters");
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: "Name should only contain letters.",
+              });
+           
             return;
         }
       
         const validNumberLength = 10;
         if (number.length !== validNumberLength) {
-            alert("Mobile number should be 10 digits");
+            
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: "Mobile number should be 10 digits",
+              });
+           
             return;
         }
         const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
         if (!email.match(gmailPattern)) {
-            alert("Please enter a valid Gmail address");
+            
+
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: "Please enter a valid Gmail address",
+              });
+           
             return;
         }
 
@@ -61,7 +80,13 @@ function UpdateUsers() {
         })
         .then((result) => {
             console.log(result);
-            // Assuming you're using a navigation library like react-router-dom
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Update successful",
+                showConfirmButton: false,
+                timer: 1500
+            });
             navigate('/userdetails');
         })
         .catch((err) => {
@@ -116,6 +141,7 @@ function UpdateUsers() {
     return (
         
         <div className="container">
+             <AdminNav /> 
         
         <div className="image-container">
     {image ? (

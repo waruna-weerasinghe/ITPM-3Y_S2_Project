@@ -45,6 +45,31 @@ function AccountDetails() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!name || !email || !number) {
+            alert("All fields must be filled");
+            return;
+        }
+
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        if (!name.match(nameRegex)) {
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: "Name should only contain letters.",
+              });
+           
+            return;
+        }
+        const validNumberLength = 10;
+        if (number.length !== validNumberLength) {
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: "Mobile number should be 10 digits.",
+              });
+            
+            return;
+        }
 
         axios
             .post('http://localhost:8175/user/AccountDetails', {
@@ -102,11 +127,17 @@ function AccountDetails() {
         <div className="container-xl px-4 mt-4">
             <nav className="nav nav-borders">
                 <button className="nav-link active ms-0">Profile</button>
-                <button className="nav-link">Billing</button>
-                <button className="nav-link">Appoinment</button>
+                
+                
+              
+               
+
+               
+                
                 <button className="nav-link">
                     <Link to="/SecuritySettings">Security</Link>
                 </button>
+               
             </nav>
             <hr className="mt-0 mb-4" />
             <div className="row">
@@ -118,7 +149,7 @@ function AccountDetails() {
         <img
             src={`http://localhost:3000/image/${userImage}`}
             alt="Profile"
-            style={{ borderRadius: '50%', cursor: 'pointer' }} 
+           
             onClick={handleClickProfilePicture} 
         />
     ) : (
@@ -150,7 +181,7 @@ function AccountDetails() {
                                 <div className="row gx-3 mb-3">
                                     <div className="col-md-6">
                                         <label className="small mb-1" htmlFor="inputPhone">Phone number</label>
-                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value={number} onChange={(e) => setNumber(e.target.value)} />
+                                        <input className="form-control" id="inputPhone" type="number" placeholder="Enter your phone number" value={number} onChange={(e) => setNumber(e.target.value)} />
                                     </div>
                                 </div>
                                 <button className="btn btn-primary" type="submit">Save changes</button>

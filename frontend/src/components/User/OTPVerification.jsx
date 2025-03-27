@@ -1,50 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import './style.css';
 
-function ForgotPassword() {
-  const [email, setEmail] = useState('');
+function OTPVerification() {
+  const [otp, setOTP] = useState('');
+  const [verificationStatus, setVerificationStatus] = useState('');
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(60);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post('http://localhost:8175/user/forgot-password', { email })
-      .then((result) => {
-        console.log(result);
-        if (result) {
-          // Display alert for successful email sent
-          Swal.fire({
-            title: "Email sent successfully!",
-            text: "Please check your inbox to reset your password",
-            icon: "success"
-          });
-          Cookies.set('token', result.data.token, { expires: 1 }); // Expires in 1 day
-          Cookies.set('userEmail', email, { expires: 1 }); // Expires in 1 day
-          // Navigate the user to the appropriate page
-          navigate('/verify-otp');
-        } else if (result.data.status === 'no record existed') {
-          // Display alert for email not found
-          alert('Email does not exist. Please register.');
-        } else {
-          // Display alert for unexpected response
-          alert('An error occurred. Please try again later.');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        // Display alert for general error
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Email is wrong",
-          
-        });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown(prevCountdown => prevCountdown - 1);
+    }, 1000);
+
+   
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (countdown === 0) {
+      
+      Swal.fire({
+        icon: "error",
+        title: "ERROR",
+        text: "try again time is over ",
       });
-  };
+      navigate('/forgot-password');
+    }
+  }, [countdown, navigate]);
+
+
+
+
 
   useEffect(() => {
     const inputs = document.querySelectorAll(".input");
@@ -65,13 +55,51 @@ function ForgotPassword() {
         input.addEventListener("focus", focusFunc);
         input.addEventListener("blur", blurFunc);
 
-        // Cleanup function to remove event listeners when component unmounts
+       
         return () => {
             input.removeEventListener("focus", focusFunc);
             input.removeEventListener("blur", blurFunc);
         };
     });
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userEmail = Cookies.get('userEmail'); // Retrieve userEmail from cookies
+      const response = await axios.post(
+        'http://localhost:8175/user/verify-otp',
+        { otp, userEmail } // Include userEmail in the request body
+      );
+  
+      if (response.status === 200) {
+        if (response.data.status === "Success") {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "OTP verified successfully!",
+            showConfirmButton: false,
+            timer: 1500
+            
+          });
+          navigate('/reset-password');
+        } else if (response.data.status === "Incorrect OTP") {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Incorrect OTP. Please try again",
+          });
+        } else {
+          setVerificationStatus("An error occurred. Please try again later.");
+        }
+      } else {
+        setVerificationStatus("Unexpected response status: " + response.status);
+      }
+    } catch (error) {
+      setVerificationStatus('Error verifying OTP: ' + error.message);
+    }
+  };
 
   return (
     <div className="container">
@@ -80,19 +108,19 @@ function ForgotPassword() {
       <div className="form">
         {/* Contact Info Section */}
         <div className="contact-info">
-          <h3 className="title">Tech-Connect</h3>
+          <h3 className="title">DE-RUSH </h3>
           <p className="text">
-          Welcome to our online mobile phone shop!
+          Welcome to our online clothing shop!
           </p>
           {/* Information */}
           <div className="info">
             <div className="information d-flex align-items-center">
               <i className="bi bi-geo-alt-fill fs-5 me-3"></i>
-              <p className="mb-0">No:43, Namaluwa Rd, Dekatana, Sri Lanka</p>
+              <p className="mb-0">No:43, Kandy Road, Kadawatha, Sri Lanka              </p>
             </div>
             <div className="information">
               <i className="bi bi-envelope-fill fs-5 me-3"></i>
-              <p className="mb-0">techconnectstore@gmail.com</p>
+              <p className="mb-0">derushclothing@gmail.com</p>
             </div>
             <div className="information">
               <i className="bi bi-telephone-fill fs-5 me-3"></i>
@@ -120,11 +148,13 @@ function ForgotPassword() {
           <form onSubmit={handleSubmit} autoComplete="off">
             <h3 className="title">Forgot Password</h3>
             <div className="input-container">
-              <input type="email" name="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <label htmlFor="">Email</label>
-              <span>Email</span>
+              <input type="text" name="otp" className="input" value={otp} onChange={(e) => setOTP(e.target.value)} />
+              <label htmlFor="">Enter OTP</label>
+              <span>Enter OTP</span>
             </div>
             <button type="submit" className="btn">Send</button>
+            {verificationStatus && <p className="mt-3">{verificationStatus}</p>}
+            <p className="mt-3">Time Left: {countdown} seconds</p>
           </form>
         </div>
       </div>
@@ -132,4 +162,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default OTPVerification;

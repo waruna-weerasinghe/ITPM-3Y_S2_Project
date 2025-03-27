@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import './CreateUsers.css'; // Import CSS file
+import AdminNav from '../Nav/adminNav';
+import Swal from 'sweetalert2';
 
 function CreateUsers() {
     const [name, setName] = useState("");
@@ -21,29 +22,63 @@ function CreateUsers() {
 
         const nameRegex = /^[a-zA-Z\s]+$/;
         if (!name.match(nameRegex)) {
-            alert("Name should only contain letters");
+            
+            Swal.fire({
+                icon: 'error',
+                title: 'error...',
+                text: 'Name should only contain letters.',
+            });
             return;
         }
 
         if (password !== reenterPassword) {
-            alert("Passwords do not match");
+           
+            Swal.fire({
+                icon: 'error',
+                title: 'error...',
+                text: 'Passwords do not match.',
+            });
+            
             return;
         }
 
         const validNumberLength = 10;
         if (number.length !== validNumberLength) {
-            alert("Mobile number should be 10 digits");
+    
+             
+            Swal.fire({
+                icon: 'error',
+                title: 'error...',
+                text: 'Mobile number should be 10 digits.',
+            });
+            
+        
             return;
         }
 
-        axios.post('http://localhost:8175/user/register', { name, email, password, number })
+        axios.post('http://localhost:8175/user/Adduser', { name, email, password, number })
             .then(result => {
                 console.log(result);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "user successful added",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/userdetails');
             })
             .catch(err => {
-                if (err.response && err.response.data.error === 'Email is already in use') {
-                    alert('Email is already in use. Please use a different email.');
+                if (err.response && err.response.data.error ) {
+                    
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Email is already in use. Please use a different email.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    
                 } else {
                     console.log(err);
                 }
@@ -51,12 +86,13 @@ function CreateUsers() {
     }
 
     return (
-        <div className="container">
+        <div className="container h-screen d-flex justify-content-center align-items-center">
+             <AdminNav /> 
              <div className="form-container">
-                <h2>Register</h2>
+                <h2>Add users</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">Name</label>
                         <input
                             type="text"
                             placeholder="Enter name"
@@ -67,8 +103,8 @@ function CreateUsers() {
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email</label>
                         <input
                             type="email"
                             placeholder="Enter email"
@@ -79,8 +115,8 @@ function CreateUsers() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
                         <input
                             type="password"
                             placeholder="Enter password"
@@ -90,8 +126,8 @@ function CreateUsers() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="reenterPassword">Reenter Password</label>
+                    <div className="mb-3">
+                        <label htmlFor="reenterPassword" className="form-label">Reenter Password</label>
                         <input
                             type="password"
                             placeholder="Reenter password"
@@ -101,8 +137,8 @@ function CreateUsers() {
                             onChange={(e) => setReenterPassword(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="number">Mobile Number</label>
+                    <div className="mb-3">
+                        <label htmlFor="number" className="form-label">Mobile Number</label>
                         <input
                             type="number"
                             placeholder="Enter mobile number"

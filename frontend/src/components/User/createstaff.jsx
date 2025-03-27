@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import './CreateUsers.css'; // Import CSS file
 import Swal from 'sweetalert2';
-
+import AdminNav from '../Nav/adminNav';
 function CreateStaff() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState(""); 
@@ -16,15 +16,7 @@ function CreateStaff() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!name || !email || !password || !reenterPassword || !number || !role) {
-          
-            Swal.fire({
-                icon: 'error',
-                title: 'error...',
-                text: 'All fields must be filled.',
-            });
-            return;
-        }
+        
 
         const nameRegex = /^[a-zA-Z\s]+$/;
         if (!name.match(nameRegex)) {
@@ -61,7 +53,15 @@ function CreateStaff() {
 
         axios.post('http://localhost:8175/user/staffregister', { name, email, password, number, role }) // Include role in the request
             .then(result => {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "user successful added",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 console.log(result);
+              
                 navigate('/staffdetails');
             })
             .catch(err => {
@@ -79,10 +79,12 @@ function CreateStaff() {
     }
     return (
         <div className="container">
+            <AdminNav/>
              <div className="form-container">
-                <h2>Register</h2>
+               
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                <h2>Add employee</h2>
+                    <div >
                         <label htmlFor="name">Name</label>
                         <input
                             type="text"
@@ -94,7 +96,7 @@ function CreateStaff() {
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div >
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -106,7 +108,7 @@ function CreateStaff() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div >
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
@@ -117,7 +119,7 @@ function CreateStaff() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div >
                         <label htmlFor="reenterPassword">Reenter Password</label>
                         <input
                             type="password"
@@ -128,7 +130,7 @@ function CreateStaff() {
                             onChange={(e) => setReenterPassword(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div >
                         <label htmlFor="number">Mobile Number</label>
                         <input
                             type="number"
@@ -139,14 +141,14 @@ function CreateStaff() {
                             onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div >
                         <label htmlFor="role">Role</label>
                         <select
                             className="form-control"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
-                            <option value="">Select role</option>
+                            
                             <option value="admin">Admin</option>
                             <option value="staff">Staff</option>
                         </select>
