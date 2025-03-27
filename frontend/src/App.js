@@ -6,7 +6,7 @@ import Header from './components/Loyalty/Header';
 import LoyaltyAddForm from './components/Loyalty/LoyaltyAddForm';
 import AllLoyaltyForm from './components/Loyalty/AllLoyaltyForms.js';
 import UpdateLoyalty from './components/Loyalty/UpdateLoyalty';
-import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
+//import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
 import Home from './pages/home/Home.jsx';
 import './index.css';
 import Login from './components/User/Login.jsx';
@@ -28,7 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
-        <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} />
+       
         <Route path="/cart" exact element={<Cart />} />
         <Route path="/not-found" element={Notfound} />
         <Route path="/login" element={<Login />} />
@@ -37,7 +37,7 @@ function App() {
       
       </Routes>
 
-      <footer>Footer</footer>
+      
     </>
   );
 }
