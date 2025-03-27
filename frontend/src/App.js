@@ -1,12 +1,12 @@
 import './App.css';
 import "react-toastify/dist/ReactToastify.css";
+import { Routes, Route } from 'react-router-dom';
 
-//import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Header from './components/Loyalty/Header';
 import LoyaltyAddForm from './components/Loyalty/LoyaltyAddForm';
 import AllLoyaltyForm from './components/Loyalty/AllLoyaltyForms.js';
 import UpdateLoyalty from './components/Loyalty/UpdateLoyalty';
-import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
+//import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
 import Home from './pages/home/Home.jsx';
 import './index.css';
 
@@ -67,87 +67,38 @@ const AllUsersRouteGuard = ({ element }) => {
   }
 };
 
+import Cart from './Cart/Cart.jsx';
+import Notfound from './Cart/NotFound.jsx';
+import { ToastContainer } from 'react-toastify';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 function App() {
   return (
     <>
       <Header />
       <ToastContainer />
-  
+
       <Routes>
-
-      {/* <Route path="/" element={<UserRouteGuard element={<HomePage />} />} />
-        { <Route path="/product/:id" element={<ProductPage />} /> }
-
-        <Route
-          path="/admin/*"
-          element={<AdminRouteGuard element={<Dashboard />} />}
-        /> */}
-        {/* <Route path="/admin/productsList" element={<ProductsList />} />
-        <Route
-          path="/admin/productsList/addProduct"
-          element={<AdminRouteGuard element={<AddProduct />} />}
-        />
-        <Route
-          path="/admin/productsList/editProduct/:id"
-          element={<AdminRouteGuard element={<EditProduct />} />}
-        />
-        <Route
-          path="/admin/productsList/viewProduct/:id"
-          element={<AdminRouteGuard element={<ViewProduct />} />}
-        /> */}
-
-      <Route path="/register" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-otp" element={<OTPVerification />} />
-        <Route path="/otp" element={<OTP />} />
-        {<Route
-          path="/userdetails"
-          element={<AdminRouteGuard element={<Users />} />}
-        /> }
-
-<Route
-          path="/usercreate"
-          element={<AdminRouteGuard element={<CreateUsers />} />}
-        />
-        <Route
-          path="/userupdate/:id"
-          element={<AdminRouteGuard element={<UpdateUsers />} />}
-        />
-        <Route
-          path="/AccountDetails"
-          element={<AllUsersRouteGuard element={<AccountDetails />} />}
-        />
-        <Route
-          path="/SecuritySettings"
-          element={<AllUsersRouteGuard element={<SecuritySettings />} />}
-        /> 
-
-        <Route path="/createstaff" element={<CreateStaff />} />
-        <Route path="/staffdetails" element={<Staff />} />
-        <Route path="/staffupdate/:id" element={<UpdateStaff />} />
-        <Route path="/staffdetails" element={<Staff />} />
-
-        {/* <Route path="/staff/myprofile" element={<MyprofileS />} /> */}
-        {/* <Route path="/staff/homepage" element={<HomePageS />} />
-        <Route path="/admin/settings" element={<Settings />} />  */}
-
-
-        <Route path="/list" element={<AllLoyaltyForm/>} />
+        <Route path="/list" element={<AllLoyaltyForm />} />
         <Route path="/" element={<Home />} />
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
-        <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} />
-        <Route path="/cart" exact element={<Cart />} />
+       
+        // <Route path="/cart" exact element={<Cart />} />
         <Route path="/not-found" element={Notfound} />
         
         
       
+        <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/not-found" element={<Notfound />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+
       </Routes>
 
-      <footer>Footer</footer>
+      
     </>
   );
 }
