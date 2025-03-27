@@ -14,6 +14,7 @@ import Signup from './components/User/SignUp.jsx';
 import Cart from './Cart/Cart.jsx';
 import Notfound from './Cart/NotFound.jsx';
 import { ToastContainer } from 'react-toastify';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="/not-found" element={<Notfound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+
       </Routes>
 
       <footer>Footer</footer>
