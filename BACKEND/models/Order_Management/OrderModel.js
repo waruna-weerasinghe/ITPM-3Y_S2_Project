@@ -45,7 +45,7 @@ items: [
         required: true,
     },
 
-// Add other details as needed 
+// Add other details as needed
     },
 ],
 image: {
