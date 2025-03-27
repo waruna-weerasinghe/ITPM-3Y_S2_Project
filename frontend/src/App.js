@@ -95,7 +95,20 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
-<ho></ho>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/updateuser" element={<UpdateUsers />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/otp-verification" element={<OTPVerification />} />
+        <Route path="/otp" element={<OTP />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/createuser" element={<CreateUsers />} />
+        <Route path="/accountdetails" element={<AccountDetails />} />
+        <Route path="/securitysettings" element={<SecuritySettings />} />
+        <Route path="/staff" element={<Staff />} />
+        <Route path="/createstaff" element={<CreateStaff />} />
+        <Route path="/updatestaff/:id" element={<UpdateStaff />} />
+        
+
       </Routes>
 
       
