@@ -5,7 +5,7 @@ let LoyaltyProgramme = require('../../models/LoyaltyProgramme/LoyaltyProgramme')
 
 router.route("/add").post((req,res)=>{
 
-    const { name, email, telephone,address,category} = req.body;
+    const { name, email, telephone,address,category,image} = req.body;
 
     const newLoyalty_programme = new LoyaltyProgramme({
 
@@ -13,7 +13,8 @@ router.route("/add").post((req,res)=>{
     email,
     telephone,
     address,
-    category    
+    category,
+    image    
 
     })
 
@@ -43,7 +44,7 @@ router.route("/").get((req,res)=>{
 
 router.route("/update/:id").put(async (req, res) => {
     let userId = req.params.id;
-    const { name, email, telephone, address, category } = req.body;
+    const { name, email, telephone, address, category, image } = req.body;
 
     const updateLoyaltyProgramme = {
         name,
@@ -51,6 +52,7 @@ router.route("/update/:id").put(async (req, res) => {
         telephone,
         address,
         category: JSON.stringify(category), // Store category as JSON
+        image
     };
 
     try {

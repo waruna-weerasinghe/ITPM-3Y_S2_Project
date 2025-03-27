@@ -6,7 +6,7 @@ import {
   decreaseCart,
   getTotals,
   removeFromCart,
-} from "../slices/cartSlice";
+} from "../features/cartSlice";
 
 import { Link } from "react-router-dom";
 

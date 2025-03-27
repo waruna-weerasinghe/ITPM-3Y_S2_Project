@@ -23,8 +23,11 @@ const LoyaltySchema = new Schema({
     category :{
         type : String,
         required : true
+    },
+    image: {
+        type: Object, 
+        required: true,
     }
-
 
 
 })

@@ -13,7 +13,7 @@ const OrderList = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-            const response = await axios.get('http://localhost:8175/order/');
+            const response = await axios.get('http://:3000/order/');
             setOrders(response.data);
             } catch (error) {
             console.error('Error fetching orders:', error);
@@ -25,7 +25,7 @@ const OrderList = () => {
 
 const handleDelete = (orderId) => {
     axios
-    .delete(`http://localhost:8175/order/delete/${orderId}`)
+    .delete(`http://:3000/order/delete/${orderId}`)
     .then(() => {
         alert("Order Delete successfully");
         setOrders(orders.filter((order) => order._id !== orderId));
