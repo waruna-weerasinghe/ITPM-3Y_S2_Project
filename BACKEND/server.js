@@ -45,3 +45,18 @@ app.listen(PORT, () =>{
     console.log(`server is up and running on port ${PORT}`)
 })
 
+app.use(express.json());
+app.use(cors());
+
+app.get("/", (req, res) => {
+    res.send("Welcome to our De-Rush Clothing Store API...");
+});
+
+app.get("/prodect", (req, res) => {
+    res.send([2,3,4])
+});
+
+const port = process.env.PORT || 3000;
+
+app.listen(port,console.log('Server running on port ${port}'));
+
