@@ -30,7 +30,7 @@ import CreateStaff from "./components/User/createstaff.jsx";
 import UpdateStaff from "./components/User/staffupdate.jsx";
 
 // Cart Components
-import Cart from './Cart/Cart.jsx';
+//import Cart from './Cart/Cart.jsx';
 import Notfound from './Cart/NotFound.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 
