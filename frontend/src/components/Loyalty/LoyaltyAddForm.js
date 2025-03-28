@@ -160,10 +160,16 @@ export default function LoyaltyAddForm() {
           <div className="mb-4">
             <label className="block text-gray-600">Telephone:</label>
             <input
-              type="text"
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="tel"
+              id="telephone"
+              name="telephone"
               value={telephone}
-              onChange={(e) => setTelephone(e.target.value)}
+              onChange={(e) => {
+                const onlyNumbers = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                setTelephone(onlyNumbers);
+              }}
+              maxLength={10}
+              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
              // disabled
             />
           </div>
