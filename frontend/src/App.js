@@ -78,13 +78,10 @@ function App() {
 
         {/* Cart & Admin */}
         <Route path="/cart" element={<Cart />} />
-<<<<<<< HEAD
         <Route path="/dashboard" element={<AdminDashboard />}/>
         
-=======
         <Route path="/dashboard" element={<AdminRouteGuard element={<AdminDashboard />} />} />
 
->>>>>>> e00e0c89cd5170b86ae9e7351c5432b17ec8262d
         {/* Fallback Routes */}
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />
