@@ -16,17 +16,17 @@ import Login from './components/User/Login';
 import Signup from './components/User/SignUp';
 import Cart from './Cart/CartPage';
 import ForgotPassword from "./components/User/ForgotPassword";
-import UpdateUsers from "./components/User/UpdateUser";
+import UpdateUsers from "./components/User/updateuser";
 import ResetPassword from "./components/User/ResetPassword";
 import OTPVerification from "./components/User/OTPVerification";
-import OTP from "./components/User/OTPRegister";
-import Users from "./components/User/DisplayUserDetails";
-import CreateUsers from "./components/User/CreateUser";
+import OTP from "./components/User/otpregiter";
+import Users from "./components/User/displayuserdetails";
+import CreateUsers from "./components/User/createuser";
 import AccountDetails from "./components/User/AccountDetails";
 import SecuritySettings from "./components/User/SecuritySettings";
-import Staff from "./components/User/StaffDetails";
-import CreateStaff from "./components/User/CreateStaff";
-import UpdateStaff from "./components/User/StaffUpdate";
+//import Staff from "./Components/User/staffdetails";
+import CreateStaff from "./components/User/createstaff";
+import UpdateStaff from "./components/User/staffupdate";
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 
@@ -72,14 +72,12 @@ function App() {
         <Route path="/securitysettings" element={<UserRouteGuard element={<SecuritySettings />} />} />
 
         {/* Staff Routes */}
-        <Route path="/staff" element={<AdminRouteGuard element={<Staff />} />} />
+        {/* <Route path="/staff" element={<AdminRouteGuard element={<Staff />} />} />
         <Route path="/createstaff" element={<AdminRouteGuard element={<CreateStaff />} />} />
-        <Route path="/updatestaff/:id" element={<AdminRouteGuard element={<UpdateStaff />} />} />
+        <Route path="/updatestaff/:id" element={<AdminRouteGuard element={<UpdateStaff />} />} /> */}
 
         {/* Cart & Admin */}
         <Route path="/cart" element={<Cart />} />
-        <Route path="/dashboard" element={<AdminDashboard />}/>
-        
         <Route path="/dashboard" element={<AdminRouteGuard element={<AdminDashboard />} />} />
 
         {/* Fallback Routes */}
