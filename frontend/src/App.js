@@ -30,7 +30,7 @@ import UpdateStaff from "./components/User/staffupdate.jsx";
 
 
 
-import { Routes, Route } from 'react-router-dom';
+
 import Cart from './Cart/Cart.jsx';
 import Notfound from './Cart/NotFound.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -60,14 +60,14 @@ const UserRouteGuard = ({ element }) => {
 const AllUsersRouteGuard = ({ element }) => {
   const userRole = Cookies.get("role");
 
-  if (userRole === "admin" || userRole === "user" ||userRole === "staff" ) {
+  if (userRole === "admin" || userRole === "user" || userRole === "staff") {
     return element;
   } else {
     return <Navigate to="/login" />;
   }
 };
 
-import Cart from './Cart/Cart.jsx';
+
 import Notfound from './Cart/NotFound.jsx';
 import { ToastContainer } from 'react-toastify';
 import AdminDashboard from './pages/AdminDashboard.jsx';
@@ -83,12 +83,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
-       
+
         // <Route path="/cart" exact element={<Cart />} />
         <Route path="/not-found" element={Notfound} />
-        
-        
-      
+
+
+
         <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/not-found" element={<Notfound />} />
@@ -107,11 +107,11 @@ function App() {
         <Route path="/staff" element={<Staff />} />
         <Route path="/createstaff" element={<CreateStaff />} />
         <Route path="/updatestaff/:id" element={<UpdateStaff />} />
-        
+
 
       </Routes>
 
-      
+
     </>
   );
 }
