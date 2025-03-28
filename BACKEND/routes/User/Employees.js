@@ -15,69 +15,46 @@ const path = require('path');
 
 //app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
 
-//app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
-router.route('/register').post((req, res) => {
-  const { name, email, password, number } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-      EmployeeModel.findOne({ email: email })
-          .then((existingUser) => {
-              if (existingUser) {
-                  // Email already exists, return an error
-                  res.status(400).json({ error: 'Email already registered' });
-              } else {
-                  // Email is unique, create a new user
-                  EmployeeModel.create({ name, email, password: hash, number })
-                      .then((newEmployee) => {
-                          // Set the userEmail cookie
-                          res.cookie('userEmail', email, { maxAge: 86400000 });
+router.route('/register').post(async (req, res) => {
+  try {
+    const { name, email, password, number } = req.body;
 
-                          // Generate OTP
-                          const otp = generateNumericOTP(6); 
+    // Validate required fields
+    if (!name || !email || !password || !number) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
 
-                          // Save OTP in the database
-                          newEmployee.otp = otp;
-                          newEmployee.save();
+    // Check if email already exists
+    const existingUser = await EmployeeModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
 
-                          // Send OTP via Email
-                          const transporter = nodemailer.createTransport({
-                              service: 'gmail',
-                              auth: {
-                                  user: 'denuwangunathilaka21@gmail.com',
-                                  pass: '', // Please replace with your actual password or use environment variables for security
-                              },
-                          });
+    // Hash password
+    const hash = await bcrypt.hash(password, 10);
 
-                          // Define email content
-                          const mailOptions = {
-                              from: 'denuwangunathilaka21@gmail.com',
-                              to: email,
-                              subject: 'Account Verification OTP',
-                              text: `Your OTP for account verification is: ${otp}`,
-                          };
+    // Create new user (no OTP generation or saving)
+    const newEmployee = await EmployeeModel.create({ 
+      name, 
+      email, 
+      password: hash, 
+      number,
+      role: 'user'
+    });
+    
+    res.status(201).json({ 
+      success: true,
+      message: 'User registered successfully. Please login.',
+      user: {
+        id: newEmployee._id,
+        email: newEmployee.email
+      }
+    });
 
-                          // Send email
-                          transporter.sendMail(mailOptions, (error, info) => {
-                              if (error) {
-                                  console.log('Error sending email:', error);
-                                  return res.status(500).send({ status: 'Error sending email' });
-                              } else {
-                                  console.log('Email sent:', info.response);
-                                  return res.status(200).send({ status: 'OTP sent successfully' });
-                              }
-                          });
-
-                          // Send the response with the new employee data
-                          res.json(newEmployee);
-                      })
-                      .catch((err) => res.status(500).json({ error: err.message }));
-              }
-          })
-          .catch((err) => {
-              res.status(500).json({ error: err.message });
-          });
-  });
-
-  // Check if the email already exists
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 

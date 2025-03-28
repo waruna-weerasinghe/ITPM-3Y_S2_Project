@@ -12,7 +12,7 @@ function ForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:8175/user/forgot-password', { email })
+      .post('http://localhost:8080/user/forgot-password', { email })
       .then((result) => {
         console.log(result);
         if (result) {

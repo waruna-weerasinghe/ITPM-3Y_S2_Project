@@ -69,7 +69,7 @@ function OTPVerification() {
     try {
       const userEmail = Cookies.get('userEmail'); // Retrieve userEmail from cookies
       const response = await axios.post(
-        'http://localhost:8175/user/verify-otp',
+        'http://localhost:8080/user/verify-otp',
         { otp, userEmail } // Include userEmail in the request body
       );
   

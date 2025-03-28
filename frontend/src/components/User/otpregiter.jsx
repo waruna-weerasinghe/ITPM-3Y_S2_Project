@@ -54,7 +54,7 @@ function OTP() {
   const handleAccountDeletion = async () => {
     try {
       const userEmail = Cookies.get('userEmail');
-      const response = await axios.delete('http://localhost:8175/user/registerdelete', { data: { userEmail } });
+      const response = await axios.delete('http://localhost:8080/user/registerdelete', { data: { userEmail } });
       if (response.status === 200) {
         Swal.fire({
           icon: "error",
@@ -78,7 +78,7 @@ function OTP() {
     try {
       const userEmail = Cookies.get('userEmail');
       const response = await axios.post(
-        'http://localhost:8175/user/otp',
+        'http://localhost:8080/user/otp',
         { otp, userEmail }
       );
   

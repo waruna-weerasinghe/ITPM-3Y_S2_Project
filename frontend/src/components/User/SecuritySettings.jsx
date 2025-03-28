@@ -25,7 +25,7 @@ function SecuritySettings() {
             return;
         }
 
-        axios.post('http://localhost:8175/user/passwordchange', { userId, currentPassword, newPassword, confirmPassword })
+        axios.post('http://localhost:8080/user/passwordchange', { userId, currentPassword, newPassword, confirmPassword })
             .then(response => {
                 Swal.fire({
                     icon: 'success',
@@ -69,7 +69,7 @@ function SecuritySettings() {
             confirmButtonText: 'Yes, delete my account'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('http://localhost:8175/user/delete', { data: { userId } })
+                axios.delete('http://localhost:8080/user/delete', { data: { userId } })
                     .then(response => {
                         Swal.fire({
                             icon: 'success',
