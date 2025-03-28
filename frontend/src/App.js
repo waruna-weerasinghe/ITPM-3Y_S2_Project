@@ -6,7 +6,7 @@ import Header from './components/Loyalty/Header';
 import LoyaltyAddForm from './components/Loyalty/LoyaltyAddForm';
 import AllLoyaltyForm from './components/Loyalty/AllLoyaltyForms.js';
 import UpdateLoyalty from './components/Loyalty/UpdateLoyalty';
-//import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
+// import DeleteLoyaltyForm from './components/Loyalty/DeleteLoyalty.js';
 import Home from './pages/home/Home.jsx';
 import './index.css';
 
@@ -26,16 +26,11 @@ import Staff from "./components/User/staffdetails.jsx";
 import CreateStaff from "./components/User/createstaff.jsx";
 import UpdateStaff from "./components/User/staffupdate.jsx";
 
-
-
-
-
-
-import Cart from './Cart/Cart.jsx';
 import Notfound from './Cart/NotFound.jsx';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';  // ✅ Only one import now
 import Cookies from 'js-cookie';
 import { Navigate } from 'react-router-dom';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 const AdminRouteGuard = ({ element }) => {
   const userRole = Cookies.get("role");
@@ -67,11 +62,6 @@ const AllUsersRouteGuard = ({ element }) => {
   }
 };
 
-
-import Notfound from './Cart/NotFound.jsx';
-import { ToastContainer } from 'react-toastify';
-import AdminDashboard from './pages/AdminDashboard.jsx';
-
 function App() {
   return (
     <>
@@ -84,13 +74,9 @@ function App() {
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
 
-        // <Route path="/cart" exact element={<Cart />} />
-        <Route path="/not-found" element={Notfound} />
+        {/* Uncomment if DeleteLoyaltyForm exists */}
+        {/* <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} /> */}
 
-
-
-        <Route path="/deleteLoyaltyForm/:id" element={<DeleteLoyaltyForm />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/not-found" element={<Notfound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -107,11 +93,7 @@ function App() {
         <Route path="/staff" element={<Staff />} />
         <Route path="/createstaff" element={<CreateStaff />} />
         <Route path="/updatestaff/:id" element={<UpdateStaff />} />
-
-
       </Routes>
-
-
     </>
   );
 }
