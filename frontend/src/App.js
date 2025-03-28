@@ -12,7 +12,7 @@ import './index.css';
 import Login from './components/User/Login.jsx';
 import Signup from './components/User/SignUp.jsx';
 import { Routes, Route } from 'react-router-dom';
-import Cart from './Cart/Cart.jsx';
+import Cart from './Cart/CartPage.js';
 import Notfound from './Cart/NotFound.jsx';
 import { ToastContainer } from 'react-toastify';
 
