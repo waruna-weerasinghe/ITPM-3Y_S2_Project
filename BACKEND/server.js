@@ -27,7 +27,7 @@ connection.once("open", ()=>{
 
 
 const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
-const MemberRouter = require('./routes/User/Members.js');
+const userRouter = require('./routes/User/Employees.js');
 //const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
 
 app.use(express.static('uploads/images'));
@@ -38,7 +38,8 @@ app.use(express.static('uploads/images'));
 
 
 app.use("/LoyaltyProgramme",LoyaltyRouter);
-app.use('/User', MemberRouter);
+app.use('/user', userRouter);
+//app.use("/Employee",);
 //app.use('/order', OrderRouter);
 
 app.listen(PORT, () =>{

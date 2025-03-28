@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const rolesEnum = ['user', 'admin', 'staff'];
 
-const MemberSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
@@ -15,8 +15,14 @@ const MemberSchema = new mongoose.Schema({
     otp: String,
      // Add a field to store OTP
      image: String,
-});
 
-const MemberModel = mongoose.model("Member", MemberSchema);
+     
+    
+   
+} 
 
-module.exports = MemberModel;
+);
+
+const EmployeeModel = mongoose.model("employee", employeeSchema);
+
+module.exports = EmployeeModel;

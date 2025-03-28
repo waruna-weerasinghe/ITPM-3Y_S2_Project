@@ -3,115 +3,281 @@
 /* General styles */
 
 .card-container {
-    margin-top: 20px; /* Add margin to the top */
-  }
+  margin-top: 20px; /* Add margin to the top */
+}
+
+.form-control {
+  width: 300px; /* Adjust the width of the input */
+}
+
+.total-users {
+  font-weight: bold; /* Make the text bold */
+  margin-top: 10px; /* Add margin to the top */
+}
+
+.table-header th {
+  text-align: center; /* Center align the table header */
+}
+
+.btn {
+  padding: 5px 10px; /* Add padding to the buttons */
+  border-radius: 5px; /* Add border-radius to round the corners */
+}
+
+.btn-add {
+  margin-right: 10px; /* Add margin to the right of the "Add" button */
+}
+
+.btn-success {
+  background-color: #28a745; /* Change background color for success button */
+  color: #fff; /* Change text color */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Change background color for danger button */
+  color: #fff; /* Change text color */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Change background color on hover */
+}
+
+/* Responsive styles */
+
+/* Ensure the container covers the entire screen */
+.container-fluid {
+  position: fixed; /* Fix the position */
+  top: 0; /* Position from the top */
+  left: 0; /* Position from the left */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scrolling if content overflows */
+}
+
+/* Center align content vertically and horizontally */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the card body takes up full height */
+}
+
+/* Additional styles for the card */
+.card {
+  width: 80%; /* Adjust width as needed */
+  max-width: 600px; /* Max width for larger screens */
+  background: #fff; /* Background color */
+  padding: 20px; /* Padding */
+  border-radius: 10px; /* Border radius */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
+/* Style for the container of the table */
+.card-body {
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+/* Style for the table */
+
+
+
+.table {
+  width: 72%; 
+  height: 400px; 
+   margin-left: 300px;
+   margin-right: 200px;
+margin-top: 82px;
+  overflow-y: auto; /* Add vertical scrollbar when content exceeds height */
+}
+
+
+
+/* Style for table header */
+.table-header th {
+  background-color: #343a40; /* Dark background color */
+  color: #fff; 
+ 
+  /* Text color */
+}
+
+/* Style for table rows */
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row color */
+
   
-  .form-control {
-    width: 300px; /* Adjust the width of the input */
-  }
-  
-  .total-users {
-    font-weight: bold; /* Make the text bold */
-    margin-top: 10px; /* Add margin to the top */
-  }
-  
-  .table-header th {
-    text-align: center; /* Center align the table header */
-  }
-  
-  .btn {
-    padding: 5px 10px; /* Add padding to the buttons */
-    border-radius: 5px; /* Add border-radius to round the corners */
-  }
-  
-  .btn-add {
-    margin-right: 10px; /* Add margin to the right of the "Add" button */
-  }
-  
-  .btn-success {
-    background-color: #28a745; /* Change background color for success button */
-    color: #fff; /* Change text color */
-  }
-  
-  .btn-danger {
-    background-color: #dc3545; /* Change background color for danger button */
-    color: #fff; /* Change text color */
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333; /* Change background color on hover */
-  }
-  
-  /* Responsive styles */
-  
-  /* Ensure the container covers the entire screen */
-  .container-fluid {
-    position: fixed; /* Fix the position */
-    top: 0; /* Position from the top */
-    left: 0; /* Position from the left */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scrolling if content overflows */
-  }
-  
-  /* Center align content vertically and horizontally */
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%; /* Ensure the card body takes up full height */
-  }
-  
-  /* Additional styles for the card */
-  .card {
-    width: 80%; /* Adjust width as needed */
-    max-width: 600px; /* Max width for larger screens */
-    background: #fff; /* Background color */
-    padding: 20px; /* Padding */
-    border-radius: 10px; /* Border radius */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Box shadow */
-  }
-  
-  /* Style for the container of the table */
-  .card-body {
-    overflow-x: auto; /* Enable horizontal scrolling */
-  }
-  
-  /* Style for the table */
-  .table {
-    width: 100%; /* Make the table take up the entire width of its container */
-    border-collapse: collapse; /* Collapse the borders between table cells */
-  }
-  
-  /* Style for table header */
-  .table-header th {
-    background-color: #343a40; /* Dark background color */
-    color: #fff; /* Text color */
-  }
-  
-  /* Style for table rows */
-  .table tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Alternate row color */
-  }
-  
-  /* Style for table cell */
-  .table td, .table th {
-    padding: 8px; /* Add padding to cells */
-    border: 1px solid #ddd; /* Add border to cells */
-  }
-  
-  /* Hover effect for table rows */
-  .table tbody tr:hover {
-    background-color: #ddd; /* Light gray background on hover */
-  }
-  
-  /* Style for buttons inside table cells */
-  .table td button {
-    margin-left: 5px; /* Add margin between buttons */
-  }
-  
-  /* Add more styles as needed */
-  .table td img {
-    border-radius: 50%; /* Make the border-radius 50% to create a circle */
-  }
+}
+
+/* Style for table cell */
+.table td, .table th {
+  padding: 8px; /* Add padding to cells */
+  border: 1px solid #ddd; /* Add border to cells */
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+  background-color: #ddd; /* Light gray background on hover */
+}
+
+/* Style for buttons inside table cells */
+.table td button {
+  margin-left: 5px; /* Add margin between buttons */
+}
+
+/* Add more styles as needed */
+.table td img {
+  border-radius: 50%; /* Make the border-radius 50% to create a circle */
+}
+/* displayuser.css */
+
+/* General styles */
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left side */
+}
+
+.search-bar {
+  margin-bottom: 10px; /* Add margin at the bottom of the search bar */
+}
+
+.form-control {
+  width: 200px; /* Adjust the width of the input */
+}
+
+/* Add more styles as needed */
+/* displayuser.css */
+
+/* General styles */
+
+/* displayuser.css */
+
+/* General styles */
+.container-fluid {
+  position: relative; /* Ensure the container is positioned relatively */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  position: absolute;
+  top: 10px; /* Adjust the top position */
+  right: 10px; /* Adjust the right position */
+}
+
+.form-control {
+  width: 200px; /* Adjust the width of the input */
+}
+
+/* displayuser.css */
+
+/* General styles */
+.container-fluid {
+  position: relative; /* Ensure the container is positioned relatively */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items horizontally */
+}
+
+.search-bar {
+  margin-top: auto; /* Push the search bar to the bottom */
+  margin-bottom: 10px; /* Add margin at the bottom of the search bar */
+}
+
+.form-control {
+  width: 200px; /* Adjust the width of the input */
+}
+
+.btn-add {
+  margin-top: 10px; /* Add margin to the top of the "Add" button */
+}
+/* displayuser.css */
+
+/* General styles */
+/* displayuser.css */
+
+/* General styles */
+.container-fluid {
+  position: relative; /* Ensure the container is positioned relatively */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items horizontally */
+}
+
+.search-bar {
+  margin-top: 50px; /* Add more margin to the top of the search bar */
+  margin-bottom: 10px; /* Add margin at the bottom of the search bar */
+}
+
+.form-control {
+  width: 200px; /* Adjust the width of the input */
+}
+
+.btn-add {
+  margin-top: 10px; /* Add margin to the top of the "Add" button */
+}
+
+.searc-bar {
+  margin-top: 1000px; /* Add margin at the bottom of the search bar */
+}
+.button-container {
+  margin-top: 60px; /* Adjust the margin-top as needed */
+}
+
+.password-cell {
+  line-height: 1.5em; /* Set the line height to 1.5 times the font size */
+  height: 3em; /* Set the height of the cell to 3 times the line height */
+  overflow: hidden; /* Hide any content that overflows */
+  white-space: pre-wrap; /* Preserve line breaks and wrap text */
+  word-wrap: break-word; /* Break long words and wrap */
+  word-break: break-all; /* Break words when they overflow the container */
+  text-overflow: ellipsis; /* Show an ellipsis (...) for truncated text */
+  width: 100%; /* Ensure the cell takes up the full width */
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.white-btn {
+  color: white;
+}
+
+
+
+
+
+
+/* Add more styles as needed */
+/* Assuming you are using an external CSS file, e.g., displayuser.css */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.left-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.total-users {
+  margin-right: 10px;
+}
+
+.search-bar {
+  margin-top: 80px; /* Add some margin to separate from the action bar */
+  margin-bottom: 20px; /* Add some margin to separate from the table */
+}

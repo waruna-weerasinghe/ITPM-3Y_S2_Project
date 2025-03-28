@@ -40,7 +40,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8175/user/login', { email, password })
+        axios.post('http://localhost:8080/user/login', { email, password })
             .then((result) => {
                 console.log(result);
                 if (result.data.status === 'success') {
@@ -49,7 +49,8 @@ function Login() {
                     Cookies.set('userId', result.data.userId, { expires: 1 }); // Store user ID in cookies
                     Cookies.set('role', result.data.role, { expires: 1 });
                     const isAdmin = result.data.isAdmin;
-                    const isStaff = result.data.isStaff; // New
+                    const isStaff = result.data.isStaff; 
+                    
     
                     Swal.fire({
                         position: "center",
@@ -58,11 +59,12 @@ function Login() {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                  
     
                     if (isAdmin) {
-                        navigate('/admin');
+                        navigate('/userdetails');
                     } else if (isStaff) { // Check if user is staff
-                        navigate('/staff'); // Navigate to staff page
+                        navigate('/staff/mLeave'); // Navigate to staff page
                     } else {
                         navigate('/');
                     }
@@ -94,20 +96,20 @@ function Login() {
                     <h3 className="title">DE-RUSH</h3>
                     <p className="text">
                        
-                    Style Sustainably, Shop Rewardingly!
+                    Welcome to our online clothing shop!
                     </p>
                     <div className="info">
                         <div className="information d-flex align-items-center">
                             <i className="bi bi-geo-alt-fill fs-5 me-3"></i>
-                            <p className="mb-0">No:260/3, Pahala Biyanwila, Kadawatha, Sri Lanka</p>
+                            <p className="mb-0">No:43, Kandy Road, Kadawatha, Sri Lanka</p>
                         </div>
                         <div className="information">
                             <i className="bi bi-envelope-fill fs-5 me-3"></i>
-                            <p className="mb-0">derushclotingstore@gmail.com</p>
+                            <p className="mb-0">derushclothing@gmail.com</p>
                         </div>
                         <div className="information">
                             <i className="bi bi-telephone-fill fs-5 me-3"></i>
-                            <p className="mb-0">+94 78 167 0221</p>
+                            <p className="mb-0">+94 757 717 569</p>
                         </div>
                     </div>
                     <div className="social-media">
