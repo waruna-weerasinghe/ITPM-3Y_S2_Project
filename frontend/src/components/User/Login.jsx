@@ -6,9 +6,12 @@ import Swal from 'sweetalert2';
 import './style.css';
 
 function Login() {
-    const [email, setEmail] = useState(""); 
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,63 +42,91 @@ function Login() {
         };
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (!email || !password) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Please fill in all fields",
-            });
+        setError(null);
+        setIsLoading(true);
+
+        // Basic validation
+        if (!formData.email || !formData.password) {
+            setError("Please enter both email and password");
+            setIsLoading(false);
             return;
         }
 
-        setLoading(true);
-        axios.post('http://localhost:8080/user/login', { email, password })
-            .then((result) => {
-                setLoading(false);
-                if (result.data.status === 'success') {
-                    Cookies.set('userEmail', email, { expires: 1 });
-                    Cookies.set('userId', result.data.userId, { expires: 1 });
-                    Cookies.set('role', result.data.role, { expires: 1 });
-                    const isAdmin = result.data.isAdmin;
-                    const isStaff = result.data.isStaff; 
-                    
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Login successful",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                  
-                    if (isAdmin) {
-                        navigate('/userdetails');
-                    } else if (isStaff) {
-                        navigate('/staff/mLeave');
-                    } else {
-                        navigate('/');
-                    }
-                } else if (result.data.status === 'no record existed') {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error...",
-                        text: "Email does not exist. Please register.",
-                    });
-                }
-            })
-            .catch((err) => {
-                setLoading(false);
-                console.log(err);
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Email or password incorrect. Please try again.",
-                });
+        try {
+            const response = await axios.post('http://localhost:8080/user/login', formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                timeout: 10000 // 10 second timeout
             });
-    }
-    
+
+            console.log("Login response:", response.data);
+
+            if (response.data && response.data.status === 'success') {
+                // Store authentication data
+                Cookies.set('userEmail', formData.email, { expires: 1 });
+                Cookies.set('userId', response.data.userId, { expires: 1 });
+                Cookies.set('role', response.data.role, { expires: 1 });
+
+                await Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Login successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                // Redirect based on role
+                if (response.data.isAdmin) {
+                    navigate('/userdetails');
+                } else if (response.data.isStaff) {
+                    navigate('/staff/mLeave');
+                } else {
+                    navigate('/');
+                }
+            } else {
+                throw new Error(response.data?.message || "Invalid server response");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            
+            let errorMessage = "Login failed. Please try again.";
+            
+            if (error.response) {
+                // Server responded with error status
+                if (error.response.status === 401) {
+                    errorMessage = "Invalid email or password";
+                } else if (error.response.data?.message) {
+                    errorMessage = error.response.data.message;
+                }
+            } else if (error.request) {
+                // Request was made but no response received
+                errorMessage = "Server not responding. Please try again later.";
+            } else {
+                // Other errors
+                errorMessage = error.message;
+            }
+
+            setError(errorMessage);
+            Swal.fire({
+                icon: "error",
+                title: "Login Error",
+                text: errorMessage,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="login-wrapper">
             <div className="container">
@@ -104,17 +135,15 @@ function Login() {
                 <div className="form">
                     <div className="contact-info">
                         <h3 className="title">DE-RUSH</h3>
-                        <p className="text">
-                            Welcome to our online clothing shop!
-                        </p>
+                        <p className="text">Welcome to our online clothing shop!</p>
                         <div className="info">
                             <div className="information">
                                 <i className="bi bi-geo-alt-fill icon"></i>
-                                <p>No:43, Kandy Road, Kadawatha, Sri Lanka</p>
+                                <p>No:43, Namaluwa Rd, Dekatana, Sri Lanka</p>
                             </div>
                             <div className="information">
                                 <i className="bi bi-envelope-fill icon"></i>
-                                <p>derushclothing@gmail.com</p>
+                                <p>derush@gmail.com</p>
                             </div>
                             <div className="information">
                                 <i className="bi bi-telephone-fill icon"></i>
@@ -124,8 +153,12 @@ function Login() {
                         <div className="social-media">
                             <p>Connect with us:</p>
                             <div className="social-icons">
-                                <a href="#"><i className="bi bi-facebook"></i></a>
-                                <a href="#"><i className="bi bi-whatsapp"></i></a>
+                                <button type="button" className="social-icon">
+                                    <i className="bi bi-facebook"></i>
+                                </button>
+                                <button type="button" className="social-icon">
+                                    <i className="bi bi-whatsapp"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -134,14 +167,16 @@ function Login() {
                         <span className="circle two"></span>
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <h3 className="title">Login</h3>
+                            {error && <div className="error-message">{error}</div>}
                             <div className="input-container">
                                 <input 
                                     type="email" 
                                     name="email" 
                                     className="input" 
-                                    value={email} 
-                                    onChange={(e) => setEmail(e.target.value)} 
+                                    value={formData.email} 
+                                    onChange={handleChange} 
                                     required
+                                    disabled={isLoading}
                                 />
                                 <label>Email</label>
                                 <span>Email</span>
@@ -151,22 +186,30 @@ function Login() {
                                     type="password" 
                                     name="password" 
                                     className="input" 
-                                    value={password} 
-                                    onChange={(e) => setPassword(e.target.value)} 
+                                    value={formData.password} 
+                                    onChange={handleChange} 
                                     required
+                                    disabled={isLoading}
                                 />
                                 <label>Password</label>
                                 <span>Password</span>
                             </div>
-                            <input 
+                            <button 
                                 type="submit" 
-                                value={loading ? "Logging in..." : "Login"} 
-                                className="btn" 
-                                disabled={loading}
-                            />
+                                className="btn"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <span className="spinner"></span> Logging in...
+                                    </>
+                                ) : (
+                                    "Login"
+                                )}
+                            </button>
                         </form>
                         <div className="auth-links">
-                            <p>Don't have an account? <Link to="/signup">Register</Link></p>
+                            <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
                             <p><Link to="/forgot-password">Forgot Password?</Link></p>
                         </div>
                     </div>

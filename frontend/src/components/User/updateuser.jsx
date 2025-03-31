@@ -18,7 +18,7 @@ function UpdateUsers() {
     const [file, setFile] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:8175/user/getUser/${id}`)
+        axios.get(`http://localhost:8080/user/getUser/${id}`)
             .then(result => {
                 setName(result.data.name);
                 setEmail(result.data.email);
@@ -85,7 +85,7 @@ function UpdateUsers() {
         }
 
         // If all validations pass, proceed with the update request
-        axios.put(`http://localhost:8175/user/userupdate/${id}`, updateData)
+        axios.put(`http://localhost:8080/user/userupdate/${id}`, updateData)
             .then((result) => {
                 Swal.fire({
                     position: "center",
@@ -128,7 +128,7 @@ function UpdateUsers() {
         const formData = new FormData();
         formData.append('file', file);
 
-        axios.post(`http://localhost:8175/user/userimageupdate/${id}`, formData)
+        axios.post(`http://localhost:8080/user/userimageupdate/${id}`, formData)
             .then(res => {
                 Swal.fire({
                     position: "center",
@@ -150,7 +150,7 @@ function UpdateUsers() {
     };
     
     const handleRemovePhoto = () => {
-        axios.post(`http://localhost:8175/user/userremove-image/${id}`)
+        axios.post(`http://localhost:8080/user/userremove-image/${id}`)
             .then(res => {
                 Swal.fire({
                     position: "center",
@@ -174,7 +174,7 @@ function UpdateUsers() {
     const handleClickProfilePicture = () => {
         if (image) {
             Swal.fire({
-                imageUrl: `http://localhost:8175/image/${image}`,
+                imageUrl: `http://localhost:8080/image/${image}`,
                 imageAlt: 'Profile Picture',
                 showCloseButton: true,
                 showConfirmButton: false,
@@ -190,7 +190,7 @@ function UpdateUsers() {
             <div className="image-container">
                 {image ? (
                     <img
-                        src={`http://localhost:8175/image/${image}`}
+                        src={`http://localhost:8080/image/${image}`}
                         alt="Profile"
                         style={{ borderRadius: '50%', cursor: 'pointer', width: '100px', height: '100px' }}
                         onClick={handleClickProfilePicture}

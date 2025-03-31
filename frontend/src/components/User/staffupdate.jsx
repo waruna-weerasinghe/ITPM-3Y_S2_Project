@@ -18,7 +18,7 @@ function UpdateStaff() {
     const [file, setFile] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:8175/user/getUser/${id}`)
+        axios.get(`http://localhost:8080/user/getUser/${id}`)
             .then(result => {
                 setName(result.data.name);
                 setEmail(result.data.email);
@@ -68,7 +68,7 @@ function UpdateStaff() {
         }
 
         // If all validations pass, proceed with the update request
-        axios.put(`http://localhost:8175/user/staffupdate/${id}`, {
+        axios.put(`http://localhost:8080/user/staffupdate/${id}`, {
             name,
             email,
             password,
@@ -105,7 +105,7 @@ function UpdateStaff() {
         const formData = new FormData();
         formData.append('file', file);
 
-        axios.post(`http://localhost:8175/user/userimageupdate/${id}`, formData)
+        axios.post(`http://localhost:8080/user/userimageupdate/${id}`, formData)
             .then(res => {
                 console.log(res);
                 
@@ -115,7 +115,7 @@ function UpdateStaff() {
     };
     
     const handleRemovePhoto = () => {
-        axios.post(`http://localhost:8175/user/userremove-image/${id}`) // Include the user's ID in the URL
+        axios.post(`http://localhost:8080/user/userremove-image/${id}`) // Include the user's ID in the URL
             .then(res => {
                 console.log(res);
                 setImage(null);

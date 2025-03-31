@@ -11,7 +11,7 @@ function Users() {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8175/user/userdetails')
+        axios.get('http://localhost:8080/user/userdetails')
             .then(result => {
                 console.log(result.data);
                 setUsers(result.data.users || []);
@@ -38,7 +38,7 @@ function Users() {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8175/user/deleteUser/${userId}`)
+                axios.delete(`http://localhost:8080/user/deleteUser/${userId}`)
                     .then(() => {
                         setUsers(users.filter((user) => user._id !== userId));
                         Swal.fire({
