@@ -1,0 +1,1 @@
+We build the echo friendly clothing web site and also user encourage to the involve to the oure echo friendly system for using Loyalty points based system. When customer give to the system their old cloths and garments , the relevant to that garments they can earn loyalty Points and they can payment to the products using that Loyalty points.
