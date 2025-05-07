@@ -1,56 +1,69 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 
-// Load environment variables
-dotenv.config();
-
+// Set up Express app
 const app = express();
-const PORT = process.env.PORT || 8080;
-const MONGO_URI = process.env.MONGODB_URL;
+const port = 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Replaces bodyParser.json()
+app.use(express.json());
 
-// Serve static files (Images)
-app.use("/uploads", express.static("uploads")); // This ensures that files in 'uploads' are served
+// Connect to MongoDB (replace with your own MongoDB URI)
+mongoose.connect('mongodb://localhost:27017/clothesstore', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// MongoDB connection
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("✅ MongoDB Connection Success!");
-});
+// Define the Clothes model
+const Clothe = mongoose.model('Clothe', new mongoose.Schema({
+    name: String,
+    category: String,
+    price: Number,
+    image: String,
+}));
 
 // Routes
-const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
-const userRouter = require("./routes/User/Employees.js");
-// Uncomment if OrderRouter is needed
-// const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
-
-app.use("/LoyaltyProgramme", LoyaltyRouter);
-app.use("/user", userRouter);
-// app.use("/order", OrderRouter); // Uncomment if needed
-
-const clothesRouter = require("./routes/Clothes/clothes.js");
-app.use("/api/clothes", clothesRouter); // 🔥 this matches the frontend
-
-// Test routes
-app.get("/", (req, res) => {
-  res.send("Welcome to our De-Rush Clothing Store API...");
+app.get('/api/clothes', async (req, res) => {
+    try {
+        const clothes = await Clothe.find();
+        res.json(clothes);
+    } catch (error) {
+        res.status(500).send('Error fetching clothes');
+    }
 });
 
-app.get("/product", (req, res) => {
-  res.send([2, 3, 4]); // Example response
+app.post('/api/clothes', async (req, res) => {
+    const { name, category, price, image } = req.body;
+    const newClothe = new Clothe({ name, category, price, image });
+    try {
+        await newClothe.save();
+        res.status(201).json(newClothe);
+    } catch (error) {
+        res.status(500).send('Error adding clothe');
+    }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+app.put('/api/clothes/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, category, price, image } = req.body;
+    try {
+        const updatedClothe = await Clothe.findByIdAndUpdate(id, { name, category, price, image }, { new: true });
+        res.json(updatedClothe);
+    } catch (error) {
+        res.status(500).send('Error updating clothe');
+    }
+});
+
+app.delete('/api/clothes/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Clothe.findByIdAndDelete(id);
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).send('Error deleting clothe');
+    }
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
