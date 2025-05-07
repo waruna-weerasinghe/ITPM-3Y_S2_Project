@@ -24,10 +24,10 @@ import Users from "./components/User/displayuserdetails";
 import CreateUsers from "./components/User/createuser";
 import AccountDetails from "./components/User/AccountDetails";
 import SecuritySettings from "./components/User/SecuritySettings";
-import CreateStaff from "./components/User/createstaff";
-import UpdateStaff from "./components/User/staffupdate";
+ 
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminClothesManager from './admin/AdminClothesManager';
 
 // Route Guards
 const AdminRouteGuard = ({ element }) => {
@@ -79,6 +79,7 @@ function App() {
         {/* Cart & Admin */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/clothes" element={<AdminClothesManager />} />
 
         {/* Fallback Routes */}
         <Route path="/not-found" element={<NotFound />} />
