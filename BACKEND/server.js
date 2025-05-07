@@ -41,7 +41,6 @@ app.use("/user", userRouter);
 const clothesRouter = require("./routes/Clothes/clothes.js");
 app.use("/api/clothes", clothesRouter); // 🔥 this matches the frontend
 
-
 // Test routes
 app.get("/", (req, res) => {
   res.send("Welcome to our De-Rush Clothing Store API...");
@@ -55,4 +54,3 @@ app.get("/product", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-s
