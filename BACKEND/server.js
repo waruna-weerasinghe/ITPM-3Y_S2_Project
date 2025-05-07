@@ -13,7 +13,9 @@ const MONGO_URI = process.env.MONGODB_URL;
 // Middleware
 app.use(cors());
 app.use(express.json()); // Replaces bodyParser.json()
-app.use(express.static('uploads/images'));
+
+// Serve static files (Images)
+app.use("/uploads", express.static("uploads")); // This ensures that files in 'uploads' are served
 
 // MongoDB connection
 mongoose.connect(MONGO_URI, {
@@ -28,12 +30,17 @@ connection.once("open", () => {
 
 // Routes
 const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
-const userRouter = require('./routes/User/Employees.js');
+const userRouter = require("./routes/User/Employees.js");
+// Uncomment if OrderRouter is needed
 // const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
 
 app.use("/LoyaltyProgramme", LoyaltyRouter);
 app.use("/user", userRouter);
-// app.use("/order", OrderRouter);
+// app.use("/order", OrderRouter); // Uncomment if needed
+
+const clothesRouter = require("./routes/Clothes/clothes.js");
+app.use("/api/clothes", clothesRouter); // 🔥 this matches the frontend
+
 
 // Test routes
 app.get("/", (req, res) => {
@@ -41,10 +48,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/product", (req, res) => {
-  res.send([2, 3, 4]);
+  res.send([2, 3, 4]); // Example response
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+s

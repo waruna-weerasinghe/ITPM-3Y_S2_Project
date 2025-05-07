@@ -16,19 +16,39 @@ const AdminClothesManager = () => {
   }, []);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      setForm({ ...form, image: e.target.files[0] }); // Handling file input
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editId) {
-      await axios.put(`http://localhost:8080/api/clothes/${editId}`, form);
-    } else {
-      await axios.post("http://localhost:8080/api/clothes", form);
+
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("price", form.price);
+    formData.append("image", form.image); // Add the image file to formData
+    formData.append("category", form.category);
+
+    try {
+      if (editId) {
+        await axios.put(`http://localhost:8080/api/clothes/${editId}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else {
+        await axios.post("http://localhost:8080/api/clothes", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }
+
+      setForm({ name: "", price: "", image: "", category: "" });
+      setEditId(null);
+      fetchClothes();
+    } catch (error) {
+      console.error("Error uploading the clothing item", error);
     }
-    setForm({ name: "", price: "", image: "", category: "" });
-    setEditId(null);
-    fetchClothes();
   };
 
   const handleEdit = (clothe) => {
@@ -66,10 +86,8 @@ const AdminClothesManager = () => {
           required
         />
         <input
-          type="text"
+          type="file"
           name="image"
-          value={form.image}
-          placeholder="Image URL"
           onChange={handleChange}
           className="border p-2 rounded"
           required
@@ -92,7 +110,11 @@ const AdminClothesManager = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {clothes.map((clothe) => (
           <div key={clothe._id} className="p-4 border rounded shadow">
-            <img src={clothe.image} alt={clothe.name} className="h-40 object-cover w-full rounded" />
+            <img
+              src={`http://localhost:8080/${clothe.image}`}
+              alt={clothe.name}
+              className="h-40 object-cover w-full rounded"
+            />
             <h3 className="text-xl font-semibold mt-2">{clothe.name}</h3>
             <p>${clothe.price}</p>
             <p className="text-sm text-gray-600">{clothe.category}</p>
