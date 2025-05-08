@@ -12,6 +12,9 @@ function Header() {
         <a className="nav-link" href="/addForm">LoyaltyForm</a>
       </li>
       <li className="nav-item">
+        <a className="nav-link" href="/UserLoyalty">User loyalty submit</a>
+      </li>
+      <li className="nav-item">
         <a className="nav-link" href="list">List</a>
       </li>
       <li className="nav-item">

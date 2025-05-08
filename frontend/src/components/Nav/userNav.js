@@ -78,7 +78,7 @@ function UserNav() {
                 activeLink === '/srevice' ? 'text-indigo-500' : ''
               }`}
             >
-              Srevice
+              Loyalty Form
             </Link>
             <Link
               to="#"
