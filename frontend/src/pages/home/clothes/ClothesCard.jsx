@@ -52,7 +52,6 @@ const ClothesCard = ({ clothe }) => {
                             </button>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                                {/* Product Image - Made larger and centered */}
                                 <div className="h-[70vh] bg-gray-100 flex items-center justify-center p-8">
                                     <img
                                         src={clothe.coverImage}
@@ -61,7 +60,6 @@ const ClothesCard = ({ clothe }) => {
                                     />
                                 </div>
                                 
-                                {/* Product Details */}
                                 <div className="p-8 overflow-y-auto h-[70vh]">
                                     <div className="space-y-6">
                                         <div>
