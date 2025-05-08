@@ -1,53 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import { ShoppingCart } from 'lucide-react';
-
-const images = [
-  "02_story.png", "01_story.png", "12_story.png", "16_story.png",
-  "06_story.png", "08_story.png", "09_story.png", "10_story.png", "11_story.png",
-];
+import React, { useState } from 'react';
 
 const Banner = () => {
-  const [currentImage, setCurrentImage] = useState(0);
+    const [hoveredItem, setHoveredItem] = useState(null);
+    
+    const fashionItems = [
+        { id: 1, image: "01_story.png", title: "Silk Evening Gown", price: "$4,850" },
+        { id: 2, image: "02_story.png", title: "Cashmere Trench", price: "$3,200" },
+        { id: 3, image: "06_story.png", title: "Leather Corset", price: "$2,950" },
+        { id: 4, image: "08_story.png", title: "Velvet Blazer", price: "$2,600" },
+        { id: 5, image: "09_story.png", title: "Chiffon Dress", price: "$3,750" },
+        { id: 6, image: "12_story.png", title: "Wool Tailored Suit", price: "$4,200" }
+    ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="relative overflow-hidden shadow-2xl max-w-7xl mx-auto bg-gradient-to-br from-[#121212] via-[#1F1F1F] to-[#282828] px-10 py-20 sm:px-14 sm:py-24 mt-8 rounded-3xl">
-      {/* Background image with blur */}
-      <div className="absolute inset-0 z-0 bg-cover bg-center blur-md opacity-30" style={{ backgroundImage: `url(${images[currentImage]})` }} />
-
-      {/* Foreground Content */}
-      <div className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-14 lg:gap-32 text-center lg:text-left">
-        {/* Text */}
-        <div className="flex-1 text-white space-y-5 text-center lg:text-left">
-          <h2 className="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#F7B8B8] to-[#F7E6A2] tracking-tight leading-tight">
-            Luxe Limited Edition Collection
-          </h2>
-          <p className="text-xl sm:text-2xl font-light text-white/90 max-w-2xl">
-            Immerse yourself in the exclusive, high-end fashion experience. Perfected for the discerning few who value unparalleled luxury.
-          </p>
-          <button className="mt-6 inline-flex items-center gap-3 bg-gradient-to-r from-[#F7B8B8] to-[#F7E6A2] text-[#121212] hover:bg-[#F7E6A2] text-lg sm:text-xl font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl">
-            <ShoppingCart size={20} />
-            Shop the Drop
-          </button>
+    return (
+        <div className="relative w-full min-h-[100vh] flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 py-12 px-6 md:py-24 md:px-16 rounded-[48px] shadow-2xl overflow-hidden max-w-8xl mx-auto border border-gray-700/50">
+            
+            {/* **ANIMATED DIAMOND BACKGROUND** */}
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+                {[...Array(50)].map((_, i) => (
+                    <div 
+                        key={i}
+                        className="absolute w-1.5 h-1.5 bg-white rotate-45 animate-pulse"
+                        style={{
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 2}s`,
+                            animationDuration: `${2 + Math.random() * 3}s`
+                        }}
+                    />
+                ))}
+            </div>
+            
+            {/* **RUNWAY LIGHTS WITH ANIMATION** */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent animate-runwayLight"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent animate-runwayLight animation-delay-1000"></div>
+            
+            {/* **MAIN CONTENT** */}
+            <div className="relative z-20 w-full max-w-6xl mx-auto text-center">
+                
+                {/* **LUXURY HEADER WITH MICRO-INTERACTIONS** */}
+                <div className="group">
+                    <p className="text-xs font-light tracking-[0.5em] text-amber-400/80 mb-6 transition-all duration-500 group-hover:tracking-[0.6em]">
+                        AUTUMN/WINTER COLLECTION
+                    </p>
+                    <h1 className="text-5xl md:text-7xl font-thin text-white tracking-tight mb-6">
+                        <span className="font-serif italic group-hover:italic-non group-hover:text-amber-50 transition-all duration-500">L'Élégance</span> 
+                        <span className="text-amber-400 mx-2 group-hover:rotate-90 transition-transform duration-500">·</span> 
+                        <span className="font-serif group-hover:italic group-hover:text-amber-50 transition-all duration-500">Noir</span>
+                    </h1>
+                </div>
+                
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto my-8 group-hover:w-32 transition-all duration-700"></div>
+                
+                <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light mb-12 group-hover:text-amber-50/80 transition-all duration-500">
+                    The pinnacle of craftsmanship. Limited to <span className="text-amber-300 font-medium">50 pieces worldwide</span>.
+                </p>
+                
+                {/* **ENHANCED FASHION GRID WITH HOVER DETAILS** */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-16">
+                    {fashionItems.map((item) => (
+                        <div 
+                            key={item.id}
+                            className="relative group overflow-hidden rounded-xl border border-gray-700/50 hover:border-amber-400/30 transition-all duration-500"
+                            onMouseEnter={() => setHoveredItem(item.id)}
+                            onMouseLeave={() => setHoveredItem(null)}
+                        >
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                {hoveredItem === item.id && (
+                                    <div className="absolute bottom-4 left-4 right-4 text-left text-white transform translate-y-0 opacity-100 transition-all duration-500">
+                                        <h3 className="font-light text-lg mb-1">{item.title}</h3>
+                                        <p className="text-amber-300 text-sm">{item.price}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+                {/* **PREMIUM CALL-TO-ACTION** */}
+                <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                    <button className="relative overflow-hidden py-4 px-12 bg-gradient-to-r from-amber-600 to-amber-800 text-white font-light rounded-full shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 border border-amber-500/40 tracking-wider group">
+                        <span className="relative z-10 flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                            SHOP THE COLLECTION
+                        </span>
+                        <span className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                    </button>
+                    
+                    <button className="relative py-4 px-10 border border-gray-600/50 text-gray-300 font-light rounded-full hover:bg-white/5 transition-all duration-500 hover:scale-105 flex items-center gap-3 tracking-wider group">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        LOOKBOOK
+                        <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-amber-400 group-hover:w-3/4 transition-all duration-500"></span>
+                    </button>
+                </div>
+            </div>
+            
+            {/* **ANIMATED BRAND SIGNATURE** */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center group hover:opacity-100 transition-opacity duration-500 opacity-80">
+                <svg className="w-24 h-auto text-amber-400/30 group-hover:text-amber-400/50 transition-colors duration-500" viewBox="0 0 100 10">
+                    <path d="M10,5 Q20,10 30,5 T50,5 T70,5 T90,5" 
+                          stroke="currentColor" 
+                          strokeWidth="0.8" 
+                          fill="none" 
+                          strokeLinecap="round"/>
+                </svg>
+                <p className="text-xs text-center text-amber-400/50 group-hover:text-amber-400/70 tracking-[0.5em] transition-colors duration-500">MAISON D'ART</p>
+            </div>
         </div>
-
-        {/* Image */}
-        <div className="flex-shrink-0 w-full max-w-lg h-[28rem] sm:h-[30rem] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/20">
-          <img
-            src={images[currentImage]}
-            alt="Limited Edition Drop"
-            className="w-full h-full object-cover transition duration-700 ease-in-out transform hover:scale-105 hover:shadow-2xl"
-          />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Banner;
