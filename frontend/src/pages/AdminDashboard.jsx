@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const AdminDashboard = () => {
@@ -20,6 +20,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState('');
   const [tempSize, setTempSize] = useState('');
   const [tempColor, setTempColor] = useState('');
+  const formRef = useRef(null); // 👈 ref to scroll to form
 
   const categories = ['men', 'women', 'kids'];
   const allSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2T', '3T', '4T', '5T', '6T', '7T', '6', '7', '8', '9', '10', '11', '12'];
@@ -116,11 +117,13 @@ const AdminDashboard = () => {
   const handleEdit = (product) => {
     setFormData({ ...product });
     setEditingId(product._id);
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-
       setProducts(products.filter(product => product._id !== id));
     }
   };
@@ -136,7 +139,7 @@ const AdminDashboard = () => {
       )}
 
       {/* Product Form */}
-      <div className="bg-white p-6 rounded-xl shadow-lg mb-12">
+      <div ref={formRef} className="bg-white p-6 rounded-xl shadow-lg mb-12">
         <h2 className="text-2xl font-semibold mb-4">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
