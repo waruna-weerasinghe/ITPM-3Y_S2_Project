@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import TopSellers from './TopSellers';
 
 const Banner = () => {
     const [hoveredItem, setHoveredItem] = useState(null);
     const [showLookbook, setShowLookbook] = useState(false);
+    const [showRatings, setShowRatings] = useState(false);  // New state to control showing ratings
 
     const fashionItems = [
-        { id: 1, image: "01_story.png", title: "Silk Evening Gown", price: "$4,850" },
-        { id: 2, image: "02_story.png", title: "Cashmere Trench", price: "$3,200" },
-        { id: 3, image: "06_story.png", title: "Leather Corset", price: "$2,950" },
-        { id: 4, image: "08_story.png", title: "Velvet Blazer", price: "$2,600" },
-        { id: 5, image: "09_story.png", title: "Chiffon Dress", price: "$3,750" },
-        { id: 6, image: "12_story.png", title: "Wool Tailored Suit", price: "$4,200" }
+        { id: 1, image: "01_story.png", title: "Silk Evening Gown", price: "$4,850", ratings: 4.5 },
+        { id: 2, image: "02_story.png", title: "Cashmere Trench", price: "$3,200", ratings: 4.8 },
+        { id: 3, image: "06_story.png", title: "Leather Corset", price: "$2,950", ratings: 4.2 },
+        { id: 4, image: "08_story.png", title: "Velvet Blazer", price: "$2,600", ratings: 4.6 },
+        { id: 5, image: "09_story.png", title: "Chiffon Dress", price: "$3,750", ratings: 4.7 },
+        { id: 6, image: "12_story.png", title: "Wool Tailored Suit", price: "$4,200", ratings: 4.4 }
     ];
 
     useEffect(() => {
@@ -88,14 +88,16 @@ const Banner = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                    <button className="relative overflow-hidden py-4 px-12 bg-gradient-to-r from-amber-600 to-amber-800 text-white font-light rounded-full shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 border border-amber-500/40 tracking-wider group">
+                    <button 
+                        onClick={() => setShowRatings(true)} // Show ratings when clicked
+                        className="relative overflow-hidden py-4 px-12 bg-gradient-to-r from-amber-600 to-amber-800 text-white font-light rounded-full shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 border border-amber-500/40 tracking-wider group"
+                    >
                         <span className="relative z-10 flex items-center gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
                             SHOP THE COLLECTION
                         </span>
-                        <span className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                     </button>
 
                     <button 
@@ -107,21 +109,31 @@ const Banner = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                         LOOKBOOK
-                        <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-amber-400 group-hover:w-3/4 transition-all duration-500"></span>
                     </button>
                 </div>
             </div>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center group hover:opacity-100 transition-opacity duration-500 opacity-80">
-                <svg className="w-24 h-auto text-amber-400/30 group-hover:text-amber-400/50 transition-colors duration-500" viewBox="0 0 100 10">
-                    <path d="M10,5 Q20,10 30,5 T50,5 T70,5 T90,5" 
-                          stroke="currentColor" 
-                          strokeWidth="0.8" 
-                          fill="none" 
-                          strokeLinecap="round"/>
-                </svg>
-                <p className="text-xs text-center text-amber-400/50 group-hover:text-amber-400/70 tracking-[0.5em] transition-colors duration-500">MAISON D'ART</p>
-            </div>
+            {/* SHOP Ratings */}
+            {showRatings && (
+                <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex flex-col items-center justify-center p-8 overflow-y-auto">
+                    <button 
+                        onClick={() => setShowRatings(false)} 
+                        className="absolute top-6 right-6 text-gray-300 hover:text-amber-400 text-3xl font-light"
+                    >
+                        &times;
+                    </button>
+                    <h2 className="text-3xl text-white font-light mb-8 tracking-widest">Item Ratings</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full">
+                        {fashionItems.map(item => (
+                            <div key={item.id} className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700/40 p-4 text-white">
+                                <h3 className="text-lg font-light">{item.title}</h3>
+                                <p className="text-amber-300 text-sm">{item.price}</p>
+                                <p className="text-sm text-yellow-400">Ratings: {item.ratings} / 5</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* LOOKBOOK Modal */}
             {showLookbook && (
@@ -132,17 +144,10 @@ const Banner = () => {
                     >
                         &times;
                     </button>
-                    <h2 className="text-3xl text-white font-light mb-8 tracking-widest">LOOKBOOK</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full">
-                        {fashionItems.map(item => (
-                            <div key={item.id} className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700/40">
-                                <img src={item.image} alt={item.title} className="w-full h-auto object-cover" />
-                                <div className="p-4 text-white">
-                                    <h3 className="text-lg font-light">{item.title}</h3>
-                                    <p className="text-amber-300 text-sm">{item.price}</p>
-                                </div>
-                            </div>
-                        ))}
+                    <h2 className="text-3xl text-white font-light mb-8 tracking-widest">Shop Details</h2>
+                    <div className="max-w-6xl w-full text-center text-white">
+                        <p className="text-lg mb-4">Welcome to our exclusive shop! We offer luxury collections limited to 50 pieces worldwide. Our focus is on quality craftsmanship and timeless fashion.</p>
+                        <p className="text-sm">Follow us on social media for more updates on upcoming collections and special offers.</p>
                     </div>
                 </div>
             )}
