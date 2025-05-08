@@ -146,8 +146,31 @@ const Banner = () => {
                     </button>
                     <h2 className="text-3xl text-white font-light mb-8 tracking-widest">Shop Details</h2>
                     <div className="max-w-6xl w-full text-center text-white">
-                        <p className="text-lg mb-4">Welcome to our exclusive shop! We offer luxury collections limited to 50 pieces worldwide. Our focus is on quality craftsmanship and timeless fashion.</p>
-                        <p className="text-sm">Follow us on social media for more updates on upcoming collections and special offers.</p>
+                        <p className="text-lg mb-4">
+                            Welcome to our exclusive shop! We offer luxury collections limited to 50 pieces worldwide. 
+                            Our focus is on quality craftsmanship and timeless fashion.
+                        </p>
+                        <p className="text-sm mb-4">
+                            Each piece is designed to make you feel extraordinary and is crafted with the finest materials. 
+                            Don't miss out on our unique and limited designs.
+                        </p>
+                        <div className="mt-6">
+                            <h3 className="text-lg font-semibold text-amber-400">Follow Us</h3>
+                            <div className="flex justify-center gap-6 mt-4">
+                                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-amber-300">
+                                    Instagram
+                                </a>
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-amber-300">
+                                    Facebook
+                                </a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-amber-300">
+                                    Twitter
+                                </a>
+                            </div>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-8">
+                            Stay tuned for upcoming collections and special offers. Join our community of fashion enthusiasts.
+                        </p>
                     </div>
                 </div>
             )}

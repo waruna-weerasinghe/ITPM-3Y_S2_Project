@@ -16,7 +16,7 @@ const ClothesCard = ({ clothe }) => {
         e.stopPropagation();
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 2500);
-        // dispatch(addToCart(clothe)); // optional
+        // dispatch(addToCart(clothe));
     };
 
     const handleQuickView = (e) => {
@@ -119,7 +119,7 @@ const ClothesCard = ({ clothe }) => {
                 {/* Premium Ribbon */}
                 {clothe.premium && (
                     <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-8 bg-gold-500 transform rotate-45 translate-x-8 -translate-y-2 flex items-center justify-center shadow-md">
+                        <div className="absolute top-0 right-0 w-32 h-8 bg-yellow-400 transform rotate-45 translate-x-8 -translate-y-2 flex items-center justify-center shadow-md">
                             <span className="text-xs font-bold text-black uppercase tracking-wider">Premium</span>
                         </div>
                     </div>
@@ -140,7 +140,7 @@ const ClothesCard = ({ clothe }) => {
                     </div>
                 )}
 
-                {/* Image with Luxury Frame */}
+                {/* Image with hover zoom */}
                 <div className="w-full h-72 overflow-hidden relative flex-shrink-0">
                     <div className="absolute inset-0 border-8 border-white opacity-20 pointer-events-none"></div>
                     <img
@@ -148,7 +148,6 @@ const ClothesCard = ({ clothe }) => {
                         alt={clothe.name}
                         className={`w-full h-full object-cover transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`}
                     />
-                    {/* Overlay on hover */}
                     {isHovered && (
                         <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center transition-opacity duration-300">
                             <button 
@@ -165,7 +164,7 @@ const ClothesCard = ({ clothe }) => {
                     )}
                 </div>
 
-                {/* Content */}
+                {/* Product Details */}
                 <div className="p-5 flex flex-col flex-grow">
                     <div className="space-y-4 flex-grow">
                         <div>
@@ -196,7 +195,7 @@ const ClothesCard = ({ clothe }) => {
                         </div>
                     </div>
 
-                    {/* Button Container */}
+                    {/* Action Buttons */}
                     <div className="mt-auto pt-4">
                         <div className="flex gap-2 h-12">
                             <button
