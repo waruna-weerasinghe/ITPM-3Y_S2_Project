@@ -28,6 +28,7 @@ import SecuritySettings from "./components/User/SecuritySettings";
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminClothesManager from './admin/AdminClothesManager';
+ 
 
 // Route Guards
 const AdminRouteGuard = ({ element }) => {
@@ -46,6 +47,8 @@ const AllUsersRouteGuard = ({ element }) => {
 function App() {
   return (
     <>
+
+ 
       <Header />
       <ToastContainer />
       <Routes>

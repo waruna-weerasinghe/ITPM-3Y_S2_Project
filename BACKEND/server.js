@@ -13,6 +13,8 @@ app.use(express.json());
 // Connect to MongoDB (replace with your own MongoDB URI)
 mongoose.connect('mongodb://localhost:27017/clothesstore', { useNewUrlParser: true, useUnifiedTopology: true });
 
+app.use('/api/products', productRoutes);
+
 // Define the Clothes model
 const Clothe = mongoose.model('Clothe', new mongoose.Schema({
     name: String,
