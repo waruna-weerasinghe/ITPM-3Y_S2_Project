@@ -3,6 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Components
 import Header from './components/Loyalty/Header';
