@@ -24,11 +24,11 @@ import Users from "./components/User/displayuserdetails";
 import CreateUsers from "./components/User/createuser";
 import AccountDetails from "./components/User/AccountDetails";
 import SecuritySettings from "./components/User/SecuritySettings";
-//import Staff from "./Components/User/staffdetails";
-import CreateStaff from "./components/User/createstaff";
-import UpdateStaff from "./components/User/staffupdate";
+ 
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminClothesManager from './admin/AdminClothesManager';
+ 
 
 // Route Guards
 const AdminRouteGuard = ({ element }) => {
@@ -47,6 +47,8 @@ const AllUsersRouteGuard = ({ element }) => {
 function App() {
   return (
     <>
+
+ 
       <Header />
       <ToastContainer />
       <Routes>
@@ -72,13 +74,15 @@ function App() {
         <Route path="/securitysettings" element={<UserRouteGuard element={<SecuritySettings />} />} />
 
         {/* Staff Routes */}
+        {/* Uncomment if needed */}
         {/* <Route path="/staff" element={<AdminRouteGuard element={<Staff />} />} />
         <Route path="/createstaff" element={<AdminRouteGuard element={<CreateStaff />} />} />
         <Route path="/updatestaff/:id" element={<AdminRouteGuard element={<UpdateStaff />} />} /> */}
 
         {/* Cart & Admin */}
         <Route path="/cart" element={<Cart />} />
-        <Route path="/dashboard" element={<AdminDashboard />}  />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/clothes" element={<AdminClothesManager />} />
 
         {/* Fallback Routes */}
         <Route path="/not-found" element={<NotFound />} />

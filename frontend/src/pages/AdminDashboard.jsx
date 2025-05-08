@@ -1,128 +1,287 @@
-import React, { useState } from "react";
-import { FaBox, FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from 'react';
 
 const AdminDashboard = () => {
-    const [products, setProducts] = useState([
-        { id: 1, name: "Sample Product 1", price: 10.00, stock: 5 },
-        { id: 2, name: "Sample Product 2", price: 20.00, stock: 10 }
-    ]);
-    const [newProduct, setNewProduct] = useState({ name: "", price: "", stock: "" });
-    const [errors, setErrors] = useState({});
+  const [products, setProducts] = useState([]);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: 'men',
+    brand: '',
+    sizes: [],
+    colors: [],
+    trending: false,
+    coverImage: '',
+    oldPrice: '',
+    newPrice: ''
+  });
+  const [editingId, setEditingId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [tempSize, setTempSize] = useState('');
+  const [tempColor, setTempColor] = useState('');
+  const formRef = useRef(null);
 
-    const validateForm = () => {
-        let errors = {};
-        if (!newProduct.name.trim()) errors.name = "Product name is required";
-        if (!newProduct.price || isNaN(newProduct.price) || newProduct.price <= 0) errors.price = "Valid price is required";
-        if (!newProduct.stock || isNaN(newProduct.stock) || newProduct.stock < 0) errors.stock = "Valid stock quantity is required";
+  const categories = ['men', 'women', 'kids'];
+  const allSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2T', '3T', '4T', '5T', '6T', '7T', '6', '7', '8', '9', '10', '11', '12'];
+  const allColors = ['Black', 'White', 'Gray', 'Blue', 'Red', 'Yellow', 'Pink', 'Green', 'Navy', 'Purple', 'Beige', 'Khaki', 'Olive', 'Floral'];
 
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch('/clothes.json');
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        setError('Failed to fetch products');
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     };
+    fetchProducts();
+  }, []);
 
-    const handleAddProduct = () => {
-        if (!validateForm()) return;
+  const showSuccess = (message) => {
+    setSuccess(message);
+    setTimeout(() => setSuccess(''), 3000);
+  };
 
-        const newId = products.length ? products[products.length - 1].id + 1 : 1;
-        setProducts([...products, { id: newId, ...newProduct, price: parseFloat(newProduct.price), stock: parseInt(newProduct.stock) }]);
-        setNewProduct({ name: "", price: "", stock: "" });
-        setErrors({});
-    };
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
-    return (
-        <div className="flex h-screen bg-gray-100">
-            {/* Sidebar */}
-            <aside className="w-1/5 bg-gray-900 text-white p-6 flex flex-col space-y-6">
-                <h2 className="text-2xl font-bold">Admin Panel</h2>
-                <nav>
-                    <ul className="space-y-2">
-                        <li className="hover:bg-gray-700 p-3 rounded cursor-pointer">Dashboard</li>
-                        <li className="hover:bg-gray-700 p-3 rounded cursor-pointer">Orders</li>
-                        <li className="hover:bg-gray-700 p-3 rounded font-bold bg-blue-600">Products</li>
-                        <li className="hover:bg-gray-700 p-3 rounded cursor-pointer">Users</li>
-                        <li className="hover:bg-gray-700 p-3 rounded cursor-pointer">Settings</li>
-                    </ul>
-                </nav>
-            </aside>
+  const handleAddSize = () => {
+    if (tempSize && !formData.sizes.includes(tempSize)) {
+      setFormData(prev => ({ ...prev, sizes: [...prev.sizes, tempSize] }));
+      setTempSize('');
+    }
+  };
 
-            {/* Main Content */}
-            <main className="flex-1 p-6">
-                {/* Header */}
-                <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md mb-6">
-                    <h1 className="text-2xl font-bold text-gray-700">Product Management</h1>
-                    <button
-                        onClick={handleAddProduct}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center shadow-md transition">
-                        <FaPlus className="mr-2" /> Add Product
-                    </button>
-                </div>
+  const handleRemoveSize = (size) => {
+    setFormData(prev => ({
+      ...prev,
+      sizes: prev.sizes.filter(s => s !== size)
+    }));
+  };
 
-                {/* Add New Product Form */}
-                <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                    <h2 className="text-lg font-semibold mb-4">Add New Product</h2>
-                    <div className="grid grid-cols-3 gap-4">
-                        <input
-                            type="text"
-                            placeholder="Product Name"
-                            value={newProduct.name}
-                            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                            className="border p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
-                        <input
-                            type="number"
-                            placeholder="Price"
-                            value={newProduct.price}
-                            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                            className="border p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
-                        <input
-                            type="number"
-                            placeholder="Stock"
-                            value={newProduct.stock}
-                            onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
-                            className="border p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-                    {Object.keys(errors).map((key) => (
-                        <p key={key} className="text-red-500 text-sm mt-2">{errors[key]}</p>
-                    ))}
-                </div>
+  const handleAddColor = () => {
+    if (tempColor && !formData.colors.includes(tempColor)) {
+      setFormData(prev => ({ ...prev, colors: [...prev.colors, tempColor] }));
+      setTempColor('');
+    }
+  };
 
-                {/* Product List */}
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                    <h2 className="text-lg font-semibold mb-4">Product List</h2>
-                    <table className="w-full border-collapse border border-gray-300 rounded-lg shadow-md">
-                        <thead>
-                            <tr className="bg-gray-200 text-gray-700">
-                                <th className="border p-3">ID</th>
-                                <th className="border p-3">Product Name</th>
-                                <th className="border p-3">Price</th>
-                                <th className="border p-3">Stock</th>
-                                <th className="border p-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products.map((product, index) => (
-                                <tr key={product.id} className={`text-center ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}>
-                                    <td className="border p-3">{product.id}</td>
-                                    <td className="border p-3">{product.name}</td>
-                                    <td className="border p-3">${product.price.toFixed(2)}</td>
-                                    <td className="border p-3">{product.stock}</td>
-                                    <td className="border p-3 flex justify-center space-x-2">
-                                        <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded transition">
-                                            <FaEdit />
-                                        </button>
-                                        <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">
-                                            <FaTrash />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </main>
+  const handleRemoveColor = (color) => {
+    setFormData(prev => ({
+      ...prev,
+      colors: prev.colors.filter(c => c !== color)
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      if (editingId) {
+        setProducts(products.map(p =>
+          p._id === editingId ? { ...formData, _id: editingId } : p
+        ));
+        showSuccess('Product updated successfully!');
+        setEditingId(null);
+      } else {
+        const newId = products.length ? Math.max(...products.map(p => p._id || 0)) + 1 : 1;
+        setProducts([...products, { ...formData, _id: newId }]);
+        showSuccess('Product added successfully!');
+      }
+
+      setFormData({
+        title: '',
+        description: '',
+        category: 'men',
+        brand: '',
+        sizes: [],
+        colors: [],
+        trending: false,
+        coverImage: '',
+        oldPrice: '',
+        newPrice: ''
+      });
+    } catch (err) {
+      setError('Failed to save product');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEdit = (product) => {
+    setFormData({ ...product });
+    setEditingId(product._id);
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      setProducts(products.filter(product => product._id !== id));
+      showSuccess('Product deleted successfully!');
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-12 bg-slate-50 min-h-screen font-sans text-zinc-800">
+      <h1 className="text-5xl font-extrabold mb-10 text-slate-800 tracking-tight">🛍️ Admin Dashboard</h1>
+
+      {error && (
+        <div className="bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded mb-6">
+          {error}
         </div>
-    );
+      )}
+
+      {success && (
+        <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded mb-6">
+          {success}
+        </div>
+      )}
+
+      <div ref={formRef} className="bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 mb-16">
+        <h2 className="text-3xl font-semibold mb-6 text-slate-700">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input name="title" value={formData.title} onChange={handleChange} placeholder="Product Title" className="border border-gray-300 p-3 rounded-lg w-full" required />
+            <input name="brand" value={formData.brand} onChange={handleChange} placeholder="Brand" className="border border-gray-300 p-3 rounded-lg w-full" required />
+            <select name="category" value={formData.category} onChange={handleChange} className="border border-gray-300 p-3 rounded-lg w-full">
+              {categories.map(c => <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>)}
+            </select>
+            <div className="flex gap-4">
+              <input type="number" name="oldPrice" value={formData.oldPrice} onChange={handleChange} placeholder="Old Price" className="border p-3 rounded-lg w-full" required />
+              <input type="number" name="newPrice" value={formData.newPrice} onChange={handleChange} placeholder="New Price" className="border p-3 rounded-lg w-full" required />
+            </div>
+
+            {/* Sizes */}
+            <div>
+              <label className="block text-sm font-medium mb-1 text-slate-700">Sizes</label>
+              <div className="flex">
+                <select value={tempSize} onChange={(e) => setTempSize(e.target.value)} className="flex-1 border rounded-lg px-3 py-2 mr-2">
+                  <option value="">Select Size</option>
+                  {allSizes.map(size => <option key={size} value={size}>{size}</option>)}
+                </select>
+                <button type="button" onClick={handleAddSize} className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Add</button>
+              </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {formData.sizes.map(size => (
+                  <span key={size} className="bg-gray-100 px-2 py-1 rounded-full text-sm flex items-center">
+                    {size}
+                    <button onClick={() => handleRemoveSize(size)} className="ml-1 text-red-500">×</button>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Colors */}
+            <div>
+              <label className="block text-sm font-medium mb-1 text-slate-700">Colors</label>
+              <div className="flex">
+                <select value={tempColor} onChange={(e) => setTempColor(e.target.value)} className="flex-1 border rounded-lg px-3 py-2 mr-2">
+                  <option value="">Select Color</option>
+                  {allColors.map(color => <option key={color} value={color}>{color}</option>)}
+                </select>
+                <button type="button" onClick={handleAddColor} className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">Add</button>
+              </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {formData.colors.map(color => (
+                  <span key={color} className="bg-gray-100 px-2 py-1 rounded-full text-sm flex items-center">
+                    {color}
+                    <button onClick={() => handleRemoveColor(color)} className="ml-1 text-red-500">×</button>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <input name="coverImage" value={formData.coverImage} onChange={handleChange} placeholder="Cover Image URL" className="border p-3 rounded-lg w-full" required />
+            {formData.coverImage && <img src={formData.coverImage} alt="Preview" className="w-24 h-24 object-cover rounded-lg border" />}
+            <div className="flex items-center">
+              <input type="checkbox" name="trending" checked={formData.trending} onChange={handleChange} className="mr-2" />
+              <label className="text-sm text-gray-700">Trending Product</label>
+            </div>
+          </div>
+          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Product Description" className="border p-3 rounded-lg w-full" rows="4" required />
+          <div className="flex gap-4">
+            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-medium">
+              {editingId ? 'Update Product' : 'Add Product'}
+            </button>
+            {editingId && (
+              <button type="button" onClick={() => {
+                setEditingId(null);
+                setFormData({
+                  title: '', description: '', category: 'men', brand: '', sizes: [], colors: [],
+                  trending: false, coverImage: '', oldPrice: '', newPrice: ''
+                });
+              }} className="bg-gray-500 text-white px-6 py-2 rounded-xl">Cancel</button>
+            )}
+          </div>
+        </form>
+      </div>
+
+      {/* Product List */}
+      <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
+        <h2 className="text-3xl font-semibold mb-6 text-slate-700">Product List ({products.length})</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm border-separate border-spacing-y-2">
+            <thead>
+              <tr className="text-left text-slate-500 uppercase text-xs tracking-wider">
+                <th className="p-3">Image</th>
+                <th className="p-3">Title & Desc</th>
+                <th className="p-3">Category</th>
+                <th className="p-3">Brand</th>
+                <th className="p-3">Price</th>
+                <th className="p-3">Trending</th>
+                <th className="p-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map(product => (
+                <tr key={product._id} className="bg-slate-50 hover:bg-slate-100 rounded-xl transition-shadow shadow-sm">
+                  <td className="p-3"><img src={product.coverImage} alt={product.title} className="w-16 h-16 rounded-lg object-cover" /></td>
+                  <td className="p-3">
+                    <div className="font-semibold">{product.title}</div>
+                    <div className="text-slate-500 text-xs line-clamp-2">{product.description}</div>
+                  </td>
+                  <td className="p-3 capitalize">{product.category}</td>
+                  <td className="p-3">{product.brand}</td>
+                  <td className="p-3">
+                    <div className="text-gray-400 line-through">${product.oldPrice}</div>
+                    <div className="font-bold text-emerald-600">${product.newPrice}</div>
+                  </td>
+                  <td className="p-3">
+                    {product.trending ? (
+                      <span className="bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full text-xs font-medium">Trending</span>
+                    ) : (
+                      <span className="bg-slate-200 text-slate-800 px-2 py-1 rounded-full text-xs font-medium">Regular</span>
+                    )}
+                  </td>
+                  <td className="p-3 space-x-2">
+                    <button onClick={() => handleEdit(product)} className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg">Edit</button>
+                    <button onClick={() => handleDelete(product._id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Delete</button>
+                  </td>
+                </tr>
+              ))}
+              {products.length === 0 && (
+                <tr><td colSpan="7" className="p-3 text-center text-slate-400">No products found.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AdminDashboard;

@@ -1,63 +1,71 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+
+// Set up Express app
 const app = express();
+const port = 5000;
 
-
-const PORT = process.env.PORT || 8080;
-
+// Middleware
 app.use(cors());
-app.use(bodyParser.json());
-
-const URL = process.env.MONGODB_URL;
-
-mongoose.connect(URL, {
-    //useCreateIndex: true,
-    useNewUrlParser:true,
-    useUnifiedTopology: true,
-   // useFindModify: false
-});
-
-const connection = mongoose.connection;
-connection.once("open", ()=>{
-    console.log("MongoDB Connection Success!");
-})
-
-
-const LoyaltyRouter = require("./routes/Loyalty/Loyalty.js");
-const userRouter = require('./routes/User/Employees.js');
-//const OrderRouter = require('./routes/Order_Management/OrdersRoute.js');
-
-app.use(express.static('uploads/images'));
-
-
-
-
-
-
-app.use("/LoyaltyProgramme",LoyaltyRouter);
-app.use('/user', userRouter);
-//app.use("/Employee",);
-//app.use('/order', OrderRouter);
-
-app.listen(PORT, () =>{
-    console.log(`server is up and running on port ${PORT}`)
-})
-
 app.use(express.json());
-app.use(cors());
 
-app.get("/", (req, res) => {
-    res.send("Welcome to our De-Rush Clothing Store API...");
+// Connect to MongoDB (replace with your own MongoDB URI)
+mongoose.connect('mongodb://localhost:27017/clothesstore', { useNewUrlParser: true, useUnifiedTopology: true });
+
+app.use('/api/products', productRoutes);
+
+// Define the Clothes model
+const Clothe = mongoose.model('Clothe', new mongoose.Schema({
+    name: String,
+    category: String,
+    price: Number,
+    image: String,
+}));
+
+// Routes
+app.get('/api/clothes', async (req, res) => {
+    try {
+        const clothes = await Clothe.find();
+        res.json(clothes);
+    } catch (error) {
+        res.status(500).send('Error fetching clothes');
+    }
 });
 
-app.get("/prodect", (req, res) => {
-    res.send([2,3,4])
+app.post('/api/clothes', async (req, res) => {
+    const { name, category, price, image } = req.body;
+    const newClothe = new Clothe({ name, category, price, image });
+    try {
+        await newClothe.save();
+        res.status(201).json(newClothe);
+    } catch (error) {
+        res.status(500).send('Error adding clothe');
+    }
 });
 
-const port = process.env.PORT || 3000;
+app.put('/api/clothes/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, category, price, image } = req.body;
+    try {
+        const updatedClothe = await Clothe.findByIdAndUpdate(id, { name, category, price, image }, { new: true });
+        res.json(updatedClothe);
+    } catch (error) {
+        res.status(500).send('Error updating clothe');
+    }
+});
 
-app.listen(port,console.log('Server running on port ${port}'));
+app.delete('/api/clothes/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Clothe.findByIdAndDelete(id);
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).send('Error deleting clothe');
+    }
+});
 
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
