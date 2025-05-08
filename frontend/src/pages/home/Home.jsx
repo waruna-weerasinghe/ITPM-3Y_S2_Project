@@ -2,6 +2,7 @@ import React from 'react'
 import Banner from './Banner'
 import TopSellers from './TopSellers'
 import AdminClothesPanel from './clothes/AdminClothesPanel'
+import UserNav from '../../components/Nav/userNav'
 
 
 
@@ -9,6 +10,7 @@ import AdminClothesPanel from './clothes/AdminClothesPanel'
 const Home = () => {
     return (
         <div>
+            <UserNav/>
 
             <Banner />
             <TopSellers />
