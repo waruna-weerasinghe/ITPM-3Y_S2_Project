@@ -11,10 +11,10 @@ const employeeSchema = new mongoose.Schema({
         type: String,
         enum: rolesEnum,
         default: 'user' // Default role is 'user'
-    },
-    otp: String,
-     // Add a field to store OTP
-     image: String, 
+    }
+
+     
+    
    
 } 
 

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import Swal from 'sweetalert2';
 import './style.css';
+import Swal from 'sweetalert2';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -14,34 +13,18 @@ function ForgotPassword() {
     axios
       .post('http://localhost:8080/user/forgot-password', { email })
       .then((result) => {
-        console.log(result);
-        if (result) {
-          // Display alert for successful email sent
-          Swal.fire({
-            title: "Email sent successfully!",
-            text: "Please check your inbox to reset your password",
-            icon: "success"
-          });
-          Cookies.set('token', result.data.token, { expires: 1 }); // Expires in 1 day
-          Cookies.set('userEmail', email, { expires: 1 }); // Expires in 1 day
-          // Navigate the user to the appropriate page
-          navigate('/verify-otp');
-        } else if (result.data.status === 'no record existed') {
-          // Display alert for email not found
-          alert('Email does not exist. Please register.');
-        } else {
-          // Display alert for unexpected response
-          alert('An error occurred. Please try again later.');
-        }
+        Swal.fire({
+          title: "Email sent successfully!",
+          text: "Please check your email for password reset instructions",
+          icon: "success"
+        });
+        navigate('/login');
       })
       .catch((err) => {
-        console.log(err);
-        // Display alert for general error
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Email is wrong",
-          
+          text: "Email not found",
         });
       });
   };
@@ -64,13 +47,14 @@ function ForgotPassword() {
     inputs.forEach((input) => {
         input.addEventListener("focus", focusFunc);
         input.addEventListener("blur", blurFunc);
+    });
 
-        // Cleanup function to remove event listeners when component unmounts
-        return () => {
+    return () => {
+        inputs.forEach((input) => {
             input.removeEventListener("focus", focusFunc);
             input.removeEventListener("blur", blurFunc);
-        };
-    });
+        });
+    };
   }, []);
 
   return (
@@ -78,13 +62,11 @@ function ForgotPassword() {
       <span className="big-circle"></span>
       <img src="img/shape.png" className="square" alt="" />
       <div className="form">
-        {/* Contact Info Section */}
         <div className="contact-info">
           <h3 className="title">Tech-Connect</h3>
           <p className="text">
           Welcome to our online mobile phone shop!
           </p>
-          {/* Information */}
           <div className="info">
             <div className="information d-flex align-items-center">
               <i className="bi bi-geo-alt-fill fs-5 me-3"></i>
@@ -99,7 +81,6 @@ function ForgotPassword() {
               <p className="mb-0">+94 757 717 569</p>
             </div>
           </div>
-          {/* Social Media Links */}
           <div className="social-media">
             <p>Connect with us :</p>
             <div className="social-icons d-flex justify-content-center">
@@ -112,11 +93,9 @@ function ForgotPassword() {
             </div>
           </div>
         </div>
-        {/* Contact Form Section */}
         <div className="contact-form">
           <span className="circle one"></span>
           <span className="circle two"></span>
-          {/* Form */}
           <form onSubmit={handleSubmit} autoComplete="off">
             <h3 className="title">Forgot Password</h3>
             <div className="input-container">
@@ -124,7 +103,7 @@ function ForgotPassword() {
               <label htmlFor="">Email</label>
               <span>Email</span>
             </div>
-            <button type="submit" className="btn">Send</button>
+            <button type="submit" className="btn">Send Reset Link</button>
           </form>
         </div>
       </div>

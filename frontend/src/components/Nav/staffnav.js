@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { BsPersonFill } from "react-icons/bs";
 import Swal from "sweetalert2";
-import Staff from "./../User/staffdetails";
+import Staff from "./../User_Management/staffdetails";
 
 function StaffNav() {
   const location = useLocation();
@@ -24,7 +24,7 @@ function StaffNav() {
     const userId = Cookies.get("userId");
     if (userId) {
       axios
-        .get(`http://localhost:8080/user/getUsers/${userId}`)
+        .get(`http://localhost:8175/user/getUsers/${userId}`)
         .then((result) => {
           setUserImage(result.data.image);
         })

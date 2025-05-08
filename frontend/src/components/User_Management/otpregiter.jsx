@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import './style.css';
 
-function OTPVerification() {
+function OTP() {
   const [otp, setOTP] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
   const navigate = useNavigate();
@@ -16,25 +16,14 @@ function OTPVerification() {
       setCountdown(prevCountdown => prevCountdown - 1);
     }, 1000);
 
-   
     return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
     if (countdown === 0) {
-      
-      Swal.fire({
-        icon: "error",
-        title: "ERROR",
-        text: "try again time is over ",
-      });
-      navigate('/forgot-password');
+      handleAccountDeletion();
     }
-  }, [countdown, navigate]);
-
-
-
-
+  }, [countdown]);
 
   useEffect(() => {
     const inputs = document.querySelectorAll(".input");
@@ -54,7 +43,6 @@ function OTPVerification() {
     inputs.forEach((input) => {
         input.addEventListener("focus", focusFunc);
         input.addEventListener("blur", blurFunc);
-
        
         return () => {
             input.removeEventListener("focus", focusFunc);
@@ -63,14 +51,35 @@ function OTPVerification() {
     });
   }, []);
 
+  const handleAccountDeletion = async () => {
+    try {
+      const userEmail = Cookies.get('userEmail');
+      const response = await axios.delete('http://localhost:8175/user/registerdelete', { data: { userEmail } });
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "error",
+          title: "Error...",
+          text: "sign up is faild. Please try again",
+        });
+
+        navigate('/register');
+      } else {
+        setVerificationStatus("Failed to delete account.");
+      }
+    } catch (error) {
+      setVerificationStatus('Error deleting account: ' + error.message);
+    }
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const userEmail = Cookies.get('userEmail'); // Retrieve userEmail from cookies
+      const userEmail = Cookies.get('userEmail');
       const response = await axios.post(
-        'http://localhost:8080/user/verify-otp',
-        { otp, userEmail } // Include userEmail in the request body
+        'http://localhost:8175/user/otp',
+        { otp, userEmail }
       );
   
       if (response.status === 200) {
@@ -78,12 +87,11 @@ function OTPVerification() {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "OTP verified successfully!",
+            title: "Sign up successfully!",
             showConfirmButton: false,
             timer: 1500
-            
           });
-          navigate('/reset-password');
+          navigate('/login');
         } else if (response.data.status === "Incorrect OTP") {
           Swal.fire({
             icon: "error",
@@ -106,28 +114,23 @@ function OTPVerification() {
       <span className="big-circle"></span>
       <img src="img/shape.png" className="square" alt="" />
       <div className="form">
-        {/* Contact Info Section */}
         <div className="contact-info">
-          <h3 className="title">DE-RUSH </h3>
-          <p className="text">
-          Welcome to our online clothing shop!
-          </p>
-          {/* Information */}
+          <h3 className="title">Tech-Connect </h3>
+          <p className="text">Welcome to our online mobile phone shop!</p>
           <div className="info">
             <div className="information d-flex align-items-center">
               <i className="bi bi-geo-alt-fill fs-5 me-3"></i>
-              <p className="mb-0">No:43, Kandy Road, Kadawatha, Sri Lanka              </p>
+              <p className="mb-0">92 Cherry Drive Uniondale, NY 11553</p>
             </div>
             <div className="information">
               <i className="bi bi-envelope-fill fs-5 me-3"></i>
-              <p className="mb-0">derushclothing@gmail.com</p>
+              <p className="mb-0">lorem@ipsum.com</p>
             </div>
             <div className="information">
               <i className="bi bi-telephone-fill fs-5 me-3"></i>
-              <p className="mb-0">+94 757 717 569</p>
+              <p className="mb-0">123-456-789</p>
             </div>
           </div>
-          {/* Social Media Links */}
           <div className="social-media">
             <p>Connect with us :</p>
             <div className="social-icons d-flex justify-content-center">
@@ -140,13 +143,11 @@ function OTPVerification() {
             </div>
           </div>
         </div>
-        {/* Contact Form Section */}
         <div className="contact-form">
           <span className="circle one"></span>
           <span className="circle two"></span>
-          {/* Form */}
           <form onSubmit={handleSubmit} autoComplete="off">
-            <h3 className="title">Forgot Password</h3>
+            <h3 className="title">check your email </h3>
             <div className="input-container">
               <input type="text" name="otp" className="input" value={otp} onChange={(e) => setOTP(e.target.value)} />
               <label htmlFor="">Enter OTP</label>
@@ -162,4 +163,4 @@ function OTPVerification() {
   );
 }
 
-export default OTPVerification;
+export default OTP;

@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import "./displayuser.css"; // Import your CSS file
 import Swal from 'sweetalert2';
-import { BsPersonFill } from 'react-icons/bs'; // Import Bootstrap icon
-import AdminNav from '../Nav/adminNav'; // Import AdminNav component
+import { BsPersonFill } from 'react-icons/bs'; 
+import AdminNav from '../Nav/adminNav';
 
-function Users() {
+function Staff() {
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/user/userdetails')
+        axios.get('http://localhost:8175/user/staffdetails')
             .then(result => {
                 console.log(result.data);
                 setUsers(result.data.users || []);
@@ -38,7 +38,7 @@ function Users() {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/user/deleteUser/${userId}`)
+                axios.delete(`http://localhost:8175/user/deleteUser/${userId}`)
                     .then(() => {
                         setUsers(users.filter((user) => user._id !== userId));
                         Swal.fire({
@@ -64,7 +64,6 @@ function Users() {
             Name: user.name,
             Email: user.email,
             Number: user.number
-            
         }));
 
         // Convert data to CSV format
@@ -89,17 +88,13 @@ function Users() {
         document.body.removeChild(link);
     };
     
-
     return (
         <div className="container-fluid">
-            <AdminNav /> {/* Include AdminNav component here */}
-            
-
+            <AdminNav />
             <div className="button-container">
-                    <Link to="/usercreate" className='bg-green-500 hover:bg-green-700 text-white inline-flex items-center border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2.5'>Add +</Link>
-                  
+                    <Link to="/createstaff" className='bg-green-500 hover:bg-green-700 text-white inline-flex items-center border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2.5'>Add +</Link>
+                    
                 </div>
-                
             <div className="card-body">
                 <div className="search-bar">
                     <input
@@ -110,10 +105,9 @@ function Users() {
                         className="form-control"
                     />
                 </div>
-                
         
                 <div className="button-container">
-                    <Link to="/usercreate" className='bg-green-500 hover:bg-green-700 text-white inline-flex items-center border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2.5'>Add +</Link>
+                    <Link to="/createstaff" className='bg-green-500 hover:bg-green-700 text-white inline-flex items-center border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2.5'>Add +</Link>
                     <button
                         className="bg-green-500 hover:bg-green-700 text-white inline-flex items-center border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2.5"
                         onClick={handleReport}
@@ -122,10 +116,9 @@ function Users() {
                     </button>
                 </div>
 
-                
-
                 <p className='btn total-users'>Total Users: {users.length}</p>
-                <div className="table-container">
+
+                <div style={{ overflowX: 'auto' }}>
                     <table className="table mt-3">
                         <thead className="thead-dark table-header">
                             <tr>
@@ -134,6 +127,7 @@ function Users() {
                                 <th>Password</th>
                                 <th>Number</th>
                                 <th>Image</th>
+                                <th>role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -152,8 +146,9 @@ function Users() {
                                                 <BsPersonFill size={60} color="#adb5bd" />
                                             )}
                                         </td>
+                                        <td>{user.role}</td>
                                         <td>
-                                            <Link to={`/userupdate/${user._id}`} className='btn btn-success'>
+                                            <Link to={`/staffupdate/${user._id}`} className='btn btn-success'>
                                                 <i className="bi bi-pencil-fill"></i> Update
                                             </Link>
                                             <button className='btn btn-danger ml-2' onClick={(e)=>handleDelete(user._id)}>
@@ -171,4 +166,4 @@ function Users() {
     );
 }
 
-export default Users;
+export default Staff;

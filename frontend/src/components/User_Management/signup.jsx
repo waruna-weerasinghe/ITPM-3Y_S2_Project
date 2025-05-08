@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./style1s.css";
-import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 
 function Signup() {
@@ -24,8 +23,8 @@ function Signup() {
         if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
             newErrors.email = "Invalid email address";
         }
-        if (formData.password.length < 8) {
-            newErrors.password = "Password must be at least 8 characters";
+        if (formData.password.length < 4) {
+            newErrors.password = "Password must be at least 4 characters";
         }
         if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = "Passwords don't match";
@@ -38,6 +37,54 @@ function Signup() {
         return Object.keys(newErrors).length === 0;
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        setIsLoading(true);
+      
+        try {
+            const response = await axios.post('http://localhost:8080/user/register', {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                number: formData.number
+            });
+        
+            if (response.data.success) {
+                await Swal.fire({
+                    icon: "success",
+                    title: "Registration Successful!",
+                    text: "You have been successfully registered. Please login.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            
+                navigate('/login');
+            } else {
+                throw new Error(response.data.error || "Registration failed");
+            }
+        } catch (error) {
+            console.error("Registration error:", error);
+            let errorMsg = "Registration failed. Please try again.";
+            
+            if (error.response) {
+                if (error.response.status === 400) {
+                    errorMsg = error.response.data.error || "Validation error";
+                } else if (error.response.data?.error) {
+                    errorMsg = error.response.data.error;
+                }
+            }
+        
+            Swal.fire({
+                icon: "error",
+                title: "Registration Error",
+                text: errorMsg,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -45,55 +92,6 @@ function Signup() {
             [name]: value
         }));
     };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
-        setIsLoading(true);
-      
-        try {
-          const response = await axios.post('http://localhost:8080/user/register', {
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            number: formData.number
-          });
-      
-          if (response.data.success) {
-            await Swal.fire({
-              icon: "success",
-              title: "Registration Successful!",
-              text: response.data.message || "You have been successfully registered. Please login.",
-              showConfirmButton: false,
-              timer: 1500
-            });
-      
-            // Redirect to login page after successful registration
-            navigate('/login');
-          } else {
-            throw new Error(response.data.error || "Registration failed");
-          }
-        } catch (error) {
-          console.error("Registration error:", error);
-          let errorMsg = "Registration failed. Please try again.";
-          
-          if (error.response) {
-            if (error.response.status === 400) {
-              errorMsg = error.response.data.error || "Validation error";
-            } else if (error.response.data?.error) {
-              errorMsg = error.response.data.error;
-            }
-          }
-      
-          Swal.fire({
-            icon: "error",
-            title: "Registration Error",
-            text: errorMsg,
-          });
-        } finally {
-          setIsLoading(false);
-        }
-      };
 
     return (
         <div className="container">
@@ -170,7 +168,7 @@ function Signup() {
                                 value={formData.password} 
                                 onChange={handleChange} 
                                 required
-                                minLength="8"
+                                minLength="4"
                                 disabled={isLoading}
                             />
                             <label>Password</label>

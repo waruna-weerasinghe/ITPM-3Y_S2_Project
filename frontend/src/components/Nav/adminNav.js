@@ -23,7 +23,7 @@ function AdminNav() {
     const userId = Cookies.get("userId");
     if (userId) {
       axios
-        .get(`http://localhost:8080/user/getUsers/${userId}`)
+        .get(`http://localhost:8175/user/getUsers/${userId}`)
         .then((result) => {
           setUserImage(result.data.image);
         })
@@ -99,7 +99,7 @@ function AdminNav() {
             <Link to="/OrderList">Orders</Link>
           </li>
           <li className={activeLink === "/appointmentList" ? "active" : ""}>
-            <Link to="/appointmentList">Appoinment</Link>
+            <Link to="/appointmentList">Appointment</Link>
           </li>
           <li className={activeLink === "/admin/FeedbackList" ? "active" : ""}>
             <Link to="/FeedbackList">FeedBack</Link>

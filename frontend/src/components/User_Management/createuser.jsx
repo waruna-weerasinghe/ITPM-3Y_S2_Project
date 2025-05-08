@@ -56,7 +56,7 @@ function CreateUsers() {
             return;
         }
 
-        axios.post('http://localhost:8080/user/Adduser', { name, email, password, number })
+        axios.post('http://localhost:8175/user/Adduser', { name, email, password, number })
             .then(result => {
                 console.log(result);
                 Swal.fire({

@@ -51,7 +51,7 @@ function CreateStaff() {
             return;
         }
 
-        axios.post('http://localhost:8080/user/staffregister', { name, email, password, number, role }) // Include role in the request
+        axios.post('http://localhost:8175/user/staffregister', { name, email, password, number, role }) // Include role in the request
             .then(result => {
                 Swal.fire({
                     position: "center",

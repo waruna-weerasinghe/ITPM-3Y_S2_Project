@@ -7,10 +7,10 @@ function Footer() {
       <footer className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 py-12 flex flex-wrap justify-around">
           <div className="w-full sm:w-auto mb-8 sm:mb-0">
-            <h3 className="text-2xl font-bold mb-4">DE-RUSH:clothing store</h3>
-            <p>No:260/3,Pahala Biyanwila,Kadawatha, Sri Lanka</p>
-            <p>+94 78 167 0221</p>
-            <p>derushclotingstore@gmail.com</p>
+            <h3 className="text-2xl font-bold mb-4">Tech Connect</h3>
+            <p>No:43, Namaluwa Rd, Dekatana, Sri Lanka</p>
+            <p>+94 757 717 569</p>
+            <p>techconnectstore@gmail.com</p>
           </div>
           <div className="w-full sm:w-auto mb-8 sm:mb-0">
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
@@ -72,7 +72,7 @@ function Footer() {
               </li>
               <li>
                 <Link to="#" className="hover:text-gray-300">
-                  Loyalty Programme
+                  Careers
                 </Link>
               </li>
             </ul>
@@ -114,7 +114,7 @@ function Footer() {
           </div>
         </div>
         <div className="text-center py-4 bg-gray-800">
-          <p>&copy; 2025 DE-RUSH, All rights reserved.</p>
+          <p>&copy; 2024 Tech-Connect, All rights reserved.</p>
         </div>
       </footer>
     </>

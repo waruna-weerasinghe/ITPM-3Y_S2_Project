@@ -13,109 +13,73 @@ const path = require('path');
 
 
 
-//app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
+/// Register new user
+exports.register = async (req, res) => {
+  try {
+      const { name, email, password, number } = req.body;
+      
+      // Check if user already exists
+      const existingUser = await EmployeeModel.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ error: 'Email is already in use' });
+      }
 
-//app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
-router.route('/register').post((req, res) => {
-  const { name, email, password, number } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-      EmployeeModel.findOne({ email: email })
-          .then((existingUser) => {
-              if (existingUser) {
-                  // Email already exists, return an error
-                  res.status(400).json({ error: 'Email already registered' });
-              } else {
-                  // Email is unique, create a new user
-                  EmployeeModel.create({ name, email, password: hash, number })
-                      .then((newEmployee) => {
-                          // Set the userEmail cookie
-                          res.cookie('userEmail', email, { maxAge: 86400000 });
-
-                          // Generate OTP
-                          const otp = generateNumericOTP(6); 
-
-                          // Save OTP in the database
-                          newEmployee.otp = otp;
-                          newEmployee.save();
-
-                          // Send OTP via Email
-                          const transporter = nodemailer.createTransport({
-                              service: 'gmail',
-                              auth: {
-                                  user: 'navindadharmasiri@gmail.com',
-                                  pass: '', // Please replace with your actual password or use environment variables for security
-                              },
-                          });
-
-                          // Define email content
-                          const mailOptions = {
-                              from: 'navindadharmasiri@gmail.com',
-                              to: email,
-                              subject: 'Account Verification OTP',
-                              text: `Your OTP for account verification is: ${otp}`,
-                          };
-
-                          // Send email
-                          transporter.sendMail(mailOptions, (error, info) => {
-                              if (error) {
-                                  console.log('Error sending email:', error);
-                                  return res.status(500).send({ status: 'Error sending email' });
-                              } else {
-                                  console.log('Email sent:', info.response);
-                                  return res.status(200).send({ status: 'OTP sent successfully' });
-                              }
-                          });
-
-                          // Send the response with the new employee data
-                          res.json(newEmployee);
-                      })
-                      .catch((err) => res.status(500).json({ error: err.message }));
-              }
-          })
-          .catch((err) => {
-              res.status(500).json({ error: err.message });
-          });
-  });
-
-  // Check if the email already exists
-});
-
-
-
-router.route('/login').post((req, res) => {
-  const { email, password } = req.body;
-  EmployeeModel.findOne({ email: email })
-      .then((user) => {
-          if (user) {
-              bcrypt.compare(password, user.password, (err, result) => {
-                  if (err) {
-                      res.json({ status: 'error', error: err.message });
-                  } else {
-                      if (result) {
-                          const token = jwt.sign({ email: user.email }, 'jwt-secret-key', {
-                              expiresIn: '1d',
-                          });
-                          // Set the token as a cookie
-                          res.cookie('token', token, { httpOnly: true, maxAge: 86400000 }); // Max age set to 1 day in milliseconds
-                          res.cookie('userEmail', user.email, { maxAge: 86400000 });
-                        
-                          // Send user ID along with other data
-                          res.json({ status: 'success', userId: user._id,role:user.role, isAdmin: user.role === 'admin', isStaff: user.role === 'staff' });
-                      } else {
-                          res.status(401).json({ status: 'incorrect password' });
-                      }
-                  }
-              });
-          } else {
-              res.status(404).json({ status: 'no record existed' });
-          }
-      })
-      .catch((err) => {
-          res.status(500).json({ status: 'error', error: err.message });
+      // Create new user (password will be hashed in pre-save hook)
+      const newUser = new EmployeeModel({
+          name,
+          email,
+          password,
+          number
       });
-});
 
+      await newUser.save();
 
+      res.status(201).json({ 
+          success: true,
+          message: 'User registered successfully' 
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Login user
+exports.login = async (req, res) => {
+  try {
+      const { email, password } = req.body;
+      
+      // Check if user exists
+      const user = await EmployeeModel.findOne({ email });
+      if (!user) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
+
+      // Compare passwords
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
+
+      // Create and return token
+      const token = jwt.sign(
+          { userId: user._id, email: user.email, role: user.role },
+          process.env.JWT_SECRET,
+          { expiresIn: '1d' }
+      );
+
+      res.json({ 
+          success: true,
+          token,
+          userId: user._id,
+          role: user.role,
+          message: 'Login successful'
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+  }
+};
 
 router.route('/userdetails').get((req, res) => {
   EmployeeModel.find({ role: 'user' })
@@ -273,12 +237,12 @@ router.route('/forgot-password').post((req, res) => {
         
         Best regards,
         
-        Navinda Viraj
+        Denuwan Gunathilaka
         Owner  
-        [Tecconect]  
-        No:43, Namaluwa Rd, Dekatana, Sri Lanka
-        techconnectstore@gmail.com
-        94 757 717 569
+        [D-Rush]  
+        No:43/kandy Road, Kadawatha, Sri Lanka
+        warurox999@gmail.com
+        94 76 5599 723
         
         ---
         

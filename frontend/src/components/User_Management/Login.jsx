@@ -54,7 +54,6 @@ function Login() {
         setError(null);
         setIsLoading(true);
 
-        // Basic validation
         if (!formData.email || !formData.password) {
             setError("Please enter both email and password");
             setIsLoading(false);
@@ -66,13 +65,10 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                timeout: 10000 // 10 second timeout
+                timeout: 10000
             });
 
-            console.log("Login response:", response.data);
-
             if (response.data && response.data.status === 'success') {
-                // Store authentication data
                 Cookies.set('userEmail', formData.email, { expires: 1 });
                 Cookies.set('userId', response.data.userId, { expires: 1 });
                 Cookies.set('role', response.data.role, { expires: 1 });
@@ -85,10 +81,9 @@ function Login() {
                     timer: 1500
                 });
 
-                // Redirect based on role
-                if (response.data.isAdmin) {
+                if (response.data.role === "admin") {
                     navigate('/userdetails');
-                } else if (response.data.isStaff) {
+                } else if (response.data.role === "staff") {
                     navigate('/staff/mLeave');
                 } else {
                     navigate('/');
@@ -102,17 +97,14 @@ function Login() {
             let errorMessage = "Login failed. Please try again.";
             
             if (error.response) {
-                // Server responded with error status
                 if (error.response.status === 401) {
                     errorMessage = "Invalid email or password";
                 } else if (error.response.data?.message) {
                     errorMessage = error.response.data.message;
                 }
             } else if (error.request) {
-                // Request was made but no response received
                 errorMessage = "Server not responding. Please try again later.";
             } else {
-                // Other errors
                 errorMessage = error.message;
             }
 

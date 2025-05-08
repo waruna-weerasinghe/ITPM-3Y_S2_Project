@@ -12,121 +12,79 @@ import UpdateLoyalty from './components/Loyalty/UpdateLoyalty';
 import Home from './pages/home/Home';
 
 // User Components
-import Signup from "./components/User/SignUp";
-import Login from "./components/User/Login";
-import ForgotPassword from "./components/User/ForgotPassword";
-import UpdateUsers from "./components/User/UpdateUsers";
-import ResetPassword from "./components/User/ResetPassword";
-import OTPVerification from "./components/User/OTPVerification";
-import OTP from "./components/User/otpregiter";
-
-import Users from "./components/User/displayuserdetails";
-import CreateUsers from "./components/User/createuser";
-import AccountDetails from "./components/User/AccountDetails";
-import SecuritySettings from "./components/User/SecuritySettings";
-import Staff from "./components/User/staffdetails";
-import CreateStaff from "./components/User/createstaff";
-import UpdateStaff from "./components/User/staffupdate";
+import Signup from "./components/User_Management/signup";
+import Login from "./components/User_Management/Login";
+import ForgotPassword from "./components/User_Management/ForgotPassword";
+import UpdateUsers from "./components/User_Management/updateuser";
+import ResetPassword from "./components/User_Management/ResetPassword";
+import Users from "./components/User_Management/displayuserdetails";
+import CreateUsers from "./components/User_Management/createuser";
+import AccountDetails from "./components/User_Management/AccountDetails";
+import SecuritySettings from "./components/User_Management/SecuritySettings";
+import Staff from "./components/User_Management/staffdetails";
+import CreateStaff from "./components/User_Management/createstaff";
+import UpdateStaff from "./components/User_Management/staffupdate";
 import Dashboard from "./pages/Admin/Dashboard";
- 
-import NotFound from './Cart/NotFound';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminClothesManager from './admin/AdminClothesManager';
- 
+
+// Helpers
+const isAuthenticated = () => !!Cookies.get("userId");
 
 // Route Guards
 const AdminRouteGuard = ({ element }) => {
-  const userRole = Cookies.get("role");
-
-  if (userRole === "admin") {
-    return element;
-  } else {
-    return <Navigate to="/login" />;
-  }
+  const role = Cookies.get("role");
+  return role === "admin" ? element : <Navigate to="/login" />;
 };
 
 const UserRouteGuard = ({ element }) => {
-  const userRole = Cookies.get("role");
-
-  if (userRole === "user") {
-    return element;
-  } else {
-    return <Navigate to="/login" />;
-  }
+  const role = Cookies.get("role");
+  return role === "user" ? element : <Navigate to="/login" />;
 };
 
 const AllUsersRouteGuard = ({ element }) => {
-  const userRole = Cookies.get("role");
-
-  if (userRole === "admin" || userRole === "user" ||userRole === "staff" ) {
-    return element;
-  } else {
-    return <Navigate to="/login" />;
-  }
+  const role = Cookies.get("role");
+  return role === "admin" || role === "user" || role === "staff"
+    ? element
+    : <Navigate to="/login" />;
 };
 
+// Prevent login/signup access if already authenticated
+const PublicRoute = ({ element }) => {
+  return isAuthenticated() ? <Navigate to="/" /> : element;
+};
 
 function App() {
   return (
     <div>
-
- 
-      
       <ToastContainer />
       <Routes>
-        {/* Loyalty Routes */}
-        <Route path="/" element={<Home />} />
+        {/* Home Route */}
+        <Route path="/" element={isAuthenticated() ? <Home /> : <Navigate to="/login" />} />
+
+        {/* Loyalty */}
         <Route path="/list" element={<AllLoyaltyForm />} />
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
 
-        {/* User Routes */}
-        <Route
-          path="/admin/*"
-          element={<AdminRouteGuard element={<Dashboard />} />}
-        />
-        
-        <Route path="/register" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        {/* Auth */}
+        <Route path="/register" element={<PublicRoute element={<Signup />} />} />
+        <Route path="/login" element={<PublicRoute element={<Login />} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-otp" element={<OTPVerification />} />
-        <Route path="/otp" element={<OTP />} />
-        <Route
-          path="/userdetails"
-          element={<AdminRouteGuard element={<Users />} />}
-        />
-        <Route
-          path="/usercreate"
-          element={<AdminRouteGuard element={<CreateUsers />} />}
-        />
-        <Route
-          path="/userupdate/:id"
-          element={<AdminRouteGuard element={<UpdateUsers />} />}
-        />
-        <Route
-          path="/AccountDetails"
-          element={<AllUsersRouteGuard element={<AccountDetails />} />}
-        />
-        <Route
-          path="/SecuritySettings"
-          element={<AllUsersRouteGuard element={<SecuritySettings />} />}
-        />
+
+        {/* Admin Routes */}
+        <Route path="/admin/*" element={<AdminRouteGuard element={<Dashboard />} />} />
+        <Route path="/userdetails" element={<AdminRouteGuard element={<Users />} />} />
+        <Route path="/usercreate" element={<AdminRouteGuard element={<CreateUsers />} />} />
+        <Route path="/userupdate/:id" element={<AdminRouteGuard element={<UpdateUsers />} />} />
+
+        {/* All Authenticated Users */}
+        <Route path="/AccountDetails" element={<AllUsersRouteGuard element={<AccountDetails />} />} />
+        <Route path="/SecuritySettings" element={<AllUsersRouteGuard element={<SecuritySettings />} />} />
+
+        {/* Staff */}
         <Route path="/createstaff" element={<CreateStaff />} />
         <Route path="/staffdetails" element={<Staff />} />
         <Route path="/staffupdate/:id" element={<UpdateStaff />} />
-        <Route path="/staffdetails" element={<Staff />} />
-
-        
-
-        {/* Cart & Admin */}
-        {/* <Route path="/cart" element={<Cart />} /> */}
-        <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/clothes" element={<AdminClothesManager />} />
-
-        {/* Fallback Routes */}
-        <Route path="/not-found" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/not-found" />} />
       </Routes>
     </div>
   );

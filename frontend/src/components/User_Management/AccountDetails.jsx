@@ -21,7 +21,7 @@ function AccountDetails() {
         formData.append('file', File);
         formData.append('email', userEmail);
 
-        axios.post("http://localhost:8080/user/upload-image", formData)
+        axios.post("http://localhost:8175/user/upload-image", formData)
             .then(res => {
                 console.log(res);
                 window.location.reload();
@@ -32,7 +32,7 @@ function AccountDetails() {
     useEffect(() => {
         const userId = Cookies.get('userId');
         if (userId) {
-            axios.get(`http://localhost:8080/user/getUsers/${userId}`)
+            axios.get(`http://localhost:8175/user/getUsers/${userId}`)
                 .then(result => {
                     setName(result.data.name);
                     setEmail(result.data.email);
@@ -72,7 +72,7 @@ function AccountDetails() {
         }
 
         axios
-            .post('http://localhost:8080/user/AccountDetails', {
+            .post('http://localhost:8175/user/AccountDetails', {
                 name,
                 email,
                 number,
@@ -103,7 +103,7 @@ function AccountDetails() {
     }
 
     const handleRemovePhoto = () => {
-        axios.post(`http://localhost:8080/user/remove-image`, { userId: Cookies.get('userId') })
+        axios.post(`http://localhost:8175/user/remove-image`, { userId: Cookies.get('userId') })
             .then(res => {
                 console.log(res);
                 setUserImage(null);
