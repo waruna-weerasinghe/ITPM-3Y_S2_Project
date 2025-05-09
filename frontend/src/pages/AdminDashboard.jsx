@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+ import React, { useState, useEffect, useRef } from 'react';
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -84,8 +84,24 @@ const AdminDashboard = () => {
     }));
   };
 
+  const validateForm = () => {
+    const { title, description, brand, coverImage, oldPrice, newPrice } = formData;
+    if (!title || !description || !brand || !coverImage || !oldPrice || !newPrice) {
+      setError('All fields are required, including the cover image.');
+      return false;
+    }
+    if (isNaN(oldPrice) || isNaN(newPrice) || Number(oldPrice) <= 0 || Number(newPrice) <= 0) {
+      setError('Old price and new price must be valid positive numbers.');
+      return false;
+    }
+    setError('');
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsLoading(true);
     try {
       if (editingId) {
@@ -151,6 +167,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* FORM */}
       <div ref={formRef} className="bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 mb-16">
         <h2 className="text-3xl font-semibold mb-6 text-slate-700">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -221,8 +238,7 @@ const AdminDashboard = () => {
               <button type="button" onClick={() => {
                 setEditingId(null);
                 setFormData({
-                  title: '', description: '', category: 'men', brand: '', sizes: [], colors: [],
-                  trending: false, coverImage: '', oldPrice: '', newPrice: ''
+                  title: '', description: '', category: 'men', brand: '', sizes: [], colors: [], trending: false, coverImage: '', oldPrice: '', newPrice: ''
                 });
               }} className="bg-gray-500 text-white px-6 py-2 rounded-xl">Cancel</button>
             )}
@@ -230,7 +246,7 @@ const AdminDashboard = () => {
         </form>
       </div>
 
-      {/* Product List */}
+      {/* Product Table */}
       <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
         <h2 className="text-3xl font-semibold mb-6 text-slate-700">Product List ({products.length})</h2>
         <div className="overflow-x-auto">
@@ -285,4 +301,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
