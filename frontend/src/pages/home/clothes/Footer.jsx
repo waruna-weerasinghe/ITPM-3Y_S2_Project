@@ -1,4 +1,5 @@
  import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [activePopup, setActivePopup] = useState(null);
@@ -48,7 +49,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-3">Support</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="/contact" className="hover:text-yellow-400 transition">Contact Us</a></li>
+              <li>  <Link to="/contact" className="hover:text-yellow-400 transition">
+    Contact Us
+  </Link></li>
               <li><a href="/faq" className="hover:text-yellow-400 transition">FAQ</a></li>
               <li><a href="/shipping" className="hover:text-yellow-400 transition">Shipping & Returns</a></li>
               <li><a href="/privacy" className="hover:text-yellow-400 transition">Privacy Policy</a></li>

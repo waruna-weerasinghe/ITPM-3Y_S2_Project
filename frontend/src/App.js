@@ -28,6 +28,7 @@ import SecuritySettings from "./components/User/SecuritySettings";
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminClothesManager from './admin/AdminClothesManager';
+import ContactUs from './pages/home/clothes/ContactUs';
  
 
 // Route Guards
@@ -87,6 +88,11 @@ function App() {
         {/* Fallback Routes */}
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />
+
+        <Route path="/contact" element={<ContactUs />} />
+
+         
+          
       </Routes>
        
     </>
