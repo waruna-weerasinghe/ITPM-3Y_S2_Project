@@ -95,7 +95,7 @@ export default function LoyaltyAddForm() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/UserLoyaltyForm");
+        navigate("/list");
 
         setName("");
         setEmail("");

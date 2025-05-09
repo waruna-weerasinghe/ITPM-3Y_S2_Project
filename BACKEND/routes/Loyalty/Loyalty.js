@@ -8,7 +8,7 @@ router.route("/add").post((req,res)=>{
     const { name, email, telephone,address,category,image} = req.body;
 
     const newLoyalty_programme = new LoyaltyProgramme({
-    userId,
+
     name,
     email,
     telephone,

@@ -28,9 +28,6 @@ import SecuritySettings from "./components/User/SecuritySettings";
 import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminClothesManager from './admin/AdminClothesManager';
-
-import UserNav from './components/Nav/userNav';
-import UserLoyaltyForm from './components/Loyalty/UserLoyaltyForm';
  
 
 // Route Guards
@@ -60,7 +57,6 @@ function App() {
         <Route path="/list" element={<AllLoyaltyForm />} />
         <Route path="/addForm" element={<LoyaltyAddForm />} />
         <Route path="/updateLoyalty/:id" element={<UpdateLoyalty />} />
-        <Route path="/UserLoyalty" element={<UserLoyaltyForm/>} />
 
         {/* User Routes */}
         <Route path="/login" element={<Login />} />
