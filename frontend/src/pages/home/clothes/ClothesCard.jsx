@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 
 const ClothesCard = ({ clothe }) => {
     const [showSuccess, setShowSuccess] = useState(false);
@@ -33,16 +33,16 @@ const ClothesCard = ({ clothe }) => {
         <>
             {/* Quick View Modal */}
             {showQuickView && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
                     onClick={closeQuickView}
                 >
-                    <div 
+                    <div
                         className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className="relative">
-                            <button 
+                            <button
                                 onClick={closeQuickView}
                                 className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-100 transition-colors"
                             >
@@ -50,7 +50,7 @@ const ClothesCard = ({ clothe }) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
                                 <div className="h-[70vh] bg-gray-100 flex items-center justify-center p-8">
                                     <img
@@ -59,7 +59,7 @@ const ClothesCard = ({ clothe }) => {
                                         className="max-h-full max-w-full object-contain"
                                     />
                                 </div>
-                                
+
                                 <div className="p-8 overflow-y-auto h-[70vh]">
                                     <div className="space-y-6">
                                         <div>
@@ -69,14 +69,14 @@ const ClothesCard = ({ clothe }) => {
                                             <h2 className="text-3xl font-bold mt-1">{clothe.title}</h2>
                                             <p className="text-lg text-gray-600 mt-2">{clothe.brand}</p>
                                         </div>
-                                        
+
                                         <div className="flex items-center gap-4">
                                             <span className="text-3xl font-bold">${clothe.newPrice}</span>
                                             {clothe.oldPrice && (
                                                 <span className="line-through text-gray-400">${clothe.oldPrice}</span>
                                             )}
                                         </div>
-                                        
+
                                         <div className="flex gap-2 flex-wrap">
                                             <span className="bg-gray-100 px-3 py-1 rounded-full text-sm border border-gray-200">
                                                 {clothe.sizes}
@@ -90,9 +90,9 @@ const ClothesCard = ({ clothe }) => {
                                                 </span>
                                             )}
                                         </div>
-                                        
+
                                         <p className="text-gray-700">{clothe.description || "Premium quality product with exquisite craftsmanship."}</p>
-                                        
+
                                         <button
                                             onClick={handleAddToCart}
                                             className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
@@ -111,7 +111,7 @@ const ClothesCard = ({ clothe }) => {
             )}
 
             {/* Product Card */}
-            <div 
+            <div
                 className="relative bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl flex flex-col h-full"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -130,15 +130,17 @@ const ClothesCard = ({ clothe }) => {
                     {categoryLabel}
                 </span>
 
-                {/* Success Message */}
-                {showSuccess && (
-                    <div className="absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg animate-bounce flex items-center">
-                        <svg className="w-3 h-3 mr-1 fill-current" viewBox="0 0 20 20">
-                            <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                        </svg>
-                        Added to Cart
-                    </div>
-                )}
+                {/* Success Message with Smooth Fade */}
+                <div
+                    className={`absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg flex items-center transition-opacity duration-500 ${
+                        showSuccess ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    }`}
+                >
+                    <svg className="w-3 h-3 mr-1 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                    </svg>
+                    Added to Cart
+                </div>
 
                 {/* Image with hover zoom */}
                 <div className="w-full h-72 overflow-hidden relative flex-shrink-0">
@@ -150,7 +152,7 @@ const ClothesCard = ({ clothe }) => {
                     />
                     {isHovered && (
                         <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center transition-opacity duration-300">
-                            <button 
+                            <button
                                 onClick={handleQuickView}
                                 className="bg-white bg-opacity-90 text-black px-4 py-2 rounded-full text-sm font-medium shadow-lg flex items-center hover:bg-opacity-100 transition-all"
                             >
