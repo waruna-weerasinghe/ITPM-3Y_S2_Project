@@ -1,9 +1,19 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { FaEdit, FaTrash, FaReceipt } from "react-icons/fa";
+=======
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import AdminNav from '../Nav/adminNav';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { FaCheckCircle, FaEdit, FaReceipt, FaTimesCircle, FaTrash } from 'react-icons/fa';
+>>>>>>> Stashed changes
 
 function AllLoyaltyForms() {
   const [loyaltyForms, setLoyaltyForms] = useState([]);

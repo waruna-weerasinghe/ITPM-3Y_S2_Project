@@ -98,6 +98,7 @@ function AdminNav() {
           <li className={activeLink === "/OrderList" ? "active" : ""}>
             <Link to="/OrderList">Orders</Link>
           </li>
+<<<<<<< HEAD
           <li className={activeLink === "/appointmentList" ? "active" : ""}>
             <Link to="/appointmentList">Appointment</Link>
           </li>
@@ -106,7 +107,12 @@ function AdminNav() {
           </li>
           <li className={activeLink === "/admin/leave" ? "active" : ""}>
             <Link to="/admin/leaveList">Leave</Link>
+=======
+          <li className={activeLink === "/list" ? "active" : ""}>
+            <Link to="/list">Loyalty Details</Link>
+>>>>>>> Loyalty-Management
           </li>
+          
         </ul>
       </aside>
     </>
