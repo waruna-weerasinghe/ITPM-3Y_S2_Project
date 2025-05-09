@@ -29,6 +29,7 @@ import NotFound from './Cart/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminClothesManager from './admin/AdminClothesManager';
 import ContactUs from './pages/home/clothes/ContactUs';
+import Faq from './pages/home/clothes/Faq';
  
 
 // Route Guards
@@ -90,6 +91,7 @@ function App() {
         <Route path="*" element={<Navigate to="/not-found" />} />
 
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/faq" element={<Faq />} />
 
          
           
