@@ -53,7 +53,7 @@ const Footer = () => {
     Contact Us
   </Link></li>
               <li><Link to="/faq" className="hover:text-white transition">FAQ</Link></li>
-              <li><a href="/shipping" className="hover:text-yellow-400 transition">Shipping & Returns</a></li>
+              <li><Link to="/shipping-returns" className="hover:text-white transition">Shipping & Returns</Link></li>
               <li><a href="/privacy" className="hover:text-yellow-400 transition">Privacy Policy</a></li>
             </ul>
           </div>
